@@ -168,7 +168,6 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
                 {/* Phone field removed */}
               </div>
             </div>
