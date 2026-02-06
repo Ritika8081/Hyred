@@ -21,24 +21,23 @@ export default function AdminAccess() {
       }
 
       // Secret sequence: type "admin" quickly
-      const key = event.key.toLowerCase();
-      if (key.match(/[a-z]/)) {
-        setKeySequence(prev => {
-          const newSequence = [...prev, key].slice(-5); // Keep last 5 keys
-          
-          // Check if sequence spells "admin"
-          if (newSequence.join('') === 'admin') {
-            setShowPrompt(true);
-            return [];
-          }
-          
-          return newSequence;
-        });
-
-        // Clear sequence after 2 seconds of no typing
-        setTimeout(() => {
-          setKeySequence([]);
-        }, 2000);
+      if (typeof event.key === 'string') {
+        const key = event.key.toLowerCase();
+        if (key.match(/[a-z]/)) {
+          setKeySequence(prev => {
+            const newSequence = [...prev, key].slice(-5); // Keep last 5 keys
+            // Check if sequence spells "admin"
+            if (newSequence.join('') === 'admin') {
+              setShowPrompt(true);
+              return [];
+            }
+            return newSequence;
+          });
+          // Clear sequence after 2 seconds of no typing
+          setTimeout(() => {
+            setKeySequence([]);
+          }, 2000);
+        }
       }
     };
 

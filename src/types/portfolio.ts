@@ -20,7 +20,7 @@ export interface Project {
 export interface Skill {
   id: string;
   name: string;
-  category: 'frontend' | 'backend' | 'database' | 'tools' | 'languages' | 'frameworks';
+  category: 'frontend' | 'backend' | 'database' | 'tools' | 'languages' | 'frameworks' | 'ai';
   proficiency: 1 | 2 | 3 | 4 | 5; // 1-5 rating
   icon?: string;
   yearsOfExperience: number;
@@ -52,7 +52,7 @@ export interface Education {
 
 export interface Contact {
   email: string;
-  phone?: string;
+  // phone removed
   location: string;
   linkedin?: string;
   github?: string;

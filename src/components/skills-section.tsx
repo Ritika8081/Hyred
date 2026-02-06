@@ -24,7 +24,8 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
     database: 'Database',
     tools: 'Tools & DevOps',
     languages: 'Languages',
-    frameworks: 'Frameworks'
+    frameworks: 'Frameworks',
+    ai: 'AI / Machine Learning'
   };
 
   const categoryColors = {
@@ -33,7 +34,8 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
     database: 'from-orange-500 to-red-500',
     tools: 'from-purple-500 to-pink-500',
     languages: 'from-yellow-500 to-orange-500',
-    frameworks: 'from-indigo-500 to-blue-500'
+    frameworks: 'from-indigo-500 to-blue-500',
+    ai: 'from-pink-500 to-yellow-500'
   };
 
   const renderStars = (proficiency: number) => {
@@ -66,17 +68,17 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
           {Object.entries(skillCategories).map(([category, categorySkills]) => (
             <StaggerContainer key={category}>
               <StaggerItem>
-                <Card className="h-full">
-                  <CardContent className="p-6">
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${categoryColors[category as keyof typeof categoryColors]} flex items-center justify-center mb-4`}>
+                <Card className="h-full flex flex-col justify-between">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${categoryColors[category as keyof typeof categoryColors]} flex items-center justify-center mb-4 mx-auto`}>
                       <span className="text-white font-bold text-lg">
                         {categoryTitles[category as keyof typeof categoryTitles]?.charAt(0)}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
                       {categoryTitles[category as keyof typeof categoryTitles]}
                     </h3>
-                    <div className="space-y-4">
+                    <div className="space-y-4 flex-1">
                       {categorySkills
                         .sort((a, b) => b.proficiency - a.proficiency)
                         .map((skill) => (

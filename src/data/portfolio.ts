@@ -7,7 +7,7 @@ export const portfolioData: Portfolio = {
   personalInfo: {
     name: "Ritika Mishra",
     title: "Full Stack Developer",
-    bio: "I'm a Software Engineer with experience building and owning full-stack applications end-to-end.\n\nCurrently at Upside Down Labs, I work on production systems using React, Node.js, and MongoDB, and enjoy operating at the intersection of full-stack engineering, real-time data, and applied AI.\n\nI learn fast, take ownership seriously, and love turning ambiguous problems into reliable, scalable solutions.",
+    bio: "I'm a Software Engineer with experience building and owning full-stack applications end-to-end. I work on systems using React, Node.js, and MongoDB, and enjoy operating at the intersection of full-stack engineering, real-time data, and applied AI.\n\nI learn fast, take ownership seriously, and love turning ambiguous problems into reliable, scalable solutions.",
     avatar: `${BASE}/images/RitikaMishra.jpeg`,
     resume: "https://drive.google.com/file/d/12XcU6wWOhjkmWTtRLAuO1YVovbpxSaIO/view?usp=sharing",
     tagline: "I design, build, and own scalable software systems",
@@ -15,109 +15,51 @@ export const portfolioData: Portfolio = {
   },
   contact: {
     email: "ritikamishra8081@gmail.com",
-    phone: "+91 80817 42805",
+    // phone removed
     location: "Delhi, India",
     linkedin: "https://www.linkedin.com/in/ritika-mishra-a965251bb/",
     github: "https://github.com/Ritika8081",
     website: "https://ritika8081.github.io"
   },
   skills: [
-    {
-      id: "1",
-      name: "Next.js",
-      category: "frameworks",
-      proficiency: 4,
-      yearsOfExperience: 2,
-      icon: "nextjs"
-    },
-    {
-      id: "2",
-      name: "React",
-      category: "frontend",
-      proficiency: 4,
-      yearsOfExperience: 2,
-      icon: "react"
-    },
-    {
-      id: "3",
-      name: "TypeScript",
-      category: "languages",
-      proficiency: 4,
-      yearsOfExperience: 2,
-      icon: "typescript"
-    },
-    {
-      id: "4",
-      name: "Node.js",
-      category: "backend",
-      proficiency: 4,
-      yearsOfExperience: 2,
-      icon: "nodejs"
-    },
-    {
-      id: "5",
-      name: "Express",
-      category: "backend",
-      proficiency: 4,
-      yearsOfExperience: 2,
-      icon: ""
-    },
-    {
-      id: "6",
-      name: "TensorFlow.js",
-      category: "frameworks",
-      proficiency: 3,
-      yearsOfExperience: 1,
-      icon: ""
-    },
-    {
-      id: "7",
-      name: "WebSockets",
-      category: "backend",
-      proficiency: 3,
-      yearsOfExperience: 2,
-      icon: ""
-    },
-    {
-      id: "8",
-      name: "Web Workers",
-      category: "frontend",
-      proficiency: 3,
-      yearsOfExperience: 1,
-      icon: ""
-    },
-    {
-      id: "9",
-      name: "IndexedDB",
-      category: "database",
-      proficiency: 3,
-      yearsOfExperience: 1,
-      icon: ""
-    },
-    {
-      id: "10",
-      name: "MongoDB",
-      category: "database",
-      proficiency: 3,
-      yearsOfExperience: 2,
-      icon: "mongodb"
-    },
-    {
-      id: "11",
-      name: "Git",
-      category: "tools",
-      proficiency: 4,
-      yearsOfExperience: 3,
-      icon: ""
-    },
-    {
-      id: "12",
-      name: "Docker",
-      category: "tools",
-      proficiency: 2,
-      yearsOfExperience: 1,
-      icon: "docker"
-    }
+    // ---------- Frontend ----------
+    { id: "1", name: "Next.js", category: "frontend", proficiency: 5, yearsOfExperience: 2, icon: "nextjs" },
+    { id: "2", name: "React", category: "frontend", proficiency: 5, yearsOfExperience: 2, icon: "react" },
+    { id: "3", name: "TypeScript", category: "languages", proficiency: 5, yearsOfExperience: 2, icon: "typescript" },
+    { id: "4", name: "JavaScript", category: "languages", proficiency: 5, yearsOfExperience: 3, icon: "javascript" },
+    { id: "5", name: "Tailwind CSS", category: "frontend", proficiency: 4, yearsOfExperience: 2, icon: "tailwind" },
+    { id: "6", name: "Web Workers", category: "frontend", proficiency: 4, yearsOfExperience: 1, icon: "webworkers" },
+    { id: "8", name: "WebGL", category: "frontend", proficiency: 3, yearsOfExperience: 1, icon: "webgl" },
+
+    // ---------- Backend ----------
+    { id: "9", name: "Node.js", category: "backend", proficiency: 5, yearsOfExperience: 2, icon: "nodejs" },
+    { id: "10", name: "Express.js", category: "backend", proficiency: 5, yearsOfExperience: 2, icon: "express" },
+    { id: "11", name: "FastAPI", category: "backend", proficiency: 3, yearsOfExperience: 1, icon: "fastapi" },
+    { id: "12", name: "REST API Design", category: "backend", proficiency: 5, yearsOfExperience: 2, icon: "api" },
+    { id: "13", name: "JWT Authentication", category: "backend", proficiency: 4, yearsOfExperience: 2, icon: "jwt" },
+
+    // ---------- Databases ----------
+    { id: "14", name: "MongoDB", category: "database", proficiency: 4, yearsOfExperience: 2, icon: "mongodb" },
+    { id: "16", name: "IndexedDB", category: "database", proficiency: 4, yearsOfExperience: 1, icon: "indexeddb" },
+    { id: "17", name: "Redis", category: "database", proficiency: 2, yearsOfExperience: 0.5, icon: "redis" },
+
+    // ---------- AI / Machine Learning ----------
+    { id: "18", name: "Machine Learning", category: "ai", proficiency: 4, yearsOfExperience: 1.5, icon: "ml" },
+    { id: "20", name: "TensorFlow.js", category: "ai", proficiency: 4, yearsOfExperience: 1, icon: "tensorflow" },
+    { id: "22", name: "Time-Series Modeling", category: "ai", proficiency: 5, yearsOfExperience: 1.5, icon: "timeseries" },
+    { id: "23", name: "Signal Processing", category: "ai", proficiency: 5, yearsOfExperience: 1.5, icon: "signal" },
+    { id: "24", name: "LLMs & GenAI", category: "ai", proficiency: 4, yearsOfExperience: 1, icon: "llm" },
+
+    // ---------- MLOps & Systems ----------
+    { id: "26", name: "Docker", category: "tools", proficiency: 3, yearsOfExperience: 1, icon: "docker" },
+    { id: "27", name: "CI/CD Fundamentals", category: "tools", proficiency: 3, yearsOfExperience: 1, icon: "cicd" },
+    { id: "28", name: "Model Deployment", category: "tools", proficiency: 4, yearsOfExperience: 1, icon: "deployment" },
+    { id: "29", name: "Low-Latency Optimization", category: "tools", proficiency: 5, yearsOfExperience: 1.5, icon: "latency" },
+
+    // ---------- Tools ----------
+    { id: "31", name: "Git", category: "tools", proficiency: 5, yearsOfExperience: 3, icon: "git" },
+    { id: "32", name: "GitHub Actions", category: "tools", proficiency: 3, yearsOfExperience: 1, icon: "github-actions" },
+    { id: "33", name: "VS Code", category: "tools", proficiency: 5, yearsOfExperience: 3, icon: "vscode" },
   ],
   projects: [
      {
@@ -129,7 +71,7 @@ export const portfolioData: Portfolio = {
       image: `${BASE}/images/Node_Playground.png`,
       images: [`${BASE}/images/Node_Playground.png`],
       githubUrl: "https://github.com/Ritika8081/Nodes_PlayGround",
-      liveUrl: "https://ritika8081.github.io/Nodes_PlayGround/",
+      liveUrl: "https://ritika8081.github.io/Nodes_Playground/",
       category: "web",
       featured: true,
       createdDate: "2024-04-01",
@@ -303,7 +245,7 @@ export const portfolioData: Portfolio = {
     {
       id: "1",
       company: "Upside Down Lab",
-      position: "Software Developer - Full Stack & AI/IoT Engineer",
+      position: "Software Developer",
       startDate: "2024-07-01",
       description: "Building browser-first health products for ECG/EEG acquisition, visualization, and ML.",
       achievements: [

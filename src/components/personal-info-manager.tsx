@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Mail, MapPin, Phone, Github, Linkedin, Globe, Save, Edit, X } from 'lucide-react';
+import { User, Mail, MapPin, Github, Linkedin, Globe, Save, Edit, X } from 'lucide-react';
 import { PersonalInfo, Contact } from '@/types/portfolio';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -169,16 +169,7 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  <Phone className="inline w-4 h-4 mr-1" />
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  value={formData.contact.phone || ''}
-                  onChange={(e) => updateContact('phone', e.target.value)}
-                  placeholder="+1 (555) 123-4567"
-                />
+                {/* Phone field removed */}
               </div>
             </div>
 
@@ -305,12 +296,7 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
                 <Mail className="w-4 h-4 mr-2 text-gray-500" />
                 <span className="text-gray-900">{contact.email}</span>
               </div>
-              {contact.phone && (
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2 text-gray-500" />
-                  <span className="text-gray-900">{contact.phone}</span>
-                </div>
-              )}
+              {/* Phone display removed */}
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-gray-500" />
                 <span className="text-gray-900">{contact.location}</span>

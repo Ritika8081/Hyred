@@ -252,14 +252,7 @@ Happy building! 🚀
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone (optional)</label>
-                    <input
-                      type="tel"
-                      className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                      placeholder="+1 (555) 123-4567"
-                      value={portfolioData.contact?.phone || ''}
-                      onChange={(e) => updateContact({ phone: e.target.value })}
-                    />
+                    {/* Phone field removed */}
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">Location</label>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, MapPin, Phone, Send, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { AnimatedSection, FadeIn } from '@/components/ui/animated-section';
@@ -56,13 +56,6 @@ export default function ContactPage() {
       color: 'text-blue-600 bg-blue-100'
     },
     {
-      icon: Phone,
-      label: 'Phone',
-      value: contact.phone,
-      href: `tel:${contact.phone}`,
-      color: 'text-green-600 bg-green-100'
-    },
-    {
       icon: MapPin,
       label: 'Location',
       value: contact.location,
@@ -112,129 +105,10 @@ export default function ContactPage() {
       {/* Contact Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <FadeIn direction="left">
-              <Card className="h-full">
-                <CardHeader>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Send a Message</h2>
-                  <p className="text-gray-600">
-                    Fill out the form below and I'll get back to you as soon as possible.
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  {submitted ? (
-                    <div className="text-center py-8">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <MessageCircle className="text-green-600" size={32} />
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        Thank you for your message!
-                      </h3>
-                      <p className="text-gray-600">
-                        I've received your message and will get back to you within 24 hours.
-                      </p>
-                      <Button 
-                        className="mt-6"
-                        onClick={() => setSubmitted(false)}
-                      >
-                        Send Another Message
-                      </Button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                            Name *
-                          </label>
-                          <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            required
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                            placeholder="Your name"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                            Email *
-                          </label>
-                          <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                            placeholder="your@email.com"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                          Subject *
-                        </label>
-                        <input
-                          type="text"
-                          id="subject"
-                          name="subject"
-                          required
-                          value={formData.subject}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                          placeholder="What's this about?"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                          Message *
-                        </label>
-                        <textarea
-                          id="message"
-                          name="message"
-                          required
-                          rows={6}
-                          value={formData.message}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
-                          placeholder="Tell me about your project or just say hello..."
-                        />
-                      </div>
-                      
-                      <Button
-                        type="submit"
-                        size="lg"
-                        disabled={isSubmitting}
-                        className="w-full"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            <Send size={20} className="mr-2" />
-                            Send Message
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
-            </FadeIn>
-
+          <div >
             {/* Contact Information */}
             <FadeIn direction="right">
-              <div className="space-y-8">
+              <div className="space-y">
                 {/* Contact Methods */}
                 <Card>
                   <CardHeader>
@@ -244,9 +118,9 @@ export default function ContactPage() {
                     {contactMethods.map((method) => {
                       const Icon = method.icon;
                       return (
-                        <div key={method.label} className="flex items-start">
+                        <div key={`${method.label}-${method.value}`} className="flex items-start">
                           <div className={`w-12 h-12 rounded-lg flex items-center justify-center mr-4 ${method.color}`}>
-                            <Icon size={20} />
+                            {Icon ? <Icon size={20} /> : null}
                           </div>
                           <div>
                             <h4 className="font-medium text-gray-900">{method.label}</h4>
@@ -328,7 +202,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <span className="block text-sm font-medium text-gray-500">Time Zone</span>
-                      <span className="text-gray-900">PST (UTC-8)</span>
+                      <span className="text-gray-900">IST</span>
                     </div>
                   </CardContent>
                 </Card>
