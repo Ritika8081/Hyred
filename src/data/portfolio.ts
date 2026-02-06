@@ -6,7 +6,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 export const portfolioData: Portfolio = {
   personalInfo: {
     name: "Ritika Mishra",
-    title: "Full Stack Developer",
+    title: "Software Developer",
     bio: "I'm a Software Engineer with experience building and owning full-stack applications end-to-end. I work on systems using React, Node.js, and MongoDB, and enjoy operating at the intersection of full-stack engineering, real-time data, and applied AI.\n\nI learn fast, take ownership seriously, and love turning ambiguous problems into reliable, scalable solutions.",
     avatar: `${BASE}/images/RitikaMishra.jpeg`,
     resume: "https://drive.google.com/file/d/12XcU6wWOhjkmWTtRLAuO1YVovbpxSaIO/view?usp=sharing",
