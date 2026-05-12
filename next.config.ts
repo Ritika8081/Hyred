@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === 'production';
-const basePath = isProd ? '/Foliaro' : '';
+// GitHub Pages basePath. Must match your repo name exactly.
+// After renaming the GitHub repo from "Foliaro" to "Hyred", this stays correct.
+const basePath = isProd ? '/Hyred' : '';
 
 const nextConfig: NextConfig = {
   output: 'export',

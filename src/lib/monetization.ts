@@ -62,18 +62,21 @@ export function openCheckout(tier: CheckoutTier | boolean = "pro") {
   }
 }
 
+import { STORAGE_KEYS, migrateLegacyKeys } from "@/lib/storage-keys";
+
 // Pro license tracking — license key entered after Stripe success
 export function hasPro(): boolean {
   if (typeof window === "undefined") return false;
-  return !!localStorage.getItem("foliaroProLicense");
+  migrateLegacyKeys();
+  return !!localStorage.getItem(STORAGE_KEYS.proLicense);
 }
 
 export function setPro(licenseKey: string) {
   if (typeof window === "undefined") return;
-  localStorage.setItem("foliaroProLicense", licenseKey);
+  localStorage.setItem(STORAGE_KEYS.proLicense, licenseKey);
 }
 
 export function clearPro() {
   if (typeof window === "undefined") return;
-  localStorage.removeItem("foliaroProLicense");
+  localStorage.removeItem(STORAGE_KEYS.proLicense);
 }

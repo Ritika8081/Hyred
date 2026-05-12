@@ -43,12 +43,13 @@ export const PROVIDER_DEFAULTS: Record<AIProvider, { baseUrl: string; defaultMod
   },
 };
 
-const STORAGE_KEY = "foliaroAIConfig";
+import { STORAGE_KEYS, migrateLegacyKeys } from "@/lib/storage-keys";
 
 export function loadAIConfig(): AIConfig | null {
   if (typeof window === "undefined") return null;
+  migrateLegacyKeys();
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEYS.aiConfig);
     if (!raw) return null;
     return JSON.parse(raw);
   } catch {
@@ -58,12 +59,12 @@ export function loadAIConfig(): AIConfig | null {
 
 export function saveAIConfig(config: AIConfig) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+  localStorage.setItem(STORAGE_KEYS.aiConfig, JSON.stringify(config));
 }
 
 export function clearAIConfig() {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(STORAGE_KEYS.aiConfig);
 }
 
 export interface AIMessage {

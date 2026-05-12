@@ -6,8 +6,9 @@ import { MessageCircle, X, Send, Star } from "lucide-react";
 import { useToast } from "@/components/ui/toast";
 import { MONETIZATION } from "@/lib/monetization";
 import { isPortfolioRoute } from "@/lib/zone";
+import { STORAGE_KEYS, migrateLegacyKeys } from "@/lib/storage-keys";
 
-const STORAGE_KEY = "foliaroFeedbackHistory";
+const STORAGE_KEY = STORAGE_KEYS.feedbackHistory;
 
 export default function FeedbackWidget() {
   const [open, setOpen] = useState(false);
@@ -17,6 +18,10 @@ export default function FeedbackWidget() {
   const [sending, setSending] = useState(false);
   const pathname = usePathname();
   const toast = useToast();
+
+  useEffect(() => {
+    migrateLegacyKeys();
+  }, []);
 
   // Hide on builder pages (visual clutter) AND on the user's portfolio pages
   // (the widget is for Hyred-product feedback, not visitors of someone's portfolio).

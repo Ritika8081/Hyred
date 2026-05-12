@@ -9,8 +9,8 @@ import { AnimatedSection } from "@/components/ui/animated-section";
 import CopyButton from "@/components/ui/copy-button";
 import ProGate from "@/components/pro-gate";
 
-const VERCEL_DEPLOY = "https://vercel.com/new/clone?repository-url=https://github.com/Ritika8081/Foliaro&project-name=my-portfolio";
-const NETLIFY_DEPLOY = "https://app.netlify.com/start/deploy?repository=https://github.com/Ritika8081/Foliaro";
+const VERCEL_DEPLOY = "https://vercel.com/new/clone?repository-url=https://github.com/Ritika8081/Hyred&project-name=my-portfolio";
+const NETLIFY_DEPLOY = "https://app.netlify.com/start/deploy?repository=https://github.com/Ritika8081/Hyred";
 
 export default function DeployPage() {
   const [step, setStep] = useState(1);
