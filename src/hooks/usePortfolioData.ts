@@ -3,44 +3,66 @@
 import { useState, useEffect } from 'react';
 import { portfolioData } from '@/data/portfolio';
 import { Portfolio } from '@/types/portfolio';
+import { readPortfolioFromHash } from '@/lib/share';
 
-// Custom hook to manage portfolio data with localStorage persistence
+const STORAGE_KEYS = {
+  projects: 'portfolioProjects',
+  personalInfo: 'portfolioPersonalInfo',
+  contact: 'portfolioContact',
+  skills: 'portfolioSkills',
+  experience: 'portfolioExperience',
+  education: 'portfolioEducation',
+  testimonials: 'portfolioTestimonials',
+  certifications: 'portfolioCertifications',
+} as const;
+
 export function usePortfolioData() {
   const [data, setData] = useState<Portfolio>(portfolioData);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load data from localStorage on client side
     try {
-      const savedProjects = localStorage.getItem('portfolioProjects');
-      const savedPersonalInfo = localStorage.getItem('portfolioPersonalInfo');
-      const savedContact = localStorage.getItem('portfolioContact');
-      const savedSkills = localStorage.getItem('portfolioSkills');
-      const savedExperience = localStorage.getItem('portfolioExperience');
-      const savedEducation = localStorage.getItem('portfolioEducation');
-
-      const updatedData = { ...portfolioData };
-
-      if (savedProjects) {
-        updatedData.projects = JSON.parse(savedProjects);
-      }
-      if (savedPersonalInfo) {
-        updatedData.personalInfo = { ...updatedData.personalInfo, ...JSON.parse(savedPersonalInfo) };
-      }
-      if (savedContact) {
-        updatedData.contact = { ...updatedData.contact, ...JSON.parse(savedContact) };
-      }
-      if (savedSkills) {
-        updatedData.skills = JSON.parse(savedSkills);
-      }
-      if (savedExperience) {
-        updatedData.experience = JSON.parse(savedExperience);
-      }
-      if (savedEducation) {
-        updatedData.education = JSON.parse(savedEducation);
+      // If a shared portfolio URL was loaded, hydrate from the hash
+      const shared = readPortfolioFromHash();
+      if (shared) {
+        setData(shared);
+        setIsLoading(false);
+        return;
       }
 
-      setData(updatedData);
+      const updated: Portfolio = {
+        ...portfolioData,
+        personalInfo: { ...portfolioData.personalInfo },
+        contact: { ...portfolioData.contact },
+      };
+
+      const loadJSON = <K extends keyof Portfolio>(key: keyof typeof STORAGE_KEYS, field: K) => {
+        const raw = localStorage.getItem(STORAGE_KEYS[key]);
+        if (!raw) return;
+        try {
+          const parsed = JSON.parse(raw);
+          if (parsed) {
+            if (Array.isArray(parsed)) {
+              (updated as any)[field] = parsed;
+            } else {
+              (updated as any)[field] = { ...(updated as any)[field], ...parsed };
+            }
+          }
+        } catch (e) {
+          console.error(`Failed to parse ${key}`, e);
+        }
+      };
+
+      loadJSON('projects', 'projects');
+      loadJSON('personalInfo', 'personalInfo');
+      loadJSON('contact', 'contact');
+      loadJSON('skills', 'skills');
+      loadJSON('experience', 'experience');
+      loadJSON('education', 'education');
+      loadJSON('testimonials', 'testimonials');
+      loadJSON('certifications', 'certifications');
+
+      setData(updated);
     } catch (error) {
       console.error('Error loading portfolio data from localStorage:', error);
       setData(portfolioData);
@@ -49,87 +71,55 @@ export function usePortfolioData() {
     }
   }, []);
 
-  const updateProjects = (projects: Portfolio['projects']) => {
-    try {
-      localStorage.setItem('portfolioProjects', JSON.stringify(projects));
-      setData(prev => ({ ...prev, projects }));
-    } catch (error) {
-      console.error('Error saving projects to localStorage:', error);
-    }
-  };
+  const makeUpdater = <K extends keyof Portfolio>(field: K, storageKey: keyof typeof STORAGE_KEYS) =>
+    (value: Portfolio[K]) => {
+      try {
+        localStorage.setItem(STORAGE_KEYS[storageKey], JSON.stringify(value));
+        setData(prev => ({ ...prev, [field]: value }));
+      } catch (error) {
+        console.error(`Error saving ${String(field)} to localStorage:`, error);
+      }
+    };
 
-  const updatePersonalInfo = (personalInfo: Portfolio['personalInfo']) => {
-    try {
-      localStorage.setItem('portfolioPersonalInfo', JSON.stringify(personalInfo));
-      setData(prev => ({ ...prev, personalInfo }));
-    } catch (error) {
-      console.error('Error saving personal info to localStorage:', error);
-    }
-  };
-
-  const updateContact = (contact: Portfolio['contact']) => {
-    try {
-      localStorage.setItem('portfolioContact', JSON.stringify(contact));
-      setData(prev => ({ ...prev, contact }));
-    } catch (error) {
-      console.error('Error saving contact to localStorage:', error);
-    }
-  };
-
-  const updateSkills = (skills: Portfolio['skills']) => {
-    try {
-      localStorage.setItem('portfolioSkills', JSON.stringify(skills));
-      setData(prev => ({ ...prev, skills }));
-    } catch (error) {
-      console.error('Error saving skills to localStorage:', error);
-    }
-  };
-
-  const updateExperience = (experience: Portfolio['experience']) => {
-    try {
-      localStorage.setItem('portfolioExperience', JSON.stringify(experience));
-      setData(prev => ({ ...prev, experience }));
-    } catch (error) {
-      console.error('Error saving experience to localStorage:', error);
-    }
-  };
-
-  const updateEducation = (education: Portfolio['education']) => {
-    try {
-      localStorage.setItem('portfolioEducation', JSON.stringify(education));
-      setData(prev => ({ ...prev, education }));
-    } catch (error) {
-      console.error('Error saving education to localStorage:', error);
-    }
-  };
+  const updateProjects = makeUpdater('projects', 'projects');
+  const updatePersonalInfo = makeUpdater('personalInfo', 'personalInfo');
+  const updateContact = makeUpdater('contact', 'contact');
+  const updateSkills = makeUpdater('skills', 'skills');
+  const updateExperience = makeUpdater('experience', 'experience');
+  const updateEducation = makeUpdater('education', 'education');
+  const updateTestimonials = makeUpdater('testimonials', 'testimonials');
+  const updateCertifications = makeUpdater('certifications', 'certifications');
 
   const clearAllData = () => {
     try {
-      localStorage.removeItem('portfolioProjects');
-      localStorage.removeItem('portfolioPersonalInfo');
-      localStorage.removeItem('portfolioContact');
-      localStorage.removeItem('portfolioSkills');
-      localStorage.removeItem('portfolioExperience');
-      localStorage.removeItem('portfolioEducation');
+      Object.values(STORAGE_KEYS).forEach(k => localStorage.removeItem(k));
       setData(portfolioData);
     } catch (error) {
       console.error('Error clearing localStorage:', error);
     }
   };
 
-  const exportAllData = () => {
-    return data;
-  };
+  const exportAllData = () => data;
 
   const importAllData = (importedData: Portfolio) => {
     try {
-      localStorage.setItem('portfolioProjects', JSON.stringify(importedData.projects));
-      localStorage.setItem('portfolioPersonalInfo', JSON.stringify(importedData.personalInfo));
-      localStorage.setItem('portfolioContact', JSON.stringify(importedData.contact));
-      localStorage.setItem('portfolioSkills', JSON.stringify(importedData.skills));
-      localStorage.setItem('portfolioExperience', JSON.stringify(importedData.experience));
-      localStorage.setItem('portfolioEducation', JSON.stringify(importedData.education));
-      setData(importedData);
+      const merged: Portfolio = {
+        ...portfolioData,
+        ...importedData,
+        personalInfo: { ...portfolioData.personalInfo, ...(importedData.personalInfo || {}) },
+        contact: { ...portfolioData.contact, ...(importedData.contact || {}) },
+        testimonials: importedData.testimonials || [],
+        certifications: importedData.certifications || [],
+      };
+      localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(merged.projects));
+      localStorage.setItem(STORAGE_KEYS.personalInfo, JSON.stringify(merged.personalInfo));
+      localStorage.setItem(STORAGE_KEYS.contact, JSON.stringify(merged.contact));
+      localStorage.setItem(STORAGE_KEYS.skills, JSON.stringify(merged.skills));
+      localStorage.setItem(STORAGE_KEYS.experience, JSON.stringify(merged.experience));
+      localStorage.setItem(STORAGE_KEYS.education, JSON.stringify(merged.education));
+      localStorage.setItem(STORAGE_KEYS.testimonials, JSON.stringify(merged.testimonials));
+      localStorage.setItem(STORAGE_KEYS.certifications, JSON.stringify(merged.certifications));
+      setData(merged);
     } catch (error) {
       console.error('Error importing data:', error);
       throw error;
@@ -145,8 +135,10 @@ export function usePortfolioData() {
     updateSkills,
     updateExperience,
     updateEducation,
+    updateTestimonials,
+    updateCertifications,
     clearAllData,
     exportAllData,
-    importAllData
+    importAllData,
   };
 }

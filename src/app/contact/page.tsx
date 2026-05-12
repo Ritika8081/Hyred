@@ -5,6 +5,7 @@ import { Mail, MapPin, Send, Github, Linkedin, MessageCircle } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { AnimatedSection, FadeIn } from '@/components/ui/animated-section';
+import CopyButton from '@/components/ui/copy-button';
 import { usePortfolioData } from '@/hooks/usePortfolioData';
 
 export default function ContactPage() {
@@ -117,23 +118,29 @@ export default function ContactPage() {
                   <CardContent className="space-y-6">
                     {contactMethods.map((method) => {
                       const Icon = method.icon;
+                      const isEmail = method.label === 'Email';
                       return (
                         <div key={`${method.label}-${method.value}`} className="flex items-start">
                           <div className={`w-12 h-12 rounded-lg flex items-center justify-center mr-4 ${method.color}`}>
                             {Icon ? <Icon size={20} /> : null}
                           </div>
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <h4 className="font-medium text-gray-900">{method.label}</h4>
-                            {method.href ? (
-                              <a
-                                href={method.href}
-                                className="text-blue-600 hover:text-blue-800 transition-colors"
-                              >
-                                {method.value}
-                              </a>
-                            ) : (
-                              <span className="text-gray-600">{method.value}</span>
-                            )}
+                            <div className="flex items-center gap-3 flex-wrap">
+                              {method.href ? (
+                                <a
+                                  href={method.href}
+                                  className="text-blue-600 hover:text-blue-800 transition-colors break-all"
+                                >
+                                  {method.value}
+                                </a>
+                              ) : (
+                                <span className="text-gray-600">{method.value}</span>
+                              )}
+                              {isEmail && method.value && (
+                                <CopyButton value={method.value} label="email" />
+                              )}
+                            </div>
                           </div>
                         </div>
                       );

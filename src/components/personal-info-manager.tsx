@@ -1,10 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Mail, MapPin, Github, Linkedin, Globe, Save, Edit, X } from 'lucide-react';
+import { User, Mail, MapPin, Github, Linkedin, Globe, Save, Edit, X, Palette, Briefcase } from 'lucide-react';
 import { PersonalInfo, Contact } from '@/types/portfolio';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import StringListInput from '@/components/ui/string-list-input';
+import AIRewriteButton from '@/components/ui/ai-rewrite-button';
+import ImageUpload from '@/components/ui/image-upload';
 
 interface PersonalInfoManagerProps {
   personalInfo: PersonalInfo;
@@ -87,7 +90,7 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   value={formData.personalInfo.title}
                   onChange={(e) => updatePersonalInfo('title', e.target.value)}
-                  placeholder="e.g., Full Stack Developer"
+                  placeholder="e.g., Software Developer"
                 />
               </div>
             </div>
@@ -104,7 +107,14 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Bio *</label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-gray-700">Bio *</label>
+                <AIRewriteButton
+                  value={formData.personalInfo.bio}
+                  onResult={(v) => updatePersonalInfo('bio', v)}
+                  context="This is the bio shown on the portfolio hero — should feel personal and showcase strengths."
+                />
+              </div>
               <textarea
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 rows={4}
@@ -127,13 +137,11 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Avatar/Photo URL</label>
-                <input
-                  type="url"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                <ImageUpload
+                  label="Avatar / Photo"
                   value={formData.personalInfo.avatar}
-                  onChange={(e) => updatePersonalInfo('avatar', e.target.value)}
-                  placeholder="https://example.com/your-photo.jpg"
+                  onChange={(v) => updatePersonalInfo('avatar', v)}
+                  shape="round"
                 />
               </div>
             </div>
@@ -147,6 +155,96 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
                 onChange={(e) => updatePersonalInfo('resume', e.target.value)}
                 placeholder="Link to your resume/CV"
               />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Pronouns</label>
+                <input
+                  type="text"
+                  className="w-full p-3 border border-gray-300 rounded-lg"
+                  value={formData.personalInfo.pronouns || ''}
+                  onChange={(e) => updatePersonalInfo('pronouns', e.target.value)}
+                  placeholder="she/her, he/him, they/them"
+                />
+              </div>
+              <div className="flex items-end">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="w-5 h-5 rounded text-green-600"
+                    checked={!!formData.personalInfo.openToWork}
+                    onChange={(e) => updatePersonalInfo('openToWork', e.target.checked)}
+                  />
+                  <span className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <Briefcase size={16} className="text-green-600" />
+                    Open to opportunities
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <StringListInput
+              label="Hero Roles (rotating typewriter)"
+              values={formData.personalInfo.roles || []}
+              onChange={(v) => updatePersonalInfo('roles', v)}
+              placeholder="e.g. Full-Stack Engineer"
+            />
+
+            <StringListInput
+              label="Highlights (max 3 — punchy impact bullets for recruiter scan)"
+              values={formData.personalInfo.highlights || []}
+              onChange={(v) => updatePersonalInfo('highlights', v.slice(0, 3))}
+              placeholder="e.g. Shipped X used by Y users; reduced Z by N%"
+            />
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Currently Building <span className="text-xs text-gray-500 font-normal">(Now widget — what you&apos;re working on this week)</span>
+              </label>
+              <textarea
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                rows={2}
+                value={formData.personalInfo.currentlyBuilding || ''}
+                onChange={(e) => updatePersonalInfo('currentlyBuilding', e.target.value)}
+                placeholder="A one-liner about what you're focused on right now"
+              />
+            </div>
+
+            <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h5 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <Palette size={16} />
+                Brand Colors
+              </h5>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Accent</label>
+                  <input
+                    type="color"
+                    className="w-full h-10 border border-gray-300 rounded cursor-pointer"
+                    value={formData.personalInfo.brand?.accent || '#2563eb'}
+                    onChange={(e) => updatePersonalInfo('brand', { ...formData.personalInfo.brand, accent: e.target.value } as any)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Gradient From</label>
+                  <input
+                    type="color"
+                    className="w-full h-10 border border-gray-300 rounded cursor-pointer"
+                    value={formData.personalInfo.brand?.gradientFrom || '#2563eb'}
+                    onChange={(e) => updatePersonalInfo('brand', { ...formData.personalInfo.brand, gradientFrom: e.target.value } as any)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Gradient To</label>
+                  <input
+                    type="color"
+                    className="w-full h-10 border border-gray-300 rounded cursor-pointer"
+                    value={formData.personalInfo.brand?.gradientTo || '#7c3aed'}
+                    onChange={(e) => updatePersonalInfo('brand', { ...formData.personalInfo.brand, gradientTo: e.target.value } as any)}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 

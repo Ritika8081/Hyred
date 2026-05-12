@@ -73,7 +73,9 @@ export default function SetupWizard({ onComplete, onSkip }: SetupWizardProps) {
       projects: portfolioData.projects || [],
       skills: portfolioData.skills || [],
       experience: portfolioData.experience || [],
-      education: portfolioData.education || []
+      education: portfolioData.education || [],
+      testimonials: portfolioData.testimonials || [],
+      certifications: portfolioData.certifications || []
     };
     onComplete(completeData);
   };
@@ -198,7 +200,7 @@ Happy building! 🚀
                     <input
                       type="text"
                       className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                      placeholder="Full Stack Developer"
+                      placeholder="Software Developer"
                       value={portfolioData.personalInfo?.title || ''}
                       onChange={(e) => updatePersonalInfo({ title: e.target.value })}
                     />

@@ -12,13 +12,9 @@ export default function FirstTimeSetup() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if this is the first time visiting
-    const hasVisited = localStorage.getItem("portfolio-visited");
-    const hasCustomData = localStorage.getItem("portfolio-customized");
-
-    if (!hasVisited && !hasCustomData) {
-      setShowSetup(true);
-    }
+    // Disabled — the new WelcomeModal in /build (which only shows on the builder)
+    // handles first-time onboarding now. This older popup conflicted with marketing pages.
+    setShowSetup(false);
   }, []);
 
   const handleComplete = () => {

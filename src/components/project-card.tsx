@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Github, Calendar, Tag } from "lucide-react";
+import { ExternalLink, Github, Calendar, Tag, Zap } from "lucide-react";
 import { Project } from "@/types/portfolio";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -69,6 +69,15 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             {project.title}
           </h3>
           <p className="text-gray-600 mb-4 flex-1">{project.description}</p>
+
+          {project.impact && (
+            <div className="mb-4 flex items-start gap-2 p-2.5 rounded-md bg-green-50 border border-green-100">
+              <Zap size={14} className="text-green-600 mt-0.5 flex-shrink-0" />
+              <span className="text-xs text-green-800 font-medium leading-snug">
+                {project.impact}
+              </span>
+            </div>
+          )}
 
           {/* Technologies */}
           <div className="mb-4">

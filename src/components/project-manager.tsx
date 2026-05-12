@@ -5,6 +5,8 @@ import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import { Project } from '@/types/portfolio';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import AIRewriteButton from '@/components/ui/ai-rewrite-button';
+import ImageUpload from '@/components/ui/image-upload';
 
 interface ProjectManagerProps {
   projects: Project[];
@@ -140,7 +142,14 @@ export default function ProjectManager({ projects, onUpdate }: ProjectManagerPro
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Short Description *</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-medium">Short Description *</label>
+              <AIRewriteButton
+                value={formData.description || ''}
+                onResult={(v) => updateFormData('description', v)}
+                context={`Short project description for: ${formData.title || 'a project'}. Tech: ${Array.isArray(formData.technologies) ? formData.technologies.join(', ') : (formData.technologies || '')}`}
+              />
+            </div>
             <textarea
               className="w-full p-2 border rounded-lg"
               rows={2}
@@ -150,7 +159,14 @@ export default function ProjectManager({ projects, onUpdate }: ProjectManagerPro
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Long Description</label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-medium">Long Description</label>
+              <AIRewriteButton
+                value={formData.longDescription || ''}
+                onResult={(v) => updateFormData('longDescription', v)}
+                context={`Long project description for: ${formData.title || 'a project'}.`}
+              />
+            </div>
             <textarea
               className="w-full p-2 border rounded-lg"
               rows={4}
@@ -161,12 +177,10 @@ export default function ProjectManager({ projects, onUpdate }: ProjectManagerPro
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Main Image URL</label>
-              <input
-                type="url"
-                className="w-full p-2 border rounded-lg"
+              <ImageUpload
+                label="Main project image"
                 value={formData.image || ''}
-                onChange={(e) => updateFormData('image', e.target.value)}
+                onChange={(v) => updateFormData('image', v)}
               />
             </div>
             <div>
@@ -202,6 +216,32 @@ export default function ProjectManager({ projects, onUpdate }: ProjectManagerPro
                 onChange={(e) => updateFormData('liveUrl', e.target.value)}
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Demo Video URL <span className="text-xs text-gray-500 font-normal">(YouTube, Vimeo, Drive, Loom — replaces hero image on detail page)</span>
+            </label>
+            <input
+              type="url"
+              className="w-full p-2 border rounded-lg"
+              value={formData.videoUrl || ''}
+              onChange={(e) => updateFormData('videoUrl', e.target.value)}
+              placeholder="https://youtu.be/..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Impact <span className="text-xs text-gray-500 font-normal">(measurable outcome — recruiters scan for this)</span>
+            </label>
+            <input
+              type="text"
+              className="w-full p-2 border rounded-lg"
+              value={formData.impact || ''}
+              onChange={(e) => updateFormData('impact', e.target.value)}
+              placeholder="e.g. Reduced inference latency from 80ms to 9ms; used by 200+ researchers"
+            />
           </div>
 
           <div>

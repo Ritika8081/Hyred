@@ -11,7 +11,26 @@ export const portfolioData: Portfolio = {
     avatar: `${BASE}/images/RitikaMishra.jpeg`,
     resume: "https://drive.google.com/file/d/12XcU6wWOhjkmWTtRLAuO1YVovbpxSaIO/view?usp=sharing",
     tagline: "I design, build, and own scalable software systems",
-    yearsOfExperience: 1.7
+    yearsOfExperience: 1.7,
+    pronouns: "she/her",
+    openToWork: true,
+    roles: [
+      "Full-Stack Engineer",
+      "Real-Time Systems Builder",
+      "Applied AI Engineer",
+      "Open Source Contributor"
+    ],
+    brand: {
+      accent: "#2563eb",
+      gradientFrom: "#2563eb",
+      gradientTo: "#7c3aed"
+    },
+    highlights: [
+      "Shipped browser-first ECG + EEG products with TensorFlow.js inference under 10 ms",
+      "Refactored a 1000+ line component into 8 isolated modules powering real-time DSP",
+      "50+ open-source projects and contributions to HacktoberFest + GSSoC"
+    ],
+    currentlyBuilding: "Real-time signal-processing tools in the browser using Web Workers, WebGL, and TensorFlow.js."
   },
   contact: {
     email: "ritikamishra8081@gmail.com",
@@ -19,7 +38,8 @@ export const portfolioData: Portfolio = {
     location: "Delhi, India",
     linkedin: "https://www.linkedin.com/in/ritika-mishra-a965251bb/",
     github: "https://github.com/Ritika8081",
-    website: "https://ritika8081.github.io"
+    website: "https://ritika8081.github.io",
+    youtube: ""
   },
   skills: [
     // ---------- Frontend ----------
@@ -246,7 +266,10 @@ export const portfolioData: Portfolio = {
       id: "1",
       company: "Upside Down Lab",
       position: "Software Developer",
+      location: "Remote",
+      companyUrl: "https://upsidedownlabs.tech",
       startDate: "2024-07-01",
+      videoUrl: "https://www.youtube.com/watch?v=O3F-0UWxNfA",
       description: "Building browser-first health products for ECG/EEG acquisition, visualization, and ML.",
       achievements: [
         "Designed Rpeak for real-time ECG streaming, visualization, and CNN heartbeat classification",
@@ -293,6 +316,33 @@ export const portfolioData: Portfolio = {
         "Machine Learning",
         "Computer Networks"
       ]
+    }
+  ],
+  testimonials: [
+    {
+      id: "t1",
+      name: "Add a recommender's name",
+      role: "Engineering Manager",
+      company: "Their company",
+      quote: "Replace this with a real recommendation from a manager, mentor, or teammate. Pull it from LinkedIn or ask someone you've worked with — recruiters trust social proof more than any other section.",
+      rating: 5
+    },
+    {
+      id: "t2",
+      name: "Second recommender",
+      role: "Senior Engineer",
+      company: "Their company",
+      quote: "Short, specific, outcome-focused quotes work best. e.g. \"Owned the migration end-to-end and shipped two weeks ahead of schedule.\"",
+      rating: 5
+    }
+  ],
+  certifications: [
+    {
+      id: "c1",
+      name: "Microsoft Tech Saksham — Full Stack Development",
+      issuer: "Microsoft",
+      issueDate: "2023-06-01",
+      credentialUrl: ""
     }
   ]
 };

@@ -8,6 +8,7 @@ import { portfolioData } from '@/data/portfolio';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { AnimatedSection, FadeIn } from '@/components/ui/animated-section';
+import VideoEmbed from '@/components/ui/video-embed';
 import { formatDate, withBasePath } from '@/lib/utils';
 import { usePortfolioData } from '@/hooks/usePortfolioData';
 import { useEffect, useState } from 'react';
@@ -108,19 +109,30 @@ export default function ProjectPageClient({ params }: { params: Promise<{ id: st
             </div>
           </div>
 
-          {/* Project Image */}
-          {project.image && (
+          {/* Project Video (preferred) or Image */}
+          {project.videoUrl ? (
             <FadeIn delay={200}>
-              <div className="relative h-64 md:h-96 rounded-xl overflow-hidden shadow-2xl">
-                <Image
-                  src={withBasePath(project.image)}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+              <VideoEmbed
+                url={project.videoUrl}
+                title={project.title}
+                poster={project.image}
+                className="shadow-2xl"
+              />
             </FadeIn>
+          ) : (
+            project.image && (
+              <FadeIn delay={200}>
+                <div className="relative h-64 md:h-96 rounded-xl overflow-hidden shadow-2xl">
+                  <Image
+                    src={withBasePath(project.image)}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </FadeIn>
+            )
           )}
 
           {/* Project Actions */}
@@ -149,6 +161,18 @@ export default function ProjectPageClient({ params }: { params: Promise<{ id: st
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
+              {/* Impact */}
+              {project.impact && (
+                <FadeIn delay={350}>
+                  <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+                    <CardContent className="p-6">
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-green-700 mb-2">Impact</h3>
+                      <p className="text-lg text-green-900 font-medium leading-relaxed">{project.impact}</p>
+                    </CardContent>
+                  </Card>
+                </FadeIn>
+              )}
+
               {/* Long Description */}
               {project.longDescription && (
                 <FadeIn delay={400}>

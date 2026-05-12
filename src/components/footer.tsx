@@ -1,86 +1,142 @@
 'use client';
 
-import { Github, Linkedin, Mail, Heart, Settings } from 'lucide-react';
-import { usePortfolioData } from '@/hooks/usePortfolioData';
 import Link from 'next/link';
+import { Heart, Twitter, Github, Linkedin, Mail, Sparkles, Shield, Globe } from 'lucide-react';
+import Logo from '@/components/ui/logo';
+import { MONETIZATION } from '@/lib/monetization';
+
+const COLUMNS = [
+  {
+    title: 'Product',
+    links: [
+      { name: 'Pricing', href: '/pricing' },
+      { name: 'Compare', href: '/compare' },
+      { name: 'Reviews', href: '/reviews' },
+      { name: 'Deploy guide', href: '/deploy' },
+      { name: 'Activate license', href: '/unlock' },
+    ],
+  },
+  {
+    title: 'AI Tools',
+    links: [
+      { name: 'Roast Resume', href: '/tools/roast' },
+      { name: 'JD Matcher', href: '/tools/match' },
+      { name: 'Application Pack', href: '/tools/apply' },
+      { name: 'Mock Interview', href: '/tools/interview' },
+      { name: 'Salary Negotiator', href: '/tools/salary' },
+      { name: 'All tools →', href: '/tools' },
+    ],
+  },
+  {
+    title: 'Builder',
+    links: [
+      { name: 'My Admin', href: '/admin' },
+      { name: 'Resume page', href: '/resume' },
+      { name: 'Projects', href: '/projects' },
+      { name: 'About', href: '/about' },
+      { name: 'Contact', href: '/contact' },
+    ],
+  },
+];
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-  const { data: portfolioData } = usePortfolioData();
-  const { contact, personalInfo } = portfolioData;
-
-  const socialLinks = [
-    { icon: Github, href: contact.github, label: 'GitHub' },
-    { icon: Linkedin, href: contact.linkedin, label: 'LinkedIn' },
-    { icon: Mail, href: `mailto:${contact.email}`, label: 'Email' },
-  ].filter(link => link.href);
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* About Section */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">{personalInfo.name}</h3>
-            <p className="text-gray-400 mb-4">
-              {personalInfo.tagline}
-            </p>
-            <p className="text-gray-400 text-sm">
-              {contact.location}
-            </p>
-          </div>
+    <footer className="relative bg-gray-950 text-gray-400">
+      {/* Top gradient line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-brand-500/40 to-transparent" />
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="#about" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-              <li><a href="#projects" className="text-gray-400 hover:text-white transition-colors">Projects</a></li>
-              <li><a href="#skills" className="text-gray-400 hover:text-white transition-colors">Skills</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-            </ul>
-          </div>
-
-          {/* Social Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Connect</h3>
-            <div className="flex space-x-4">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800"
-                    aria-label={link.label}
-                  >
-                    <Icon size={20} />
-                  </a>
-                );
-              })}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
+          {/* Brand column */}
+          <div className="col-span-2">
+            <Logo size={28} variant="white" className="mb-4" />
+            <p className="text-sm leading-relaxed max-w-sm mb-5 text-gray-400">
+              AI-powered resume + portfolio builder for students and early-career engineers. Free forever. Built with love in 🌍.
+            </p>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://twitter.com/hyred"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
+                aria-label="Twitter"
+              >
+                <Twitter size={14} />
+              </a>
+              <a
+                href="https://github.com/hyred"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
+                aria-label="GitHub"
+              >
+                <Github size={14} />
+              </a>
+              <a
+                href="https://linkedin.com/company/hyred"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={14} />
+              </a>
+              <a
+                href={`mailto:${MONETIZATION.supportEmail}`}
+                className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
+                aria-label="Email"
+              >
+                <Mail size={14} />
+              </a>
             </div>
+          </div>
+
+          {/* Link columns */}
+          {COLUMNS.map(col => (
+            <div key={col.title}>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-4">
+                {col.title}
+              </h3>
+              <ul className="space-y-2">
+                {col.links.map(l => (
+                  <li key={l.name}>
+                    <Link
+                      href={l.href}
+                      className="text-sm text-gray-400 hover:text-white transition"
+                    >
+                      {l.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Trust strip */}
+        <div className="mt-12 pt-6 border-t border-gray-800 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div className="flex items-center gap-2">
+            <Shield size={14} className="text-emerald-400" />
+            <span>Your data stays in your browser. Always.</span>
+          </div>
+          <div className="flex items-center gap-2 md:justify-center">
+            <Sparkles size={14} className="text-brand-400" />
+            <span>{MONETIZATION.moneyBackDays}-day refund · No subscriptions ever</span>
+          </div>
+          <div className="flex items-center gap-2 md:justify-end">
+            <Globe size={14} className="text-blue-400" />
+            <span>Built for students worldwide</span>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} {personalInfo.name}. All rights reserved.
-            </p>
-            <p className="text-gray-400 text-sm flex items-center mt-4 md:mt-0">
-              Made with <Heart size={16} className="mx-1 text-red-500" /> using Next.js & TailwindCSS
-              <span className="mx-2">•</span>
-              <a 
-                href="/admin" 
-                className="hover:text-gray-300 transition-colors text-xs opacity-50 hover:opacity-100"
-                title="Admin Panel"
-              >
-                ⚙️
-              </a>
-            </p>
-          </div>
+        {/* Bottom row */}
+        <div className="mt-8 pt-6 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+          <p>© {year} Hyred. All rights reserved.</p>
+          <p className="inline-flex items-center gap-1">
+            Made with <Heart size={11} className="text-red-400 fill-red-400" /> for job seekers
+          </p>
         </div>
       </div>
     </footer>
