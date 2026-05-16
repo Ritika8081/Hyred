@@ -15,6 +15,8 @@ import FeedbackWidget from "@/components/feedback-widget";
 import ReferralCapture from "@/components/referral-capture";
 import LaunchBanner from "@/components/launch-banner";
 import CommandPalette from "@/components/command-palette";
+import HelpFab from "@/components/help-fab";
+import HelpHotkey from "@/components/help-hotkey";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -104,6 +106,8 @@ export default function RootLayout({
             <FeedbackWidget />
             <StickyHireMe />
             <CommandPalette />
+            <HelpFab />
+            <HelpHotkey />
             <AdminAccess />
             <FirstTimeSetup />
           </UpgradeProvider>

@@ -47,7 +47,7 @@ const COMPARE_ROWS: Array<{ label: string; free: boolean | string; pro: boolean 
 export default function PricingPage() {
   const { data } = usePortfolioData();
   const gradFrom = data.personalInfo.brand?.gradientFrom || "#2563eb";
-  const gradTo = data.personalInfo.brand?.gradientTo || "#7c3aed";
+  const gradTo = data.personalInfo.brand?.gradientTo || "#0d9488";
 
   const tiers: Tier[] = [
     {
@@ -149,13 +149,13 @@ export default function PricingPage() {
                 <Card
                   hover={false}
                   className={`h-full relative ${
-                    t.highlight ? "ring-2 ring-purple-400 md:scale-105" : ""
+                    t.highlight ? "ring-2 ring-brand-400 md:scale-105" : ""
                   }`}
                 >
                   {t.badge && (
                     <div
                       className={`absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold text-white shadow ${
-                        t.highlight ? "bg-gradient-to-r from-purple-600 to-pink-600" : "bg-amber-500"
+                        t.highlight ? "bg-gradient-to-r from-brand-600 to-coral-600" : "bg-amber-500"
                       }`}
                     >
                       {t.id === "pro" ? <Star size={11} fill="currentColor" /> : <Crown size={11} fill="currentColor" />}
@@ -277,7 +277,7 @@ export default function PricingPage() {
                       <th
                         key={h}
                         className={`p-3 text-sm font-bold text-center ${
-                          i === 0 ? "text-left bg-gray-50" : i === 2 ? "bg-purple-50 text-purple-900" : i === 3 ? "bg-amber-50 text-amber-900" : "bg-gray-50"
+                          i === 0 ? "text-left bg-gray-50" : i === 2 ? "bg-brand-50 text-brand-900" : i === 3 ? "bg-amber-50 text-amber-900" : "bg-gray-50"
                         }`}
                       >
                         {h}
@@ -293,7 +293,7 @@ export default function PricingPage() {
                         {r.hint && <div className="text-xs text-emerald-700 mt-0.5">{r.hint}</div>}
                       </td>
                       <td className="p-3 text-center"><Cell value={r.free} /></td>
-                      <td className="p-3 text-center bg-purple-50/30"><Cell value={r.pro} /></td>
+                      <td className="p-3 text-center bg-brand-50/30"><Cell value={r.pro} /></td>
                       <td className="p-3 text-center bg-amber-50/30"><Cell value={r.lifetime} /></td>
                     </tr>
                   ))}
@@ -306,7 +306,7 @@ export default function PricingPage() {
           <div className="mt-12 text-center">
             <p className="text-sm text-gray-600">
               Already paid?{" "}
-              <Link href="/unlock" className="font-semibold text-purple-700 underline">
+              <Link href="/unlock" className="font-semibold text-brand-700 underline">
                 Activate your license →
               </Link>
             </p>

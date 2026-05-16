@@ -9,265 +9,290 @@ import {
   Mic,
   Flame,
   Github,
-  Linkedin as LinkedinIcon,
   FileText,
   Briefcase,
   TrendingUp,
   DollarSign,
   Lightbulb,
-  Bot,
-  ListTodo,
-  Eye,
+  Linkedin as LinkedinIcon,
+  Check,
   Shield,
-  Zap,
-  Star,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import MarketingHero from "@/components/marketing-hero";
 import TrustBand from "@/components/trust-band";
-import { AnimatedSection, FadeIn, StaggerContainer, StaggerItem } from "@/components/ui/animated-section";
+import {
+  AnimatedSection,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/ui/animated-section";
 import { MONETIZATION, openCheckout } from "@/lib/monetization";
 
 const STEPS = [
   {
-    n: 1,
+    n: "01",
     title: "Paste your resume",
     body: "Drag a PDF or paste text. AI extracts roles, skills, and projects in 30 seconds.",
-    emoji: "📄",
   },
   {
-    n: 2,
+    n: "02",
     title: "Polish with AI",
     body: "Click ✨ on any field to rewrite. Use the toolkit: Roast, JD Match, Cover Letter, Interview prep.",
-    emoji: "✨",
   },
   {
-    n: 3,
+    n: "03",
     title: "Share or deploy",
     body: "Copy your portfolio link and send to recruiters. Or one-click deploy to your own domain.",
-    emoji: "🚀",
   },
 ];
 
+// Bento layout — each tool gets a tile, sizes vary for premium asymmetric feel
 const TOOLS = [
-  { emoji: "🔥", title: "Roast My Resume", body: "Brutal AI critique on a shareable card.", href: "/tools/roast", color: "from-red-500 to-orange-500" },
-  { emoji: "🎯", title: "Application Pack", body: "Cover letter + cold email + LinkedIn DM + thank-you. One JD, one click.", href: "/tools/apply", color: "from-blue-500 to-cyan-500" },
-  { emoji: "🧲", title: "JD Matcher", body: "Paste any job description. See match %. AI tailors your bio to it.", href: "/tools/match", color: "from-purple-500 to-pink-500" },
-  { emoji: "🎤", title: "Mock Interview", body: "Real questions based on YOUR resume. AI grades your answers.", href: "/tools/interview", color: "from-violet-500 to-purple-700" },
-  { emoji: "💼", title: "LinkedIn Optimizer", body: "Recruiter-magnet headline + About + bullets. Paste into LinkedIn.", href: "/tools/linkedin", color: "from-sky-600 to-blue-700" },
-  { emoji: "🐙", title: "GitHub README", body: "Beautiful profile README from your portfolio. Recruiters check first.", href: "/tools/readme", color: "from-gray-700 to-gray-900" },
-  { emoji: "📈", title: "Skill Gap Analyzer", body: "Target a role. AI shows exactly what to learn + build to land it.", href: "/tools/skills", color: "from-emerald-500 to-teal-600" },
-  { emoji: "💰", title: "Salary Negotiator", body: "Paste your offer. Get a script + market data to push for more.", href: "/tools/salary", color: "from-amber-500 to-orange-600" },
-  { emoji: "💡", title: "Project Idea Generator", body: "Stop building TODO apps. Get ideas matched to your gaps.", href: "/tools/projects", color: "from-fuchsia-500 to-pink-600" },
+  { icon: Flame,       title: "Roast My Resume",     body: "Brutal AI critique on a shareable card.",                        href: "/tools/roast",     span: "md:col-span-2" },
+  { icon: Target,      title: "JD Matcher",          body: "Paste any job description. See match %. AI tailors your bio.",    href: "/tools/match",     span: "" },
+  { icon: Briefcase,   title: "Application Pack",    body: "Cover letter + cold email + LinkedIn DM + thank-you. One click.", href: "/tools/apply",     span: "" },
+  { icon: Mic,         title: "Mock Interview",      body: "Real questions from YOUR resume. AI grades your answers.",         href: "/tools/interview", span: "md:col-span-2" },
+  { icon: LinkedinIcon,title: "LinkedIn Optimizer",  body: "Recruiter-magnet headline + About + bullets.",                    href: "/tools/linkedin",  span: "" },
+  { icon: Github,      title: "GitHub README",       body: "Beautiful profile README from your portfolio.",                    href: "/tools/readme",    span: "" },
+  { icon: TrendingUp,  title: "Skill Gap Analyzer",  body: "Target a role. AI shows what to learn + build.",                  href: "/tools/skills",    span: "" },
+  { icon: DollarSign,  title: "Salary Negotiator",   body: "Paste your offer. Get a script + market data.",                   href: "/tools/salary",    span: "" },
+  { icon: Lightbulb,   title: "Project Ideas",       body: "Stop building TODO apps. Ideas matched to your gaps.",            href: "/tools/projects",  span: "" },
 ];
 
-const PAIN_BOXES = [
-  {
-    pain: "Resume.io makes you pay $16/mo just to download YOUR resume.",
-    fix: "PDF download always free.",
-  },
-  {
-    pain: "Rezi's AI gives generic advice — it doesn't know YOUR experience.",
-    fix: "Our AI reads your full portfolio. Every suggestion is yours.",
-  },
-  {
-    pain: "ChatGPT can rewrite, but it can't build a portfolio site for you.",
-    fix: "Both. From the same data.",
-  },
-  {
-    pain: "Subscriptions stack up while you're job hunting.",
-    fix: "$9 once. Or $0 forever with your own API key.",
-  },
+const COMPARE = [
+  { you: "Pay $16/mo just to download YOUR resume",     us: "PDF download — always free" },
+  { you: "Generic AI advice that doesn't know your work", us: "AI reads your full portfolio — every suggestion is yours" },
+  { you: "ChatGPT can rewrite, but can't build a site",  us: "Site + PDF + cover letters, from one source" },
+  { you: "Subscriptions stack up while you job hunt",    us: "$9 once — or free with your own API key" },
 ];
 
 export default function Home() {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden bg-white">
       <MarketingHero />
       <TrustBand />
 
-      {/* How it works — 3 steps */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.25em] font-semibold text-gray-500 mb-3">
+      {/* Steps — minimal, numbered */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-4">
               How it works
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-gray-900 tracking-tighter">
-              Three steps. Zero learning curve.
+            <h2 className="font-display text-4xl md:text-6xl font-medium text-gray-900 tracking-tighter leading-[1.05]">
+              Three steps.
+              <br />
+              <span className="text-gray-400">Zero learning curve.</span>
             </h2>
           </AnimatedSection>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200/70 rounded-2xl overflow-hidden border border-gray-200/70">
             {STEPS.map(s => (
               <StaggerItem key={s.n}>
-                <Card className="h-full text-center" hover={false}>
-                  <CardContent className="p-8">
-                    <div className="text-5xl mb-4">{s.emoji}</div>
-                    <div className="font-display text-sm font-bold text-brand-600 mb-2 uppercase tracking-wider">
-                      Step {s.n}
-                    </div>
-                    <h3 className="font-display text-xl font-semibold text-gray-900 mb-2 tracking-tight">
-                      {s.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{s.body}</p>
-                  </CardContent>
-                </Card>
+                <div className="h-full bg-white p-8 md:p-10">
+                  <div className="font-display text-sm font-medium text-brand-600 mb-6 tracking-widest">
+                    {s.n}
+                  </div>
+                  <h3 className="font-display text-xl md:text-2xl font-medium text-gray-900 mb-3 tracking-tight">
+                    {s.title}
+                  </h3>
+                  <p className="text-[15px] text-gray-500 leading-relaxed">{s.body}</p>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
 
-          <div className="text-center mt-10">
-            <Link href="/build">
-              <Button size="lg">
-                <Sparkles size={16} className="mr-2" />
-                Start building — free
-                <ArrowRight size={16} className="ml-2" />
-              </Button>
+          <div className="text-center mt-14">
+            <Link
+              href="/admin"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[15px] font-semibold text-white bg-gray-900 hover:bg-black hover:-translate-y-0.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)] hover:shadow-[0_14px_32px_-10px_rgba(0,0,0,0.45)] transition-all duration-200"
+            >
+              <Sparkles size={15} className="text-brand-300" />
+              Start building — free
+              <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <p className="text-xs text-gray-500 mt-3">No credit card · No signup · Your data stays in your browser</p>
           </div>
         </div>
       </section>
 
-      {/* Pain → Fix grid (anti-competitor positioning) */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.25em] font-semibold text-gray-500 mb-3">
+      {/* Compare strip — clean two-column, no boxes */}
+      <section className="py-24 md:py-32 bg-gray-50/70 border-y border-gray-200/70">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-4">
               Why Hyred
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-gray-900 tracking-tighter">
-              Built differently. <span className="gradient-text italic font-normal">On purpose.</span>
+            <h2 className="font-display text-4xl md:text-6xl font-medium text-gray-900 tracking-tighter leading-[1.05]">
+              Built differently.
+              <br />
+              <span className="italic font-normal text-gray-400">On purpose.</span>
             </h2>
           </AnimatedSection>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {PAIN_BOXES.map(p => (
-              <StaggerItem key={p.pain}>
-                <Card className="h-full" hover={false}>
-                  <CardContent className="p-6">
-                    <p className="text-sm text-gray-500 line-through mb-3 leading-relaxed">
-                      {p.pain}
-                    </p>
-                    <p className="text-base font-semibold text-gray-900 flex items-start gap-2">
-                      <span className="text-emerald-600 mt-1 flex-shrink-0">→</span>
-                      {p.fix}
-                    </p>
-                  </CardContent>
-                </Card>
-              </StaggerItem>
+          <div className="max-w-3xl mx-auto divide-y divide-gray-200/80">
+            {COMPARE.map((c, i) => (
+              <AnimatedSection key={i}>
+                <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] items-center gap-4 md:gap-8 py-6">
+                  <p className="text-[15px] text-gray-400 line-through leading-relaxed">
+                    {c.you}
+                  </p>
+                  <ArrowRight size={16} className="hidden md:block text-gray-300 justify-self-center" />
+                  <p className="text-[15px] font-medium text-gray-900 leading-relaxed inline-flex items-start gap-2">
+                    <Check size={16} className="text-brand-600 mt-1 flex-shrink-0" />
+                    {c.us}
+                  </p>
+                </div>
+              </AnimatedSection>
             ))}
-          </StaggerContainer>
+          </div>
 
-          <div className="text-center mt-8">
-            <Link href="/compare" className="text-sm font-semibold text-brand-700 hover:text-brand-900 inline-flex items-center gap-1">
-              Full comparison vs. Rezi, Enhancv, Resume.io →
+          <div className="text-center mt-12">
+            <Link
+              href="/compare"
+              className="text-sm font-medium text-gray-700 hover:text-gray-900 inline-flex items-center gap-1.5 group"
+            >
+              Full comparison vs. Rezi, Enhancv, Resume.io
+              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* AI Tools grid */}
-      <section className="py-20 bg-white">
+      {/* Bento tools grid — premium asymmetric layout */}
+      <section className="py-24 md:py-32 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.25em] font-semibold text-gray-500 mb-3">
+          <AnimatedSection className="text-center mb-16">
+            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-4">
               The toolkit
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-gray-900 tracking-tighter mb-3">
-              9 AI tools you can&apos;t get anywhere else.
+            <h2 className="font-display text-4xl md:text-6xl font-medium text-gray-900 tracking-tighter leading-[1.05] mb-4">
+              Nine AI tools.
+              <br />
+              <span className="text-gray-400">One workflow.</span>
             </h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
+            <p className="text-[15px] text-gray-500 max-w-md mx-auto">
               Each one solves a real job-hunt pain. Free with your own AI key.
             </p>
           </AnimatedSection>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {TOOLS.map(t => (
-              <StaggerItem key={t.title}>
-                <Link href={t.href} className="block h-full group">
-                  <Card className="h-full" hover={false}>
-                    <CardContent className="p-6 flex items-start gap-3">
-                      <span
-                        className={`flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br ${t.color} flex items-center justify-center text-lg shadow-sm`}
-                      >
-                        {t.emoji}
-                      </span>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 mb-1 flex items-center gap-1.5">
-                          {t.title}
-                          <ArrowRight
-                            size={14}
-                            className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition text-gray-400"
-                          />
-                        </h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">{t.body}</p>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {TOOLS.map(t => {
+              const Icon = t.icon;
+              return (
+                <StaggerItem key={t.title} className={t.span}>
+                  <Link
+                    href={t.href}
+                    className="group relative block h-full p-6 md:p-7 rounded-2xl bg-white border border-gray-200/70 hover:border-gray-300 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-12px_rgba(0,0,0,0.12)]"
+                  >
+                    <div className="flex flex-col h-full min-h-[140px]">
+                      <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-200/70 flex items-center justify-center mb-5 group-hover:bg-gray-900 group-hover:border-gray-900 transition-colors duration-300">
+                        <Icon size={18} className="text-gray-700 group-hover:text-brand-300 transition-colors duration-300" />
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </StaggerItem>
-            ))}
+                      <h3 className="font-display text-lg font-medium text-gray-900 mb-1.5 tracking-tight">
+                        {t.title}
+                      </h3>
+                      <p className="text-[14px] text-gray-500 leading-relaxed">{t.body}</p>
+                      <ArrowRight
+                        size={15}
+                        className="absolute top-6 right-6 text-gray-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                      />
+                    </div>
+                  </Link>
+                </StaggerItem>
+              );
+            })}
           </StaggerContainer>
 
-          <div className="text-center mt-10">
-            <Link href="/tools">
-              <Button variant="outline" size="lg">
-                See all tools
-                <ArrowRight size={16} className="ml-2" />
-              </Button>
+          <div className="text-center mt-12">
+            <Link
+              href="/tools"
+              className="text-sm font-medium text-gray-700 hover:text-gray-900 inline-flex items-center gap-1.5 group"
+            >
+              Browse all tools
+              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Pricing teaser */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      {/* Pricing teaser — minimal three-up, single signature highlight */}
+      <section className="py-24 md:py-32 bg-gray-50/70 border-y border-gray-200/70">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <p className="text-xs uppercase tracking-[0.25em] font-semibold text-gray-500 mb-3">
+            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-4">
               Pricing
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-gray-900 tracking-tighter mb-3">
-              Free forever. <span className="gradient-text italic font-normal">Pay only if you love it.</span>
+            <h2 className="font-display text-4xl md:text-6xl font-medium text-gray-900 tracking-tighter leading-[1.05] mb-4">
+              Free forever.
+              <br />
+              <span className="italic font-normal text-gray-400">Pay if you love it.</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-              Every feature works on Free with your own AI key. Pro is one-time {MONETIZATION.proPriceUSD} for hosted AI + extras. No subscriptions. Ever.
+            <p className="text-[15px] text-gray-500 max-w-lg mx-auto mb-14">
+              Every feature works on Free with your own AI key. Pro is one-time {MONETIZATION.proPriceUSD} for hosted AI + extras. No subscriptions.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto mb-10">
               {[
-                { name: "Free", price: "$0", note: "forever", cta: "Start" },
-                { name: "Pro", price: MONETIZATION.proPriceUSD, note: "once", cta: "Buy", highlight: true },
-                { name: "Lifetime", price: MONETIZATION.lifetimePriceUSD, note: "once", cta: "Buy" },
-              ].map(t => (
-                <Card key={t.name} hover={false} className={t.highlight ? "ring-2 ring-brand-400" : ""}>
-                  <CardContent className="p-5 text-center">
-                    <p className="text-xs uppercase tracking-wider font-bold text-gray-500 mb-1">{t.name}</p>
-                    <div className="font-display text-3xl font-semibold text-gray-900">{t.price}</div>
-                    <div className="text-xs text-gray-500 mb-3">{t.note}</div>
-                  </CardContent>
-                </Card>
-              ))}
+                { name: "Free", price: "$0", note: "forever" },
+                { name: "Pro", price: MONETIZATION.proPriceUSD, note: "one-time", highlight: true },
+                { name: "Lifetime", price: MONETIZATION.lifetimePriceUSD, note: "one-time" },
+              ].map(t =>
+                t.highlight ? (
+                  <div
+                    key={t.name}
+                    className="relative p-6 rounded-2xl text-center"
+                    style={{
+                      background:
+                        "linear-gradient(#ffffff,#ffffff) padding-box, linear-gradient(135deg, #0d9488 0%, #84cc16 100%) border-box",
+                      border: "1.5px solid transparent",
+                      boxShadow:
+                        "0 1px 2px rgba(13,148,136,0.06), 0 12px 28px -12px rgba(13,148,136,0.18)",
+                    }}
+                  >
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-brand-600 to-lime-500 shadow-sm">
+                      Most popular
+                    </span>
+                    <p className="text-[11px] uppercase tracking-widest font-semibold text-gray-500 mb-2">
+                      {t.name}
+                    </p>
+                    <div className="font-display text-3xl md:text-4xl font-medium text-gray-900">
+                      {t.price}
+                    </div>
+                    <div className="text-[12px] text-gray-500 mt-1">{t.note}</div>
+                  </div>
+                ) : (
+                  <div
+                    key={t.name}
+                    className="p-6 rounded-2xl bg-white border border-gray-200/70 text-center"
+                  >
+                    <p className="text-[11px] uppercase tracking-widest font-semibold text-gray-500 mb-2">
+                      {t.name}
+                    </p>
+                    <div className="font-display text-3xl md:text-4xl font-medium text-gray-900">
+                      {t.price}
+                    </div>
+                    <div className="text-[12px] text-gray-500 mt-1">{t.note}</div>
+                  </div>
+                )
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/pricing">
-                <Button size="lg">
-                  See full pricing
-                  <ArrowRight size={16} className="ml-2" />
-                </Button>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[14px] font-semibold text-white bg-gray-900 hover:bg-black hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)]"
+              >
+                See full pricing
+                <ArrowRight size={14} />
               </Link>
-              <Link href="/build">
-                <Button variant="outline" size="lg">
-                  Start free
-                </Button>
+              <Link
+                href="/admin"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[14px] font-medium text-gray-700 hover:text-gray-900 border border-gray-200 bg-white hover:border-gray-300 transition"
+              >
+                Start free
               </Link>
             </div>
 
-            <p className="text-xs text-gray-500 mt-4 inline-flex items-center gap-1.5">
+            <p className="text-[12px] text-gray-400 mt-6 inline-flex items-center gap-1.5">
               <Shield size={11} />
               {MONETIZATION.moneyBackDays}-day refund · {MONETIZATION.studentPriceUSD} for students with .edu
             </p>
@@ -275,56 +300,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* See a live example */}
-      <section className="py-16 bg-gray-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-grain opacity-20" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Eye size={32} className="mx-auto mb-4 opacity-80" />
-          <h2 className="font-display text-3xl md:text-4xl font-semibold mb-3 tracking-tight">
-            See a portfolio built with Hyred.
+      {/* Live example — premium dark band */}
+      <section className="py-20 md:py-28 bg-gray-950 text-white relative overflow-hidden">
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(132,204,22,0.4), rgba(13,148,136,0.5), transparent)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-grain opacity-[0.07]" aria-hidden="true" />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-500 mb-5">
+            Live example
+          </p>
+          <h2 className="font-display text-3xl md:text-5xl font-medium tracking-tight mb-4 leading-tight">
+            See what a Hyred portfolio
+            <br />
+            <span className="text-gray-500">actually looks like.</span>
           </h2>
-          <p className="text-gray-300 mb-6 max-w-xl mx-auto">
+          <p className="text-[15px] text-gray-400 mb-8 max-w-md mx-auto">
             A real live portfolio rendered from Hyred data. Mobile-clean, ATS-friendly, recruiter-tested.
           </p>
-          <Link href="/preview">
-            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-gray-900 font-semibold hover:bg-gray-100 transition">
-              View live example
-              <ArrowRight size={16} />
-            </button>
+          <Link
+            href="/preview"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-[14px] font-semibold text-gray-900 bg-white hover:bg-gray-100 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.4)]"
+          >
+            View live example
+            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section
-        className="py-24"
-        style={{
-          background: `linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)`,
-        }}
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Final CTA — luxurious near-black with single signature line */}
+      <section className="py-28 md:py-36 bg-gray-950 text-white relative overflow-hidden">
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(13,148,136,0.5), rgba(132,204,22,0.5), transparent)",
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            background:
+              "radial-gradient(800px 400px at 50% 100%, rgba(13,148,136,0.15), transparent 60%)",
+          }}
+        />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-white mb-4 tracking-tightest">
-              Stop building TODO apps.
+            <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium tracking-tightest mb-6 leading-[0.95]">
+              Stop building
               <br />
-              <span className="italic font-normal opacity-90">Start landing interviews.</span>
+              <span className="text-gray-500">TODO apps.</span>
+              <br />
+              Start landing interviews.
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              7 minutes from blank page to recruiter-ready portfolio. Free forever to try.
+            <p className="text-lg text-gray-400 mb-10 max-w-md mx-auto">
+              7 minutes from blank page to recruiter-ready. Free forever to try.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/build">
-                <button className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-white text-brand-700 font-bold shadow-xl hover:scale-105 transition">
-                  <Sparkles size={16} />
-                  Build mine free
-                  <ArrowRight size={16} />
-                </button>
+              <Link
+                href="/admin"
+                className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-[15px] font-semibold text-gray-900 bg-white hover:bg-gray-100 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_24px_-8px_rgba(255,255,255,0.2)]"
+              >
+                <Sparkles size={15} className="text-brand-600" />
+                Build mine free
+                <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <button
                 onClick={() => openCheckout("pro")}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-white/10 text-white border border-white/30 backdrop-blur font-semibold hover:bg-white/20 transition"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-[15px] font-medium text-white bg-white/[0.06] border border-white/15 hover:bg-white/10 hover:border-white/25 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur"
               >
-                <Zap size={16} className="fill-white" />
                 Unlock Pro · {MONETIZATION.proPriceUSD}
               </button>
             </div>

@@ -42,7 +42,7 @@ const KIND_STYLES: Record<ToastKind, { icon: typeof CheckCircle2; bar: string; i
   success: { icon: CheckCircle2, bar: "bg-emerald-500", iconColor: "text-emerald-500" },
   error: { icon: AlertCircle, bar: "bg-red-500", iconColor: "text-red-500" },
   info: { icon: Info, bar: "bg-blue-500", iconColor: "text-blue-500" },
-  ai: { icon: Sparkles, bar: "bg-purple-500", iconColor: "text-purple-500" },
+  ai: { icon: Sparkles, bar: "bg-brand-500", iconColor: "text-brand-500" },
 };
 
 let counter = 0;

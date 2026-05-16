@@ -31,7 +31,7 @@ export default function StickyHireMe() {
   if (!data.personalInfo.openToWork) return null;
 
   const gradFrom = data.personalInfo.brand?.gradientFrom || "#2563eb";
-  const gradTo = data.personalInfo.brand?.gradientTo || "#7c3aed";
+  const gradTo = data.personalInfo.brand?.gradientTo || "#0d9488";
 
   return (
     <div

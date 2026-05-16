@@ -16,7 +16,7 @@ import {
 } from "@/lib/ai";
 
 const CATEGORY_STYLES: Record<InterviewQuestion["category"], { bg: string; text: string; label: string }> = {
-  behavioral: { bg: "bg-purple-100", text: "text-purple-800", label: "Behavioral" },
+  behavioral: { bg: "bg-brand-100", text: "text-brand-800", label: "Behavioral" },
   technical: { bg: "bg-blue-100", text: "text-blue-800", label: "Technical" },
   "system-design": { bg: "bg-amber-100", text: "text-amber-800", label: "System Design" },
   "role-fit": { bg: "bg-emerald-100", text: "text-emerald-800", label: "Role Fit" },
@@ -290,10 +290,10 @@ export default function InterviewPage() {
                       )}
 
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-purple-700 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1">
                           Model answer (STAR)
                         </p>
-                        <p className="text-sm text-gray-700 bg-purple-50 p-3 rounded border border-purple-100 leading-relaxed">
+                        <p className="text-sm text-gray-700 bg-brand-50 p-3 rounded border border-brand-100 leading-relaxed">
                           {currentFeedback.modelAnswer}
                         </p>
                       </div>

@@ -133,7 +133,7 @@ export default function FirstTimeSetup() {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <Card className="w-full max-w-2xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-brand-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <Icon className="text-white" size={32} />
           </div>
           <h2 className="text-2xl font-bold">{currentStep.title}</h2>

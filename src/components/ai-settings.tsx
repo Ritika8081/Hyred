@@ -61,7 +61,7 @@ export default function AISettings() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold flex items-center">
-            <Sparkles className="mr-2 text-purple-600" />
+            <Sparkles className="mr-2 text-brand-600" />
             AI Assistant
           </h3>
           {config.apiKey && (

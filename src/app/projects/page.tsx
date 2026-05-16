@@ -42,7 +42,7 @@ export default function ProjectsPage() {
     all: 'bg-gray-600 hover:bg-gray-700',
     web: 'bg-blue-600 hover:bg-blue-700',
     mobile: 'bg-green-600 hover:bg-green-700',
-    desktop: 'bg-purple-600 hover:bg-purple-700',
+    desktop: 'bg-brand-600 hover:bg-brand-700',
     ai: 'bg-orange-600 hover:bg-orange-700',
     other: 'bg-gray-600 hover:bg-gray-700'
   };
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-brand-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">

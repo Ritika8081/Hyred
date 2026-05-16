@@ -49,7 +49,7 @@ export default function ReviewsPage() {
   ].filter(Boolean) as Array<{ label: string; value: string }>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-white">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50 via-white to-white">
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
@@ -112,7 +112,7 @@ export default function ReviewsPage() {
                           />
                         ))}
                       </div>
-                      <Quote size={20} className="text-purple-300 mb-2" />
+                      <Quote size={20} className="text-brand-300 mb-2" />
                       <p className="text-gray-700 leading-relaxed mb-4 text-sm">
                         &ldquo;{r.quote}&rdquo;
                       </p>
@@ -146,7 +146,7 @@ export default function ReviewsPage() {
           )}
 
           {/* CTA — share your story */}
-          <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 text-white text-center">
+          <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-brand-600 to-coral-600 text-white text-center">
             <MessageCircle size={32} className="mx-auto mb-3 opacity-90" />
             <h2 className="font-display text-2xl md:text-3xl font-semibold mb-2 tracking-tight">
               Got a Hyred story?
@@ -156,7 +156,7 @@ export default function ReviewsPage() {
             </p>
             <a
               href={`mailto:${MONETIZATION.feedbackEmail}?subject=My Hyred story`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-purple-700 font-semibold hover:scale-105 transition"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-brand-700 font-semibold hover:scale-105 transition"
             >
               Send your story
               <ArrowRight size={16} />

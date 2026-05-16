@@ -57,7 +57,7 @@ export default function Avatar({
 
   const initials = getInitials(name);
   const from = gradientFrom || "#2563eb";
-  const to = gradientTo || "#7c3aed";
+  const to = gradientTo || "#0d9488";
 
   return (
     <div

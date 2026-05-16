@@ -12,6 +12,7 @@ const COLUMNS = [
       { name: 'Pricing', href: '/pricing' },
       { name: 'Compare', href: '/compare' },
       { name: 'Reviews', href: '/reviews' },
+      { name: 'Help & onboarding', href: '/help' },
       { name: 'Deploy guide', href: '/deploy' },
       { name: 'Activate license', href: '/unlock' },
     ],

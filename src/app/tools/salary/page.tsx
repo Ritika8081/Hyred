@@ -162,14 +162,14 @@ export default function SalaryPage() {
           {/* Talking points */}
           <Card hover={false}>
             <CardContent className="p-6">
-              <h3 className="text-sm uppercase tracking-wider font-bold text-purple-700 mb-3 flex items-center gap-1.5">
+              <h3 className="text-sm uppercase tracking-wider font-bold text-brand-700 mb-3 flex items-center gap-1.5">
                 <MessageCircle size={14} />
                 If they push back, say this
               </h3>
               <ul className="space-y-2">
                 {advice.talkingPoints.map((p, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 text-purple-700 text-xs font-bold flex items-center justify-center mt-0.5">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center mt-0.5">
                       {i + 1}
                     </span>
                     {p}

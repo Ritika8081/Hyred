@@ -132,7 +132,7 @@ Happy building! 🚀
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-20">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-brand-50 py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -316,7 +316,7 @@ Happy building! 🚀
                       Use the admin panel (/admin) to add projects, update skills, and manage your portfolio content without touching code.
                     </p>
                   </div>
-                  <div className="p-4 bg-purple-50 rounded-lg">
+                  <div className="p-4 bg-brand-50 rounded-lg">
                     <h3 className="font-semibold mb-2">🚀 Deployment</h3>
                     <p className="text-sm text-gray-600">
                       Deploy to Vercel, Netlify, or any platform that supports Next.js. GitHub integration allows you to update content directly.

@@ -153,7 +153,7 @@ export default function ResumeImporter({ onParsed, current }: ResumeImporterProp
   };
 
   return (
-    <Card className="mb-6 border-2 border-purple-200" hover={false}>
+    <Card className="mb-6 border-2 border-brand-200" hover={false}>
       <CardHeader>
         <button
           type="button"
@@ -161,7 +161,7 @@ export default function ResumeImporter({ onParsed, current }: ResumeImporterProp
           className="w-full flex items-center justify-between text-left"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-600 to-coral-600 flex items-center justify-center flex-shrink-0">
               <Wand2 size={20} className="text-white" />
             </div>
             <div>
@@ -186,7 +186,7 @@ export default function ResumeImporter({ onParsed, current }: ResumeImporterProp
                 className="hidden"
                 onChange={e => e.target.files?.[0] && onFile(e.target.files[0])}
               />
-              <span className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border-2 border-purple-300 bg-purple-50 hover:bg-purple-100 text-sm text-purple-800 cursor-pointer font-semibold">
+              <span className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border-2 border-brand-300 bg-brand-50 hover:bg-brand-100 text-sm text-brand-800 cursor-pointer font-semibold">
                 {parsingPdf ? <Loader2 size={14} className="animate-spin" /> : <FileUp size={14} />}
                 {parsingPdf ? "Parsing PDF…" : "Upload PDF or text file"}
               </span>

@@ -21,9 +21,9 @@ export const portfolioData: Portfolio = {
       "Open Source Contributor"
     ],
     brand: {
-      accent: "#2563eb",
-      gradientFrom: "#2563eb",
-      gradientTo: "#7c3aed"
+      accent: "#0d9488",
+      gradientFrom: "#0d9488",
+      gradientTo: "#84cc16"
     },
     highlights: [
       "Shipped browser-first ECG + EEG products with TensorFlow.js inference under 10 ms",

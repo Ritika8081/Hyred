@@ -122,7 +122,7 @@ export default function ApplyPage() {
                     onClick={() => setActiveTab(t.id)}
                     className={`px-4 py-3 text-sm font-medium border-b-2 transition whitespace-nowrap ${
                       activeTab === t.id
-                        ? "border-purple-600 text-purple-700 bg-purple-50"
+                        ? "border-brand-600 text-brand-700 bg-brand-50"
                         : "border-transparent text-gray-600 hover:text-gray-900"
                     }`}
                   >

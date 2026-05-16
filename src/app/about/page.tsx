@@ -44,7 +44,7 @@ export default function AboutPage() {
   }
 
   const gradFrom = personalInfo.brand?.gradientFrom || "#2563eb";
-  const gradTo = personalInfo.brand?.gradientTo || "#7c3aed";
+  const gradTo = personalInfo.brand?.gradientTo || "#0d9488";
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -350,7 +350,7 @@ export default function AboutPage() {
                               {edu.coursework.map(course => (
                                 <span
                                   key={course}
-                                  className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium"
+                                  className="px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm font-medium"
                                 >
                                   {course}
                                 </span>

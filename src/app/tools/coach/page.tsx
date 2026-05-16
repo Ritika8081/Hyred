@@ -75,9 +75,9 @@ function CoachChat() {
     <Card hover={false} className="overflow-hidden">
       <CardContent className="p-0 flex flex-col h-[600px]">
         {/* Header */}
-        <div className="px-4 py-3 border-b bg-gradient-to-r from-purple-50 to-pink-50 flex items-center justify-between">
+        <div className="px-4 py-3 border-b bg-gradient-to-r from-brand-50 to-coral-50 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-600 to-coral-600 flex items-center justify-center">
               <Bot size={16} className="text-white" />
             </div>
             <div>
@@ -112,7 +112,7 @@ function CoachChat() {
                     key={p}
                     type="button"
                     onClick={() => send(p)}
-                    className="text-left text-xs p-2.5 rounded-lg border border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition text-gray-700"
+                    className="text-left text-xs p-2.5 rounded-lg border border-gray-200 hover:border-brand-400 hover:bg-brand-50 transition text-gray-700"
                   >
                     {p}
                   </button>
@@ -129,7 +129,7 @@ function CoachChat() {
                   className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
                     m.role === "user"
                       ? "bg-gray-200 text-gray-700"
-                      : "bg-gradient-to-br from-purple-600 to-pink-600 text-white"
+                      : "bg-gradient-to-br from-brand-600 to-coral-600 text-white"
                   }`}
                 >
                   {m.role === "user" ? <User size={14} /> : <Bot size={14} />}
@@ -137,7 +137,7 @@ function CoachChat() {
                 <div
                   className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
                     m.role === "user"
-                      ? "bg-purple-600 text-white"
+                      ? "bg-brand-600 text-white"
                       : "bg-gray-100 text-gray-900"
                   }`}
                 >
@@ -149,7 +149,7 @@ function CoachChat() {
 
           {loading && (
             <div className="flex gap-2">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white flex-shrink-0">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-brand-600 to-coral-600 flex items-center justify-center text-white flex-shrink-0">
                 <Bot size={14} />
               </div>
               <div className="bg-gray-100 rounded-2xl px-4 py-2 flex items-center gap-2">

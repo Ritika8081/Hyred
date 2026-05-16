@@ -15,7 +15,7 @@ const HYRED_NAV = [
   { name: 'AI Tools', href: '/tools' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'Compare', href: '/compare' },
-  { name: 'Reviews', href: '/reviews' },
+  { name: 'Help', href: '/help' },
 ];
 
 // Portfolio (user's site) navigation
@@ -71,7 +71,7 @@ export default function Navigation() {
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm"
                   style={{
-                    background: `linear-gradient(135deg, ${data.personalInfo.brand?.gradientFrom || "#7c3aed"}, ${data.personalInfo.brand?.gradientTo || "#ec4899"})`,
+                    background: `linear-gradient(135deg, ${data.personalInfo.brand?.gradientFrom || "#0d9488"}, ${data.personalInfo.brand?.gradientTo || "#84cc16"})`,
                   }}
                 >
                   {data.personalInfo.name?.charAt(0).toUpperCase() || "?"}
@@ -124,11 +124,11 @@ export default function Navigation() {
                 </Link>
                 <Link
                   href="/build"
-                  className="ml-2 inline-flex items-center gap-1.5 pl-3 pr-4 py-1.5 rounded-md text-sm font-semibold text-white bg-gradient-to-b from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_2px_8px_rgba(124,58,237,0.25)] transition"
+                  className="group ml-2 inline-flex items-center gap-1.5 pl-3 pr-4 py-1.5 rounded-full text-sm font-semibold text-white bg-gray-900 hover:bg-black shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] hover:-translate-y-px transition-all duration-200"
                 >
-                  <Sparkles size={13} />
+                  <Sparkles size={13} className="text-brand-300" />
                   Start free
-                  <ArrowRight size={13} />
+                  <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                 </Link>
               </>
             )}
@@ -195,7 +195,7 @@ export default function Navigation() {
                   <Link
                     href="/build"
                     onClick={() => setIsOpen(false)}
-                    className="mt-2 block w-full text-center px-3 py-2.5 rounded-md text-base font-semibold text-white bg-gradient-to-b from-brand-600 to-brand-700 shadow"
+                    className="mt-2 block w-full text-center px-3 py-2.5 rounded-full text-base font-semibold text-white bg-gray-900 hover:bg-black transition"
                   >
                     Start free →
                   </Link>

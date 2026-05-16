@@ -16,12 +16,12 @@ export default function DeployPage() {
   const [step, setStep] = useState(1);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-white">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50 via-white to-white">
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-10">
-              <Rocket size={48} className="mx-auto mb-3 text-purple-600" />
+              <Rocket size={48} className="mx-auto mb-3 text-brand-600" />
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
                 Deploy your portfolio in 3 minutes
               </h1>
@@ -204,7 +204,7 @@ function DeployStep({
   children: React.ReactNode;
 }) {
   return (
-    <Card hover={false} className={active ? "border-purple-400 ring-1 ring-purple-200" : ""}>
+    <Card hover={false} className={active ? "border-brand-400 ring-1 ring-brand-200" : ""}>
       <CardContent className="p-5">
         <button
           type="button"
@@ -216,7 +216,7 @@ function DeployStep({
               done
                 ? "bg-emerald-500 text-white"
                 : active
-                ? "bg-purple-600 text-white"
+                ? "bg-brand-600 text-white"
                 : "bg-gray-200 text-gray-700"
             }`}
           >

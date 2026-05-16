@@ -12,7 +12,7 @@ import { aiSuggestProjects, buildResumeText, loadAIConfig, ProjectSuggestion } f
 const DIFF_COLOR: Record<ProjectSuggestion["difficulty"], { bg: string; text: string }> = {
   beginner: { bg: "bg-emerald-100", text: "text-emerald-800" },
   intermediate: { bg: "bg-blue-100", text: "text-blue-800" },
-  advanced: { bg: "bg-purple-100", text: "text-purple-800" },
+  advanced: { bg: "bg-brand-100", text: "text-brand-800" },
 };
 
 export default function ProjectsAIPage() {
@@ -141,7 +141,7 @@ export default function ProjectsAIPage() {
                     <ul className="space-y-1 text-sm text-gray-700">
                       {p.features.map((f, j) => (
                         <li key={j} className="flex items-start gap-2">
-                          <span className="text-purple-500 mt-0.5">✓</span>
+                          <span className="text-brand-500 mt-0.5">✓</span>
                           <span>{f}</span>
                         </li>
                       ))}
@@ -162,8 +162,8 @@ export default function ProjectsAIPage() {
             );
           })}
 
-          <Card hover={false} className="bg-purple-50 border-purple-200">
-            <CardContent className="p-4 text-sm text-purple-900">
+          <Card hover={false} className="bg-brand-50 border-brand-200">
+            <CardContent className="p-4 text-sm text-brand-900">
               💡 <strong>Next step:</strong> Pick the one that looks most fun, build the minimum-viable version in a week, and add it to your portfolio via <a href="/admin" className="underline">Admin → Projects</a>. Even a half-done version is better than another TODO app.
             </CardContent>
           </Card>

@@ -235,12 +235,12 @@ export default function CommandPalette() {
                       onClick={() => run(c)}
                       onMouseEnter={() => setActiveIdx(idx)}
                       className={`w-full flex items-center gap-3 p-2 rounded-md text-left text-sm transition ${
-                        isActive ? "bg-purple-50 text-purple-900" : "text-gray-700 hover:bg-gray-50"
+                        isActive ? "bg-brand-50 text-brand-900" : "text-gray-700 hover:bg-gray-50"
                       }`}
                     >
                       <Icon
                         size={16}
-                        className={`flex-shrink-0 ${isActive ? "text-purple-600" : "text-gray-400"}`}
+                        className={`flex-shrink-0 ${isActive ? "text-brand-600" : "text-gray-400"}`}
                       />
                       <span className="flex-1 truncate">{c.label}</span>
                       {c.hint && (

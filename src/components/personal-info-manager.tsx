@@ -240,7 +240,7 @@ export default function PersonalInfoManager({ personalInfo, contact, onUpdate }:
                   <input
                     type="color"
                     className="w-full h-10 border border-gray-300 rounded cursor-pointer"
-                    value={formData.personalInfo.brand?.gradientTo || '#7c3aed'}
+                    value={formData.personalInfo.brand?.gradientTo || '#0d9488'}
                     onChange={(e) => updatePersonalInfo('brand', { ...formData.personalInfo.brand, gradientTo: e.target.value } as any)}
                   />
                 </div>

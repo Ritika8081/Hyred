@@ -18,6 +18,12 @@ interface Preset {
 
 const PRESETS: Preset[] = [
   {
+    id: "aurora",
+    name: "Aurora",
+    description: "Hyred signature — teal to lime",
+    theme: { accent: "#0d9488", gradientFrom: "#0d9488", gradientTo: "#84cc16" },
+  },
+  {
     id: "classic-blue",
     name: "Classic Blue",
     description: "Trusted, recruiter-safe",

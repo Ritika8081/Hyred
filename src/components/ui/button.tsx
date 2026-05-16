@@ -12,7 +12,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        'text-white bg-gradient-to-b from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-1px_0_rgba(0,0,0,0.15),0_4px_12px_rgba(124,58,237,0.25),0_1px_2px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-1px_0_rgba(0,0,0,0.15),0_8px_24px_rgba(124,58,237,0.35),0_1px_2px_rgba(0,0,0,0.05)] hover:-translate-y-px',
+        'text-white bg-gradient-to-b from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-1px_0_rgba(0,0,0,0.15),0_4px_12px_rgba(13,148,136,0.25),0_1px_2px_rgba(0,0,0,0.05)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-1px_0_rgba(0,0,0,0.15),0_8px_24px_rgba(13,148,136,0.35),0_1px_2px_rgba(0,0,0,0.05)] hover:-translate-y-px',
       secondary:
         'bg-gray-900 hover:bg-gray-800 text-white shadow-md hover:shadow-lg hover:-translate-y-px',
       outline:

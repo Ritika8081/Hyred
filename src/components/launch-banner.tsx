@@ -45,7 +45,7 @@ export default function LaunchBanner() {
   };
 
   return (
-    <div className="relative bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white text-sm">
+    <div className="relative bg-gradient-to-r from-brand-600 via-coral-600 to-orange-500 text-white text-sm">
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center gap-3 flex-wrap">
         <Zap size={14} fill="currentColor" />
         <span className="font-semibold">Launch pricing:</span>

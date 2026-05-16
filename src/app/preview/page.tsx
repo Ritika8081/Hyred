@@ -58,7 +58,7 @@ export default function Home() {
 
   const accent = personalInfo.brand?.accent || "#2563eb";
   const gradFrom = personalInfo.brand?.gradientFrom || "#2563eb";
-  const gradTo = personalInfo.brand?.gradientTo || "#7c3aed";
+  const gradTo = personalInfo.brand?.gradientTo || "#0d9488";
 
   const stats = [
     {

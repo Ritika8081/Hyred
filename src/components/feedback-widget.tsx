@@ -74,7 +74,7 @@ export default function FeedbackWidget() {
         <div
           className="fixed bottom-20 left-6 z-50 w-[calc(100vw-3rem)] sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
         >
-          <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-4 flex items-start justify-between">
+          <div className="bg-gradient-to-br from-brand-600 to-coral-600 text-white p-4 flex items-start justify-between">
             <div>
               <h3 className="font-bold">How&apos;s Hyred for you?</h3>
               <p className="text-xs opacity-90 mt-0.5">
@@ -139,7 +139,7 @@ export default function FeedbackWidget() {
               type="button"
               onClick={sendFeedback}
               disabled={sending || (rating === 0 && message.trim().length < 5)}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold text-sm hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-brand-600 to-coral-600 text-white font-semibold text-sm hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send size={14} />
               Send feedback

@@ -16,7 +16,7 @@ export default function MatchPage() {
   const [error, setError] = useState<string | null>(null);
 
   const gradFrom = data.personalInfo.brand?.gradientFrom || "#2563eb";
-  const gradTo = data.personalInfo.brand?.gradientTo || "#7c3aed";
+  const gradTo = data.personalInfo.brand?.gradientTo || "#0d9488";
 
   const handleMatch = async () => {
     setError(null);
@@ -199,7 +199,7 @@ export default function MatchPage() {
                   Apply to portfolio
                 </Button>
               </div>
-              <p className="text-gray-700 leading-relaxed bg-purple-50 p-4 rounded-lg border border-purple-100">
+              <p className="text-gray-700 leading-relaxed bg-brand-50 p-4 rounded-lg border border-brand-100">
                 {result.rewriteSummary}
               </p>
             </CardContent>

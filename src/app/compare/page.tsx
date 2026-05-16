@@ -58,11 +58,11 @@ function Cell({ value }: { value: string | boolean }) {
 
 export default function ComparePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-white">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50 via-white to-white">
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <div className="inline-flex items-center gap-1.5 mb-4 px-3 py-1 rounded-full text-xs font-semibold text-purple-700 bg-purple-100">
+            <div className="inline-flex items-center gap-1.5 mb-4 px-3 py-1 rounded-full text-xs font-semibold text-brand-700 bg-brand-100">
               <Sparkles size={12} />
               Honest comparison
             </div>
@@ -85,7 +85,7 @@ export default function ComparePage() {
                       key={c}
                       className={`p-4 text-sm font-bold text-center ${
                         i === 0
-                          ? "bg-gradient-to-br from-purple-100 to-pink-100 text-purple-900"
+                          ? "bg-gradient-to-br from-brand-100 to-coral-100 text-brand-900"
                           : "bg-gray-50 text-gray-700"
                       }`}
                     >
@@ -101,7 +101,7 @@ export default function ComparePage() {
                       <div className="font-medium text-gray-900">{r.feature}</div>
                       {r.hint && <div className="text-xs text-gray-500 mt-0.5">{r.hint}</div>}
                     </td>
-                    <td className="p-4 text-center bg-purple-50/50"><Cell value={r.hyred} /></td>
+                    <td className="p-4 text-center bg-brand-50/50"><Cell value={r.hyred} /></td>
                     <td className="p-4 text-center"><Cell value={r.rezi} /></td>
                     <td className="p-4 text-center"><Cell value={r.enhancv} /></td>
                     <td className="p-4 text-center"><Cell value={r.resumeIo} /></td>

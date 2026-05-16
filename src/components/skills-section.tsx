@@ -32,10 +32,10 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
     frontend: 'from-blue-500 to-cyan-500',
     backend: 'from-green-500 to-emerald-500',
     database: 'from-orange-500 to-red-500',
-    tools: 'from-purple-500 to-pink-500',
+    tools: 'from-brand-500 to-coral-500',
     languages: 'from-yellow-500 to-orange-500',
     frameworks: 'from-indigo-500 to-blue-500',
-    ai: 'from-pink-500 to-yellow-500'
+    ai: 'from-coral-500 to-yellow-500'
   };
 
   const renderStars = (proficiency: number) => {

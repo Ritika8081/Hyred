@@ -24,7 +24,7 @@ interface Application {
 const STATUSES: Array<{ id: Status; label: string; bar: string; bg: string }> = [
   { id: "saved", label: "💭 Saved", bar: "border-t-gray-400", bg: "bg-gray-50" },
   { id: "applied", label: "📨 Applied", bar: "border-t-blue-400", bg: "bg-blue-50" },
-  { id: "interview", label: "🎤 Interview", bar: "border-t-purple-400", bg: "bg-purple-50" },
+  { id: "interview", label: "🎤 Interview", bar: "border-t-brand-400", bg: "bg-brand-50" },
   { id: "offer", label: "🎉 Offer", bar: "border-t-emerald-400", bg: "bg-emerald-50" },
   { id: "rejected", label: "👋 Closed", bar: "border-t-red-300", bg: "bg-red-50" },
 ];

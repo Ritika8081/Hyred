@@ -16,7 +16,7 @@ export default function RoastPage() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const gradFrom = data.personalInfo.brand?.gradientFrom || "#f97316";
-  const gradTo = data.personalInfo.brand?.gradientTo || "#ec4899";
+  const gradTo = data.personalInfo.brand?.gradientTo || "#84cc16";
 
   const handleRoast = async () => {
     setError(null);

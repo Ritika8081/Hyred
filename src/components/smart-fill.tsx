@@ -139,12 +139,12 @@ export default function SmartFill({ portfolio, onChange }: SmartFillProps) {
   };
 
   return (
-    <Card className="mb-6 border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50" hover={false}>
+    <Card className="mb-6 border-2 border-brand-200 bg-gradient-to-br from-brand-50 to-coral-50" hover={false}>
       <CardHeader>
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
             <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-              <Wand2 className="text-purple-600" size={18} />
+              <Wand2 className="text-brand-600" size={18} />
               Smart Fill — let AI complete your portfolio
             </h3>
             <p className="text-xs text-gray-600 mt-1">

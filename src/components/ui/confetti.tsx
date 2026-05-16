@@ -9,7 +9,7 @@ interface ConfettiProps {
   duration?: number; // ms
 }
 
-const COLORS = ["#a855f7", "#ec4899", "#f59e0b", "#10b981", "#3b82f6", "#ef4444"];
+const COLORS = ["#0d9488", "#84cc16", "#f97316", "#a3e635", "#14b8a6", "#fb923c"];
 
 export default function Confetti({ fire, count = 80, duration = 2200 }: ConfettiProps) {
   const [active, setActive] = useState(false);

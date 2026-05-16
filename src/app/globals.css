@@ -8,15 +8,18 @@
   --muted: #64748b;
   --border: #e5e7eb;
 
-  /* Brand palette — refined */
-  --brand-50: #faf5ff;
-  --brand-100: #f3e8ff;
-  --brand-500: #a855f7;
-  --brand-600: #9333ea;
-  --brand-700: #7e22ce;
+  /* Hyred Aurora palette — teal primary, apricot warmth, lime electric pop */
+  --brand-50: #f0fdfa;
+  --brand-100: #ccfbf1;
+  --brand-500: #14b8a6;
+  --brand-600: #0d9488;
+  --brand-700: #0f766e;
 
-  --accent-coral-500: #fb7185;
-  --accent-coral-600: #f43f5e;
+  --accent-coral-500: #f97316;
+  --accent-coral-600: #ea580c;
+
+  --accent-lime-400: #a3e635;
+  --accent-lime-500: #84cc16;
 
   --grid-color: rgba(15, 23, 42, 0.04);
 }
@@ -47,12 +50,12 @@ html {
 
 /* Better selection */
 ::selection {
-  background: rgba(168, 85, 247, 0.25);
+  background: rgba(20, 184, 166, 0.25);
   color: #0a0a0f;
 }
 
 .gradient-text {
-  background: linear-gradient(120deg, #7c3aed 0%, #ec4899 50%, #f97316 100%);
+  background: linear-gradient(120deg, #0f766e 0%, #84cc16 50%, #f97316 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -73,7 +76,7 @@ html {
 }
 
 .shadow-glow {
-  box-shadow: 0 0 60px rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 60px rgba(20, 184, 166, 0.18), 0 0 90px rgba(132, 204, 22, 0.10);
 }
 
 .shadow-premium {
@@ -108,10 +111,10 @@ html {
 
 .bg-mesh {
   background-image:
-    radial-gradient(at 18% 22%, rgba(168, 85, 247, 0.20) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%),
-    radial-gradient(at 0% 80%, rgba(251, 146, 60, 0.12) 0px, transparent 50%),
-    radial-gradient(at 90% 90%, rgba(99, 102, 241, 0.18) 0px, transparent 50%);
+    radial-gradient(at 18% 22%, rgba(13, 148, 136, 0.22) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(249, 115, 22, 0.16) 0px, transparent 50%),
+    radial-gradient(at 0% 80%, rgba(163, 230, 53, 0.18) 0px, transparent 50%),
+    radial-gradient(at 90% 90%, rgba(15, 118, 110, 0.18) 0px, transparent 50%);
 }
 
 /* Refined card surface */
@@ -134,7 +137,7 @@ html {
 /* Premium button with subtle inset shadow */
 .btn-premium {
   position: relative;
-  background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+  background: linear-gradient(180deg, #0d9488 0%, #0f766e 100%);
   color: white;
   font-weight: 600;
   padding: 0.625rem 1.125rem;
@@ -143,7 +146,7 @@ html {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.15),
-    0 4px 12px rgba(124, 58, 237, 0.2),
+    0 4px 12px rgba(13, 148, 136, 0.25),
     0 1px 2px rgba(0, 0, 0, 0.05);
   transition: all 200ms ease;
 }
@@ -153,12 +156,145 @@ html {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.15),
-    0 8px 24px rgba(124, 58, 237, 0.3),
+    0 8px 24px rgba(13, 148, 136, 0.35),
     0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-premium:active {
   transform: translateY(0);
+}
+
+/* ===== Hyred USP — signature Aurora UI tokens ===== */
+
+/* Aurora gradient border card — the signature surface. Uses a layered
+   background trick so the gradient lives only on the 1px frame. */
+.card-aurora {
+  position: relative;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, #0d9488 0%, #84cc16 50%, #f97316 100%) border-box;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgba(13, 148, 136, 0.05),
+    0 8px 24px rgba(13, 148, 136, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.card-aurora:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 2px rgba(13, 148, 136, 0.08),
+    0 12px 28px rgba(13, 148, 136, 0.10),
+    0 24px 60px rgba(132, 204, 22, 0.08);
+}
+
+/* Lime halo glow — for hero CTA / hover punctuation */
+.glow-aurora {
+  position: relative;
+}
+.glow-aurora::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #0d9488, #84cc16, #f97316);
+  filter: blur(14px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 220ms ease;
+}
+.glow-aurora:hover::after {
+  opacity: 0.55;
+}
+
+/* Animated aurora orb — drop into a section as a signature backdrop.
+   Restrained palette — teal + lime only, low opacity, soft drift. */
+.aurora-orb {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.32;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side, rgba(13, 148, 136, 0.45), transparent 70%),
+    radial-gradient(closest-side at 70% 30%, rgba(132, 204, 22, 0.30), transparent 70%);
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(20px, -16px, 0) scale(1.08); }
+  100% { transform: translate3d(-12px, 24px, 0) scale(0.96); }
+}
+
+/* Aurora ribbon — 1px gradient divider for section breaks */
+.divider-aurora {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(13, 148, 136, 0.45) 20%,
+    rgba(132, 204, 22, 0.55) 50%,
+    rgba(249, 115, 22, 0.45) 80%,
+    transparent 100%);
+}
+
+/* Numbered aurora chip — pairs with feature lists / step markers */
+.chip-aurora {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding: 0 0.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #064e3b;
+  background:
+    linear-gradient(#ecfeff, #ecfeff) padding-box,
+    linear-gradient(135deg, #0d9488, #84cc16) border-box;
+  border: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Section spotlight — animated radial that softly tracks the page */
+.spotlight-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 500px at 15% 10%, rgba(13, 148, 136, 0.10), transparent 60%),
+    radial-gradient(700px 400px at 90% 5%, rgba(132, 204, 22, 0.10), transparent 60%),
+    radial-gradient(800px 500px at 50% 100%, rgba(249, 115, 22, 0.07), transparent 60%);
+}
+
+/* Underline brush — for inline emphasis under a word */
+.brush-aurora {
+  background-image: linear-gradient(90deg, #0d9488 0%, #84cc16 60%, #f97316 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.35em;
+  background-position: 0 85%;
+}
+
+/* Floating preview card — gentle vertical drift, premium feel */
+@keyframes card-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+
+/* Infinite marquee — paired with duplicated track for seamless loop */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
 /* Custom container */
@@ -178,9 +314,20 @@ html {
 
 /* Smoother focus states */
 *:focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #0d9488;
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .aurora-orb { animation: none; }
+  .gradient-text { animation: none; }
 }
 
 /* Hide scrollbar but keep functionality */

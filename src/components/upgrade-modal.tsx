@@ -49,7 +49,7 @@ function UpgradeModal({ reason, onClose }: { reason: string; onClose: () => void
           <X size={20} />
         </button>
 
-        <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-pink-500 text-white p-6">
+        <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-coral-500 text-white p-6">
           <div className="flex items-center gap-2 mb-2">
             <Crown size={24} fill="currentColor" />
             <span className="text-xs font-bold uppercase tracking-wider">Pro Feature</span>

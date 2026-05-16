@@ -308,7 +308,7 @@ For technical support, check the documentation in your project folder.
                   <div className="text-sm text-gray-600">In Progress</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">
+                  <div className="text-2xl font-bold text-brand-600">
                     {localProjects.filter(p => p.featured).length}
                   </div>
                   <div className="text-sm text-gray-600">Featured</div>

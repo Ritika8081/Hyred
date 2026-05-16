@@ -209,7 +209,7 @@ export default function GitHubImporter({ existing, onImport }: GitHubImporterPro
                           <span className="inline-flex items-center gap-0.5"><Star size={11} />{r.stargazers_count}</span>
                           <span className="inline-flex items-center gap-0.5"><GitFork size={11} />{r.forks_count}</span>
                           {r.topics.slice(0, 3).map(t => (
-                            <span key={t} className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700">
+                            <span key={t} className="px-1.5 py-0.5 rounded bg-brand-50 text-brand-700">
                               #{t}
                             </span>
                           ))}

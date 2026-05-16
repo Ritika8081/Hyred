@@ -26,7 +26,7 @@ export default function TechMarquee({ skills, speed = 40 }: TechMarqueeProps) {
             key={`${skill.id}-${idx}`}
             className="inline-flex items-center px-5 py-2 rounded-full bg-white shadow-sm border border-gray-200 text-gray-700 font-medium text-sm flex-shrink-0"
           >
-            <span className="mr-2 inline-flex w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+            <span className="mr-2 inline-flex w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-brand-500" />
             {skill.name}
           </span>
         ))}

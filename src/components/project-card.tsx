@@ -18,7 +18,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const categoryColors = {
     web: "bg-blue-100 text-blue-800",
     mobile: "bg-green-100 text-green-800",
-    desktop: "bg-purple-100 text-purple-800",
+    desktop: "bg-brand-100 text-brand-800",
     ai: "bg-orange-100 text-orange-800",
     other: "bg-gray-100 text-gray-800",
   };

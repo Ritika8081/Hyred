@@ -72,7 +72,7 @@ export default function AIRewriteButton({
       <button
         type="button"
         onClick={() => { setError(null); setOpen(o => !o); }}
-        className={`inline-flex items-center gap-1.5 rounded-md font-medium transition shadow-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-md ${
+        className={`inline-flex items-center gap-1.5 rounded-md font-medium transition shadow-sm bg-gradient-to-r from-brand-600 to-coral-600 text-white hover:shadow-md ${
           size === "sm" ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-sm"
         }`}
         aria-label="AI rewrite"

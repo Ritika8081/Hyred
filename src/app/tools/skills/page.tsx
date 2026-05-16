@@ -157,7 +157,7 @@ export default function SkillsPage() {
           {/* Project ideas */}
           <Card hover={false}>
             <CardContent className="p-6">
-              <h3 className="text-sm uppercase tracking-wider font-bold text-purple-700 mb-3 flex items-center gap-1.5">
+              <h3 className="text-sm uppercase tracking-wider font-bold text-brand-700 mb-3 flex items-center gap-1.5">
                 <Lightbulb size={14} />
                 Projects to close the gap
               </h3>
@@ -165,7 +165,7 @@ export default function SkillsPage() {
                 {report.projectIdeas.map((p, i) => (
                   <div
                     key={i}
-                    className="p-4 rounded-lg border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50"
+                    className="p-4 rounded-lg border-2 border-brand-200 bg-gradient-to-br from-brand-50 to-coral-50"
                   >
                     <h4 className="font-bold text-gray-900 mb-1">{p.title}</h4>
                     <p className="text-sm text-gray-700 mb-2">{p.pitch}</p>
@@ -173,7 +173,7 @@ export default function SkillsPage() {
                       {p.stack.map(t => (
                         <span
                           key={t}
-                          className="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-white text-purple-700 border border-purple-200"
+                          className="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium bg-white text-brand-700 border border-brand-200"
                         >
                           {t}
                         </span>

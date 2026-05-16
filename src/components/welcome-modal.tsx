@@ -25,9 +25,9 @@ function makeEmptyPortfolio(): Portfolio {
       roles: [],
       highlights: [],
       brand: {
-        accent: "#2563eb",
-        gradientFrom: "#2563eb",
-        gradientTo: "#7c3aed",
+        accent: "#0d9488",
+        gradientFrom: "#0d9488",
+        gradientTo: "#84cc16",
       },
     },
     contact: { email: "", location: "" },
@@ -72,7 +72,7 @@ export default function WelcomeModal({ onStartFresh, onKeepDemo }: WelcomeModalP
           <X size={20} />
         </button>
 
-        <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-6 md:p-8">
+        <div className="bg-gradient-to-br from-brand-600 to-coral-600 text-white p-6 md:p-8">
           <div className="text-4xl mb-2">👋</div>
           <h2 className="text-2xl md:text-3xl font-bold mb-1">
             Welcome to Hyred
@@ -86,15 +86,15 @@ export default function WelcomeModal({ onStartFresh, onKeepDemo }: WelcomeModalP
           <button
             type="button"
             onClick={() => close("fresh")}
-            className="w-full text-left flex items-start gap-4 p-4 rounded-xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 hover:border-purple-400 transition group"
+            className="w-full text-left flex items-start gap-4 p-4 rounded-xl border-2 border-brand-200 bg-gradient-to-br from-brand-50 to-coral-50 hover:border-brand-400 transition group"
           >
-            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-brand-600 to-coral-600 flex items-center justify-center">
               <Sparkles size={20} className="text-white" />
             </div>
             <div className="flex-1">
               <div className="font-bold text-gray-900 mb-0.5 flex items-center gap-2">
                 Start fresh — build mine from scratch
-                <span className="text-xs px-1.5 py-0.5 rounded bg-purple-200 text-purple-900 font-bold">
+                <span className="text-xs px-1.5 py-0.5 rounded bg-brand-200 text-brand-900 font-bold">
                   Recommended
                 </span>
               </div>
