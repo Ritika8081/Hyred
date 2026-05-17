@@ -9,14 +9,14 @@ import {
   Flame,
   Github,
   Briefcase,
-  TrendingUp,
-  DollarSign,
-  Lightbulb,
   Linkedin as LinkedinIcon,
   Eye,
   Check,
   GitBranch,
   Star as StarIcon,
+  BarChart3,
+  Mail,
+  Building2,
 } from "lucide-react";
 import MarketingHero from "@/components/marketing-hero";
 import TrustBand from "@/components/trust-band";
@@ -47,14 +47,14 @@ const STEPS = [
 // Featured tools — 3-col grid on md+, 2-col on sm, 1-col on phones
 const TOOLS = [
   { icon: Eye,         title: "Recruiter View",      body: "AI plays a senior recruiter. See your snap verdict + callback odds.", href: "/tools/recruiter-view" },
-  { icon: Flame,       title: "Roast My Resume",     body: "Brutal AI critique on a shareable card.",                        href: "/tools/roast" },
+  { icon: BarChart3,   title: "Impact Quantifier",   body: "Vague bullets → measurable impact in 3 styles. Stops your resume sounding generic.", href: "/tools/quantify" },
+  { icon: Mail,        title: "Recruiter Reply",     body: "Paste a recruiter's DM. Get 3 polished replies — interested, not now, or decline.", href: "/tools/recruiter-reply" },
+  { icon: Building2,   title: "Company Prep",        body: "Interview tomorrow? One-page brief: positioning, style, smart questions, red flags.", href: "/tools/company-prep" },
   { icon: Target,      title: "JD Matcher",          body: "Paste any job description. See match %. AI tailors your bio.",    href: "/tools/match" },
-  { icon: Briefcase,   title: "Application Pack",    body: "Cover letter + cold email + LinkedIn DM + thank-you. One click.", href: "/tools/apply" },
   { icon: Mic,         title: "Voice Mock Interview",body: "Speak your answers. AI grades content, structure, and pacing.",  href: "/tools/interview" },
+  { icon: Briefcase,   title: "Application Pack",    body: "Cover letter + cold email + LinkedIn DM + thank-you. One click.", href: "/tools/apply" },
+  { icon: Flame,       title: "Roast My Resume",     body: "Brutal AI critique on a shareable card.",                        href: "/tools/roast" },
   { icon: LinkedinIcon,title: "LinkedIn Optimizer",  body: "Recruiter-magnet headline + About + bullets.",                    href: "/tools/linkedin" },
-  { icon: Github,      title: "GitHub README",       body: "Beautiful profile README from your portfolio.",                    href: "/tools/readme" },
-  { icon: TrendingUp,  title: "Skill Gap Analyzer",  body: "Target a role. AI shows what to learn + build.",                  href: "/tools/skills" },
-  { icon: DollarSign,  title: "Salary Negotiator",   body: "Paste your offer. Get a script + market data.",                   href: "/tools/salary" },
 ];
 
 const COMPARE = [

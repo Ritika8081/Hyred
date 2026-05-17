@@ -90,6 +90,36 @@ const MAP: Array<[string, PageHelp]> = [
     ],
     cta: { label: "Open the Builder", href: "/admin" },
   }],
+  ["/tools/quantify", {
+    title: "Impact Quantifier",
+    intro: "Turn vague resume bullets into measurable impact. Get 3 rewrites — conservative, bold, and data-heavy — so you can pick the tone that fits each application.",
+    tips: [
+      { title: "Add context", body: "Even rough numbers (\"weekly\", \"dozens\", \"~40% faster\") help AI ground the rewrites in reality instead of inventing." },
+      { title: "Pick a variant per role", body: "Use 'data-heavy' for FAANG-style applications, 'bold' for startups, 'conservative' for govt/finance." },
+      { title: "Mine the metrics list", body: "The 'numbers worth digging up' list points you at specific data to ask your manager for." },
+    ],
+    cta: { label: "Roast My Resume", href: "/tools/roast" },
+  }],
+  ["/tools/recruiter-reply", {
+    title: "Recruiter Reply Generator",
+    intro: "Paste a recruiter's outreach + pick your intent → get 3 polished reply drafts in different tones. No more freezing on LinkedIn DMs.",
+    tips: [
+      { title: "Paste the full message", body: "Include the recruiter's name, role details, and comp signal so AI can match their tone." },
+      { title: "Be honest about intent", body: "'Not now' keeps the door open. 'Decline' closes it cleanly. Pick correctly." },
+      { title: "Copy + personalize", body: "Use the draft as a starting point. Add 1-2 of your own touches before sending." },
+    ],
+    cta: { label: "Mock Interview prep", href: "/tools/interview" },
+  }],
+  ["/tools/company-prep", {
+    title: "Company Interview Prep",
+    intro: "Interview tomorrow? Paste a company name + role and AI builds you a one-page prep brief in 30 seconds — positioning, interview style, smart questions, talking points, red flags.",
+    tips: [
+      { title: "Paste any extras", body: "JD, About page, interviewer LinkedIn — anything you've pulled. AI uses it to make the brief sharper." },
+      { title: "Memorize 2-3 smart questions", body: "Asking thoughtful questions is the highest-leverage signal you can send." },
+      { title: "Watch the red flags", body: "If two or more appear during the interview, it's information about whether this role fits you." },
+    ],
+    cta: { label: "Mock Interview", href: "/tools/interview" },
+  }],
   ["/tools/linkedin", {
     title: "LinkedIn Optimizer",
     intro: "Recruiter-magnet headline + About + bullets, ready to paste.",

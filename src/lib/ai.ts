@@ -996,3 +996,205 @@ ${context}`;
   }
   return [];
 }
+
+// ----- Impact Quantifier -----------------------------------------------
+// Turns a vague resume bullet ("built a dashboard") into 3 quantified
+// variants ("Built a dashboard used by 200+ engineers, cutting MTTR by
+// 45%"). The AI is told to be conservative when the user gives no metrics
+// and to invent plausible ranges only when explicitly asked.
+
+export interface QuantifiedBullet {
+  style: "conservative" | "bold" | "data-heavy";
+  text: string;
+  reasoning: string;
+}
+
+export interface QuantifyResult {
+  variants: QuantifiedBullet[];
+  metricsToGather: string[];
+}
+
+export async function aiQuantifyBullet(
+  bullet: string,
+  context: string,
+  roleCategory: string,
+  config: AIConfig
+): Promise<QuantifyResult> {
+  const prompt = `You're an expert resume writer. Take this candidate's bullet point and rewrite it into THREE variants that quantify impact and read like a recruiter's dream.
+
+Original bullet:
+${bullet}
+
+Additional context the candidate provided (may be empty):
+${context || "(none)"}
+
+Role category: ${roleCategory}
+
+Rules:
+- Only invent numbers when the candidate hinted at them in context. Otherwise use credible ranges like "10s of", "hundreds of", "weekly", etc.
+- Lead with the IMPACT, then the action — not the other way around.
+- Use strong verbs (shipped, owned, cut, accelerated, eliminated, scaled), never "responsible for" or "worked on".
+- Aim for one line each, 14-22 words.
+
+Output JSON only:
+{
+  "variants": [
+    { "style": "conservative", "text": "<safe rewrite, no invented numbers>", "reasoning": "<one sentence why this works>" },
+    { "style": "bold", "text": "<assertive rewrite, sharper language>", "reasoning": "<one sentence why this works>" },
+    { "style": "data-heavy", "text": "<numbers-forward rewrite>", "reasoning": "<one sentence why this works>" }
+  ],
+  "metricsToGather": ["<up to 4 specific data points the candidate should dig up to make any of these claims stronger, each <= 10 words>"]
+}`;
+  const raw = await chat(
+    [
+      { role: "system", content: "You are a senior resume writer who turns vague bullets into measurable impact. Reply with valid JSON only — no markdown." },
+      { role: "user", content: prompt },
+    ],
+    config
+  );
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("AI did not return valid JSON.");
+  const p = JSON.parse(match[0]);
+  const variants: QuantifiedBullet[] = Array.isArray(p.variants)
+    ? p.variants.slice(0, 3).map((v: any) => ({
+        style: ["conservative", "bold", "data-heavy"].includes(v.style) ? v.style : "conservative",
+        text: String(v.text || ""),
+        reasoning: String(v.reasoning || ""),
+      }))
+    : [];
+  return {
+    variants,
+    metricsToGather: Array.isArray(p.metricsToGather) ? p.metricsToGather.map(String).slice(0, 4) : [],
+  };
+}
+
+// ----- Recruiter Reply Generator ---------------------------------------
+// Paste a recruiter's outreach + pick your intent → get 3 polished reply
+// drafts in different tones. Solves the daily "I freeze when recruiters
+// DM me" problem.
+
+export type ReplyIntent = "interested" | "more-info" | "not-now" | "decline";
+
+export interface ReplyDraft {
+  tone: "warm" | "professional" | "brief";
+  body: string;
+}
+
+export async function aiGenerateRecruiterReply(
+  recruiterMessage: string,
+  intent: ReplyIntent,
+  resumeText: string,
+  config: AIConfig
+): Promise<ReplyDraft[]> {
+  const intentDescription: Record<ReplyIntent, string> = {
+    interested: "Express genuine interest. Ask 1-2 specific clarifying questions (comp range, remote policy, team size, etc.).",
+    "more-info": "Be polite but non-committal. Ask for more details before saying yes — JD, comp band, interview process, timing.",
+    "not-now": "Politely decline THIS opportunity while keeping the door open. Reference the recruiter for future roles.",
+    decline: "Politely decline AND close the loop respectfully — don't burn the bridge but don't invite future outreach either.",
+  };
+  const prompt = `You're helping someone reply to a recruiter's outreach message. Write THREE reply drafts in different tones.
+
+Recruiter's message:
+${recruiterMessage}
+
+Candidate's intent:
+${intent} — ${intentDescription[intent]}
+
+About the candidate (use lightly for personalization, don't quote it verbatim):
+${resumeText.slice(0, 2000)}
+
+Rules:
+- Each reply is a complete email body — ready to copy/paste.
+- Start by addressing the recruiter by name if their message included one (otherwise "Hi there" or just dive in).
+- Stay under 120 words per reply.
+- Match the recruiter's formality level loosely.
+- No emoji unless the recruiter used them.
+
+Output JSON only:
+{
+  "drafts": [
+    { "tone": "warm", "body": "<full reply body>" },
+    { "tone": "professional", "body": "<full reply body>" },
+    { "tone": "brief", "body": "<full reply body, 3-4 sentences max>" }
+  ]
+}`;
+  const raw = await chat(
+    [
+      { role: "system", content: "You are a career coach who writes great recruiter replies. Reply with valid JSON only." },
+      { role: "user", content: prompt },
+    ],
+    config
+  );
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("AI did not return valid JSON.");
+  const p = JSON.parse(match[0]);
+  return Array.isArray(p.drafts)
+    ? p.drafts.slice(0, 3).map((d: any) => ({
+        tone: ["warm", "professional", "brief"].includes(d.tone) ? d.tone : "professional",
+        body: String(d.body || ""),
+      }))
+    : [];
+}
+
+// ----- Company Interview Prep ------------------------------------------
+// Pre-interview brief: pasted company info → AI produces a one-page prep
+// pack (positioning, likely interview style, smart questions to ask,
+// talking points that show research).
+
+export interface CompanyPrepResult {
+  snapshot: string;             // 2-3 sentence company positioning
+  interviewStyle: string;       // what to expect: behavioral, system design, take-home, etc.
+  smartQuestions: string[];     // 5 questions YOU should ask interviewers
+  talkingPoints: string[];      // 5 ways to show you've done your research
+  redFlagsToWatch: string[];    // signals to watch for in the interview that might mean this isn't a fit
+}
+
+export async function aiCompanyPrep(
+  companyName: string,
+  role: string,
+  contextNotes: string,
+  resumeText: string,
+  config: AIConfig
+): Promise<CompanyPrepResult> {
+  const prompt = `You are prepping a candidate for an interview tomorrow. Build a one-page brief based on what you know + what they told you.
+
+Company: ${companyName}
+Role being interviewed for: ${role}
+
+Anything the candidate pasted about the company (JD, About page, recent news, leadership names, anything):
+${contextNotes || "(none — work from general knowledge of the company)"}
+
+Candidate's background (lightly inform the smart questions + talking points so they feel personal):
+${resumeText.slice(0, 2500)}
+
+Rules:
+- Be confident but acknowledge what you don't know — never invent specific facts (revenue, headcount, funding stage) you're not sure of.
+- Smart questions = ones that SHOW the candidate did their homework AND uncover real signal about the role / team.
+- Talking points = ways the candidate can demonstrate they researched the company without sounding like they just read the About page.
+
+Output JSON only:
+{
+  "snapshot": "<2-3 sentences positioning the company — what they do, who for, what's distinctive>",
+  "interviewStyle": "<2-3 sentences on what interview rounds typically look like at a company of this type/stage. Be honest if you're inferring.>",
+  "smartQuestions": ["<5 thoughtful questions to ask interviewers, each <= 22 words>"],
+  "talkingPoints": ["<5 specific things the candidate can weave into their answers that show research, each <= 22 words>"],
+  "redFlagsToWatch": ["<3-4 subtle signals in the interview that might suggest this isn't a great fit, each <= 18 words>"]
+}`;
+  const raw = await chat(
+    [
+      { role: "system", content: "You are a senior interview coach. Reply with valid JSON only — no markdown." },
+      { role: "user", content: prompt },
+    ],
+    config
+  );
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("AI did not return valid JSON.");
+  const p = JSON.parse(match[0]);
+  return {
+    snapshot: String(p.snapshot || ""),
+    interviewStyle: String(p.interviewStyle || ""),
+    smartQuestions: Array.isArray(p.smartQuestions) ? p.smartQuestions.map(String).slice(0, 5) : [],
+    talkingPoints: Array.isArray(p.talkingPoints) ? p.talkingPoints.map(String).slice(0, 5) : [],
+    redFlagsToWatch: Array.isArray(p.redFlagsToWatch) ? p.redFlagsToWatch.map(String).slice(0, 4) : [],
+  };
+}

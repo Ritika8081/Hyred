@@ -15,6 +15,27 @@ const TOOLS = [
     badge: "New",
   },
   {
+    href: "/tools/quantify",
+    emoji: "📊",
+    title: "Impact Quantifier",
+    tagline: "Vague bullet → measurable impact in 3 styles. Stops your resume sounding generic.",
+    badge: "New",
+  },
+  {
+    href: "/tools/recruiter-reply",
+    emoji: "✉️",
+    title: "Recruiter Reply",
+    tagline: "Paste a recruiter's DM. Get 3 polished reply drafts (interested / more info / not now / decline).",
+    badge: "New",
+  },
+  {
+    href: "/tools/company-prep",
+    emoji: "🏢",
+    title: "Company Interview Prep",
+    tagline: "Interview tomorrow? AI builds a one-page brief: positioning, interview style, smart questions, red flags.",
+    badge: "New",
+  },
+  {
     href: "/tools/roast",
     emoji: "🔥",
     title: "Roast My Resume",
