@@ -121,17 +121,17 @@ const TROUBLESHOOT = [
 
 function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
   return (
-    <div className="border-b border-gray-200/70 last:border-b-0">
+    <div className="border-b border-gray-200/70 dark:border-gray-800/70 last:border-b-0">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between gap-4 py-5 text-left group"
       >
-        <span className="text-[15px] font-semibold text-gray-900 group-hover:text-gray-700 transition">
+        <span className="text-[15px] font-semibold text-gray-900 dark:text-white group-hover:text-gray-700 transition">
           {q}
         </span>
         <ChevronDown
           size={18}
-          className={`flex-shrink-0 text-gray-400 transition-transform duration-200 ${
+          className={`flex-shrink-0 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -142,7 +142,7 @@ function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean
         }`}
       >
         <div className="overflow-hidden">
-          <p className="text-[15px] text-gray-600 leading-relaxed">{a}</p>
+          <p className="text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed">{a}</p>
         </div>
       </div>
     </div>
@@ -160,66 +160,66 @@ export default function HelpPage() {
   );
 
   return (
-    <div className="bg-white pt-16">
+    <div className="bg-white dark:bg-gray-950 pt-16">
       {/* Header */}
-      <section className="relative overflow-hidden bg-white">
+      <section className="relative overflow-hidden bg-white dark:bg-gray-950">
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 md:pt-24 md:pb-16 text-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-2.5 py-1 rounded-full text-[11px] font-medium text-gray-600 bg-white border border-gray-200/80 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_1px_2px_rgba(0,0,0,0.04)]">
+          <div className="inline-flex items-center gap-2 mb-6 px-2.5 py-1 rounded-full text-[11px] font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-950 border border-gray-200/80 dark:border-gray-800/80 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_1px_2px_rgba(0,0,0,0.04)]">
             <HelpCircle size={11} className="text-brand-600" />
             Help &amp; getting started
           </div>
-          <h1 className="font-display text-4xl md:text-6xl font-medium text-gray-900 tracking-tighter leading-[1.05] mb-4">
+          <h1 className="font-display text-4xl md:text-6xl font-medium text-gray-900 dark:text-white tracking-tighter leading-[1.05] mb-4">
             Everything you need
             <br />
-            <span className="text-gray-400">to ship in 7 minutes.</span>
+            <span className="text-gray-400 dark:text-gray-500">to ship in 7 minutes.</span>
           </h1>
-          <p className="text-[15px] md:text-base text-gray-500 max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-[15px] md:text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto mb-8 leading-relaxed">
             A quick walkthrough, common questions, keyboard shortcuts, and fixes for the tricky parts. If something's still unclear, drop us a note.
           </p>
 
           {/* Search */}
           <div className="relative max-w-md mx-auto">
-            <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="Search the help docs..."
-              className="w-full pl-11 pr-4 py-3 rounded-full text-[14px] text-gray-900 bg-white border border-gray-200/80 focus:border-gray-300 focus:outline-none focus:ring-4 focus:ring-brand-500/10 transition shadow-sm"
+              className="w-full pl-11 pr-4 py-3 rounded-full text-[14px] text-gray-900 dark:text-white bg-white dark:bg-gray-950 border border-gray-200/80 dark:border-gray-800/80 focus:border-gray-300 focus:outline-none focus:ring-4 focus:ring-brand-500/10 transition shadow-sm"
             />
           </div>
         </div>
       </section>
 
       {/* Quickstart steps */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-3">
+          <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 dark:text-gray-500 mb-3">
             Quickstart
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-medium text-gray-900 tracking-tight mb-10">
+          <h2 className="font-display text-3xl md:text-4xl font-medium text-gray-900 dark:text-white tracking-tight mb-10">
             Three steps from blank to recruiter-ready.
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200/70 rounded-2xl overflow-hidden border border-gray-200/70">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200/70 dark:bg-gray-800/70 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-gray-800/70">
             {QUICKSTART.map(step => {
               const Icon = step.icon;
               return (
-                <div key={step.n} className="bg-white p-7 md:p-8">
+                <div key={step.n} className="bg-white dark:bg-gray-950 p-7 md:p-8">
                   <div className="flex items-center justify-between mb-5">
                     <div className="font-display text-sm font-medium text-brand-600 tracking-widest">
                       {step.n}
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-gray-50 border border-gray-200/70 flex items-center justify-center">
-                      <Icon size={16} className="text-gray-700" />
+                    <div className="w-9 h-9 rounded-lg bg-gray-50 dark:bg-gray-900/50 border border-gray-200/70 dark:border-gray-800/70 flex items-center justify-center">
+                      <Icon size={16} className="text-gray-700 dark:text-gray-300" />
                     </div>
                   </div>
-                  <h3 className="font-display text-lg font-medium text-gray-900 mb-2 tracking-tight">
+                  <h3 className="font-display text-lg font-medium text-gray-900 dark:text-white mb-2 tracking-tight">
                     {step.title}
                   </h3>
-                  <p className="text-[14px] text-gray-500 leading-relaxed mb-4">{step.body}</p>
+                  <p className="text-[14px] text-gray-500 dark:text-gray-400 leading-relaxed mb-4">{step.body}</p>
                   <Link
                     href={step.cta.href}
-                    className="text-[13px] font-medium text-gray-700 hover:text-gray-900 inline-flex items-center gap-1.5 group"
+                    className="text-[13px] font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 inline-flex items-center gap-1.5 group"
                   >
                     {step.cta.label}
                     <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
@@ -232,21 +232,21 @@ export default function HelpPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-20 bg-gray-50/70 border-y border-gray-200/70">
+      <section className="py-16 md:py-20 bg-gray-50/70 dark:bg-gray-900/40 border-y border-gray-200/70 dark:border-gray-800/70">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-3">
+          <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 dark:text-gray-500 mb-3">
             Common questions
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-medium text-gray-900 tracking-tight mb-8">
+          <h2 className="font-display text-3xl md:text-4xl font-medium text-gray-900 dark:text-white tracking-tight mb-8">
             Things people ask most.
           </h2>
 
           {filteredFaqs.length === 0 ? (
-            <p className="text-sm text-gray-500 py-8 text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400 py-8 text-center">
               No matches for &ldquo;{query}&rdquo;. Try a shorter search term.
             </p>
           ) : (
-            <div className="rounded-2xl bg-white border border-gray-200/70 px-6">
+            <div className="rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70 px-6">
               {filteredFaqs.map((f, i) => (
                 <FaqItem
                   key={f.q}
@@ -262,25 +262,25 @@ export default function HelpPage() {
       </section>
 
       {/* Keyboard shortcuts + Troubleshooting */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-3">
+            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 dark:text-gray-500 mb-3">
               Power moves
             </p>
-            <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-6 inline-flex items-center gap-2">
-              <Keyboard size={20} className="text-gray-400" />
+            <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 dark:text-white tracking-tight mb-6 inline-flex items-center gap-2">
+              <Keyboard size={20} className="text-gray-400 dark:text-gray-500" />
               Keyboard shortcuts
             </h2>
-            <div className="rounded-2xl bg-white border border-gray-200/70 divide-y divide-gray-200/70">
+            <div className="rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70 divide-y divide-gray-200/70 dark:divide-gray-800/70">
               {SHORTCUTS.map(s => (
                 <div key={s.description} className="flex items-center justify-between gap-4 px-5 py-3.5">
-                  <span className="text-[14px] text-gray-700 leading-snug">{s.description}</span>
+                  <span className="text-[14px] text-gray-700 dark:text-gray-300 leading-snug">{s.description}</span>
                   <span className="flex items-center gap-1">
                     {s.keys.map(k => (
                       <kbd
                         key={k}
-                        className="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-1.5 rounded-md text-[12px] font-mono font-semibold text-gray-700 bg-gray-50 border border-gray-200/70 shadow-[inset_0_-1px_0_rgba(0,0,0,0.04)]"
+                        className="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-1.5 rounded-md text-[12px] font-mono font-semibold text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900/50 border border-gray-200/70 dark:border-gray-800/70 shadow-[inset_0_-1px_0_rgba(0,0,0,0.04)]"
                       >
                         {k}
                       </kbd>
@@ -292,18 +292,18 @@ export default function HelpPage() {
           </div>
 
           <div>
-            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 mb-3">
+            <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 dark:text-gray-500 mb-3">
               Stuck?
             </p>
-            <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-6 inline-flex items-center gap-2">
-              <Sparkles size={20} className="text-gray-400" />
+            <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 dark:text-white tracking-tight mb-6 inline-flex items-center gap-2">
+              <Sparkles size={20} className="text-gray-400 dark:text-gray-500" />
               Quick fixes
             </h2>
             <div className="space-y-3">
               {TROUBLESHOOT.map(t => (
-                <div key={t.title} className="p-5 rounded-2xl bg-white border border-gray-200/70">
-                  <div className="font-semibold text-[14px] text-gray-900 mb-1.5">{t.title}</div>
-                  <p className="text-[13px] text-gray-500 leading-relaxed">{t.body}</p>
+                <div key={t.title} className="p-5 rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70">
+                  <div className="font-semibold text-[14px] text-gray-900 dark:text-white mb-1.5">{t.title}</div>
+                  <p className="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed">{t.body}</p>
                 </div>
               ))}
             </div>
@@ -312,22 +312,22 @@ export default function HelpPage() {
       </section>
 
       {/* Privacy reassurance + contact */}
-      <section className="py-16 md:py-20 bg-gray-50/70 border-y border-gray-200/70">
+      <section className="py-16 md:py-20 bg-gray-50/70 dark:bg-gray-900/40 border-y border-gray-200/70 dark:border-gray-800/70">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-6 rounded-2xl bg-white border border-gray-200/70">
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70">
             <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center mb-4">
               <Lock size={16} className="text-brand-300" />
             </div>
-            <h3 className="font-display text-lg font-medium text-gray-900 mb-2 tracking-tight">
+            <h3 className="font-display text-lg font-medium text-gray-900 dark:text-white mb-2 tracking-tight">
               Your data, your browser.
             </h3>
-            <p className="text-[14px] text-gray-500 leading-relaxed mb-4">
+            <p className="text-[14px] text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
               Everything you build is stored in localStorage. No account, no server, no tracking. Use
               Export JSON in the Builder to back up any time.
             </p>
             <Link
               href="/admin"
-              className="text-[13px] font-medium text-gray-700 hover:text-gray-900 inline-flex items-center gap-1.5 group"
+              className="text-[13px] font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 inline-flex items-center gap-1.5 group"
             >
               <Download size={13} />
               Open Builder &middot; export backup
@@ -335,19 +335,19 @@ export default function HelpPage() {
             </Link>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-gray-200/70">
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70">
             <div className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center mb-4">
               <MessageCircle size={16} className="text-brand-300" />
             </div>
-            <h3 className="font-display text-lg font-medium text-gray-900 mb-2 tracking-tight">
+            <h3 className="font-display text-lg font-medium text-gray-900 dark:text-white mb-2 tracking-tight">
               Still stuck? Talk to us.
             </h3>
-            <p className="text-[14px] text-gray-500 leading-relaxed mb-4">
+            <p className="text-[14px] text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
               Real human, real reply — usually within a day. Tell us what you tried and where it broke.
             </p>
             <Link
               href="/contact"
-              className="text-[13px] font-medium text-gray-700 hover:text-gray-900 inline-flex items-center gap-1.5 group"
+              className="text-[13px] font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 inline-flex items-center gap-1.5 group"
             >
               <Mail size={13} />
               Send a note
@@ -358,12 +358,12 @@ export default function HelpPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 md:py-24 bg-white">
+      <section className="py-20 md:py-24 bg-white dark:bg-gray-950">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-3xl md:text-5xl font-medium text-gray-900 tracking-tighter leading-[1.05] mb-4">
+          <h2 className="font-display text-3xl md:text-5xl font-medium text-gray-900 dark:text-white tracking-tighter leading-[1.05] mb-4">
             Ready when you are.
           </h2>
-          <p className="text-[15px] text-gray-500 max-w-md mx-auto mb-8">
+          <p className="text-[15px] text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8">
             Open the Builder and paste your resume. Seven minutes from now, you&rsquo;ll have a
             recruiter-ready portfolio.
           </p>

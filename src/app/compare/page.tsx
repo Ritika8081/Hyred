@@ -75,8 +75,9 @@ export default function ComparePage() {
           </AnimatedSection>
 
           {/* Table */}
-          <div className="overflow-x-auto -mx-4 sm:mx-0 mb-12">
-            <table className="min-w-full bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+          <p className="md:hidden text-xs text-gray-500 text-center mb-2">← swipe to compare →</p>
+          <div className="overflow-x-auto -mx-4 sm:mx-0 mb-12 scrollbar-thin">
+            <table className="min-w-[640px] md:min-w-full bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left p-4 text-sm font-bold text-gray-700 bg-gray-50">Feature</th>

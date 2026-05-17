@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { getZone } from '@/lib/zone';
 import Logo from '@/components/ui/logo';
 import { usePortfolioData } from '@/hooks/usePortfolioData';
+import ThemeToggle from '@/components/theme-toggle';
 
 // Hyred SaaS navigation (marketing / product)
 const HYRED_NAV = [
@@ -54,8 +55,8 @@ export default function Navigation() {
       className={cn(
         'fixed top-0 w-full z-50 transition-all duration-200',
         scrolled
-          ? 'bg-white/85 backdrop-blur-xl border-b border-gray-200/60 shadow-sm'
-          : 'bg-white/40 backdrop-blur-md'
+          ? 'bg-white/85 dark:bg-gray-950/85 backdrop-blur-xl border-b border-gray-200/60 dark:border-gray-800/60 shadow-sm dark:shadow-black/20'
+          : 'bg-white/40 dark:bg-gray-950/40 backdrop-blur-md'
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -96,15 +97,16 @@ export default function Navigation() {
                   className={cn(
                     'px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-150',
                     isActive
-                      ? 'text-brand-700 bg-brand-50'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/70'
+                      ? 'text-brand-700 bg-brand-50 dark:text-brand-300 dark:bg-brand-500/10'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/[0.06]'
                   )}
                 >
                   {item.name}
                 </Link>
               );
             })}
-            <div className="w-px h-5 bg-gray-200 mx-2" />
+            <div className="w-px h-5 bg-gray-200 dark:bg-gray-800 mx-2" />
+            <ThemeToggle className="ml-1" />
 
             {isPortfolio ? (
               <Link
@@ -124,9 +126,9 @@ export default function Navigation() {
                 </Link>
                 <Link
                   href="/build"
-                  className="group ml-2 inline-flex items-center gap-1.5 pl-3 pr-4 py-1.5 rounded-full text-sm font-semibold text-white bg-gray-900 hover:bg-black shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] hover:-translate-y-px transition-all duration-200"
+                  className="group ml-2 inline-flex items-center gap-1.5 pl-3 pr-4 py-1.5 rounded-full text-sm font-semibold text-white bg-gray-900 hover:bg-black dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] hover:-translate-y-px transition-all duration-200"
                 >
-                  <Sparkles size={13} className="text-brand-300" />
+                  <Sparkles size={13} className="text-brand-300 dark:text-brand-600" />
                   Start free
                   <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                 </Link>
@@ -134,11 +136,12 @@ export default function Navigation() {
             )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu button + theme toggle */}
+          <div className="md:hidden flex items-center gap-1">
+            <ThemeToggle size="sm" />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md text-gray-700 hover:bg-gray-100 transition"
+              className="p-2 rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-white/[0.06] transition"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -154,7 +157,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.18 }}
-            className="md:hidden bg-white border-b border-gray-200"
+            className="md:hidden bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800"
           >
             <div className="px-3 pt-2 pb-4 space-y-1">
               {nav.map(item => {
@@ -167,8 +170,8 @@ export default function Navigation() {
                     className={cn(
                       'block px-3 py-2 rounded-md text-base font-medium transition',
                       isActive
-                        ? 'text-brand-700 bg-brand-50'
-                        : 'text-gray-700 hover:bg-gray-100'
+                        ? 'text-brand-700 bg-brand-50 dark:text-brand-300 dark:bg-brand-500/10'
+                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/[0.06]'
                     )}
                   >
                     {item.name}
@@ -179,7 +182,7 @@ export default function Navigation() {
                 <Link
                   href="/"
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base text-gray-500 hover:bg-gray-100"
+                  className="block px-3 py-2 rounded-md text-base text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.06]"
                 >
                   ← Built with Hyred
                 </Link>
@@ -188,14 +191,14 @@ export default function Navigation() {
                   <Link
                     href="/preview"
                     onClick={() => setIsOpen(false)}
-                    className="block px-3 py-2 rounded-md text-base text-gray-700 hover:bg-gray-100"
+                    className="block px-3 py-2 rounded-md text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/[0.06]"
                   >
                     Live example
                   </Link>
                   <Link
                     href="/build"
                     onClick={() => setIsOpen(false)}
-                    className="mt-2 block w-full text-center px-3 py-2.5 rounded-full text-base font-semibold text-white bg-gray-900 hover:bg-black transition"
+                    className="mt-2 block w-full text-center px-3 py-2.5 rounded-full text-base font-semibold text-white bg-gray-900 hover:bg-black dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transition"
                   >
                     Start free →
                   </Link>

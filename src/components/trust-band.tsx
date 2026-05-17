@@ -14,9 +14,9 @@ const FACTS = [
 
 export default function TrustBand() {
   return (
-    <section className="border-y border-gray-200/60 bg-white/80 backdrop-blur-sm py-6">
+    <section className="border-y border-gray-200/60 dark:border-gray-800/60 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm py-6">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center gap-x-6 md:gap-x-10 gap-y-2 flex-wrap text-xs md:text-sm text-gray-600">
+        <div className="flex items-center justify-center gap-x-6 md:gap-x-10 gap-y-2 flex-wrap text-xs md:text-sm text-gray-600 dark:text-gray-400">
           {FACTS.map(f => {
             const Icon = f.icon;
             return (

@@ -7,6 +7,8 @@
   --foreground: #0a0a0f;
   --muted: #64748b;
   --border: #e5e7eb;
+  --surface: #ffffff;
+  --surface-2: #fafafa;
 
   /* Hyred Aurora palette — teal primary, apricot warmth, lime electric pop */
   --brand-50: #f0fdfa;
@@ -22,6 +24,17 @@
   --accent-lime-500: #84cc16;
 
   --grid-color: rgba(15, 23, 42, 0.04);
+}
+
+html.dark {
+  --background: #0a0a0f;
+  --foreground: #f4f4f5;
+  --muted: #a1a1aa;
+  --border: #27272a;
+  --surface: #18181b;
+  --surface-2: #0a0a0f;
+  --grid-color: rgba(244, 244, 245, 0.04);
+  color-scheme: dark;
 }
 
 * {
@@ -41,6 +54,39 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent stray horizontal scroll on body (not html — keeps iOS sticky
+   children + smooth anchor scrolling working). */
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Long words (URLs, long titles) wrap instead of overflowing on narrow screens */
+.text-balance { text-wrap: balance; }
+.text-pretty  { text-wrap: pretty; }
+
+/* Touch targets — minimum 44px on coarse pointers (Apple HIG) */
+@media (pointer: coarse) {
+  button, a[role="button"], [data-touch] {
+    min-height: 44px;
+  }
+}
+
+/* Safe-area insets for notched / curved-edge devices */
+@supports (padding: max(0px)) {
+  .safe-pl   { padding-left:   max(1rem, env(safe-area-inset-left)); }
+  .safe-pr   { padding-right:  max(1rem, env(safe-area-inset-right)); }
+  .safe-pb   { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .safe-fab-bottom { bottom: max(1.25rem, env(safe-area-inset-bottom)); }
+  .safe-fab-right  { right:  max(1.25rem, env(safe-area-inset-right)); }
+  .safe-fab-left   { left:   max(1.25rem, env(safe-area-inset-left)); }
+}
+
+/* Tighten root font scale on very narrow screens so headlines don't blow out */
+@media (max-width: 360px) {
+  html { font-size: 14.5px; }
+}
+
 /* Display font for headlines */
 .font-display {
   font-family: var(--font-display), Georgia, serif;
@@ -52,6 +98,10 @@ html {
 ::selection {
   background: rgba(20, 184, 166, 0.25);
   color: #0a0a0f;
+}
+html.dark ::selection {
+  background: rgba(132, 204, 22, 0.30);
+  color: #f4f4f5;
 }
 
 .gradient-text {
@@ -126,12 +176,30 @@ html {
     0 4px 12px rgba(0, 0, 0, 0.04);
   transition: box-shadow 200ms ease, transform 200ms ease;
 }
+html.dark .card-premium {
+  background: linear-gradient(180deg, #18181b 0%, #0f0f12 100%);
+  border-color: rgba(244, 244, 245, 0.08);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
 .card-premium:hover {
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.05),
     0 8px 24px rgba(0, 0, 0, 0.06),
     0 24px 60px rgba(0, 0, 0, 0.05);
+}
+html.dark .card-aurora {
+  background:
+    linear-gradient(#18181b, #18181b) padding-box,
+    linear-gradient(135deg, #0d9488 0%, #84cc16 50%, #f97316 100%) border-box;
+}
+html.dark .chip-aurora {
+  color: #ecfeff;
+  background:
+    linear-gradient(#0b0f12, #0b0f12) padding-box,
+    linear-gradient(135deg, #0d9488, #84cc16) border-box;
 }
 
 /* Premium button with subtle inset shadow */

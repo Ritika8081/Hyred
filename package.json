@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:clean": "node scripts/clean.mjs && next dev",
-    "build": "node scripts/copy-pdf-worker.mjs && next build",
-    "predev": "node scripts/copy-pdf-worker.mjs",
+    "build": "node scripts/clean.mjs && node scripts/copy-pdf-worker.mjs && next build",
+    "predev": "node scripts/clean.mjs && node scripts/copy-pdf-worker.mjs",
     "start": "next start",
     "clean": "node scripts/clean.mjs",
     "lint": "next lint --fix",

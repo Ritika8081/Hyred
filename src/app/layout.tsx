@@ -13,10 +13,11 @@ import { ToastProvider } from "@/components/ui/toast";
 import { UpgradeProvider } from "@/components/upgrade-modal";
 import FeedbackWidget from "@/components/feedback-widget";
 import ReferralCapture from "@/components/referral-capture";
-import LaunchBanner from "@/components/launch-banner";
 import CommandPalette from "@/components/command-palette";
 import HelpFab from "@/components/help-fab";
 import HelpHotkey from "@/components/help-hotkey";
+import HelpDrawer from "@/components/help-drawer";
+import ThemeProvider from "@/components/theme-provider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -87,31 +88,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
         <JsonLd />
+        {/* Boot script: applies the saved theme class before first paint to
+            avoid a flash of incorrect theme. Reads localStorage or the OS
+            preference. Must stay inline + run before children render. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('hyredTheme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`,
+          }}
+        />
       </head>
-      <body className="antialiased font-sans bg-white text-gray-900">
-        <ToastProvider>
-          <UpgradeProvider>
-            <ReferralCapture />
-            <DynamicHead />
-            <ScrollProgress />
-            <LaunchBanner />
-            <Navigation />
-            <main className="pt-16 min-h-screen">
-              {children}
-            </main>
-            <Footer />
-            <FeedbackWidget />
-            <StickyHireMe />
-            <CommandPalette />
-            <HelpFab />
-            <HelpHotkey />
-            <AdminAccess />
-            <FirstTimeSetup />
-          </UpgradeProvider>
-        </ToastProvider>
+      <body
+        suppressHydrationWarning
+        className="antialiased font-sans bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-200"
+      >
+        <ThemeProvider>
+          <ToastProvider>
+            <UpgradeProvider>
+              <ReferralCapture />
+              <DynamicHead />
+              <ScrollProgress />
+              <Navigation />
+              <main className="pt-16 min-h-screen">
+                {children}
+              </main>
+              <Footer />
+              <FeedbackWidget />
+              <StickyHireMe />
+              <CommandPalette />
+              <HelpFab />
+              <HelpHotkey />
+              <HelpDrawer />
+              <AdminAccess />
+              <FirstTimeSetup />
+            </UpgradeProvider>
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

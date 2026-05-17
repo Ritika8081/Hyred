@@ -62,7 +62,8 @@ export default function FeedbackWidget() {
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-gray-800 border border-gray-200 shadow-lg hover:shadow-xl hover:scale-105 transition text-sm font-medium"
+        data-touch
+        className="fixed safe-fab-bottom safe-fab-left z-40 flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl hover:scale-105 transition text-sm font-medium"
         aria-label="Send feedback"
       >
         <MessageCircle size={16} />
