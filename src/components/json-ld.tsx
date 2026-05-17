@@ -11,13 +11,13 @@ const SOFTWARE_APP = {
   name: "Hyred",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
-  description: "AI-powered resume + portfolio builder for students and early-career engineers. Free forever with your own API key. Pro $9 one-time.",
+  description: "Open-source AI resume + portfolio builder. Free forever, MIT-licensed, runs entirely in your browser. Includes 10 AI tools for the job hunt.",
   url: SITE_URL,
   offers: [
     { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" },
-    { "@type": "Offer", name: "Pro", price: "9", priceCurrency: "USD" },
-    { "@type": "Offer", name: "Lifetime", price: "49", priceCurrency: "USD" },
   ],
+  license: "https://opensource.org/licenses/MIT",
+  codeRepository: "https://github.com/Ritika8081/Hyred",
   featureList: [
     "AI resume rewrites",
     "ATS health score",
@@ -59,7 +59,7 @@ const FAQ = {
       name: "Is Hyred a subscription?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Pro is $9 one-time and Lifetime is $49 one-time. No recurring charges, ever.",
+        text: "No — Hyred is free and open source (MIT-licensed). The only cost is the AI key you bring (Groq and OpenRouter both offer free tiers).",
       },
     },
     {

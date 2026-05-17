@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
-const SITE_URL = "https://hyred.io"; // change to your real production domain
+const SITE_URL = "https://hyred.app"; // change to your real production domain
 
 const ROUTES = [
   "",
@@ -11,13 +11,11 @@ const ROUTES = [
   "/projects",
   "/contact",
   "/resume",
-  "/pricing",
-  "/reviews",
-  "/compare",
+  "/help",
   "/deploy",
-  "/unlock",
   "/build",
   "/tools",
+  "/tools/recruiter-view",
   "/tools/roast",
   "/tools/match",
   "/tools/cover-letter",

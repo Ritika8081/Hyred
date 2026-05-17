@@ -85,14 +85,14 @@ const TOOLS = [
     emoji: "📋",
     title: "Application Tracker",
     tagline: "Kanban board for your job hunt. Track every application from Saved → Offer.",
-    badge: "Pro",
+    badge: "Free",
   },
   {
     href: "/tools/coach",
     emoji: "🧭",
     title: "AI Career Coach",
     tagline: "Senior tech mentor that has read your resume. Ask anything.",
-    badge: "Pro",
+    badge: "Free",
   },
   {
     href: "/admin",

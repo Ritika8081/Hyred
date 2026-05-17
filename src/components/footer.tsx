@@ -1,41 +1,37 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart, Twitter, Github, Linkedin, Mail, Sparkles, Shield, Globe } from 'lucide-react';
+import { Heart, Twitter, Github, Linkedin, Mail, Shield, Globe, GitBranch } from 'lucide-react';
 import Logo from '@/components/ui/logo';
-import { MONETIZATION } from '@/lib/monetization';
+import { SITE } from '@/lib/site-config';
 
 const COLUMNS = [
   {
     title: 'Product',
     links: [
-      { name: 'Pricing', href: '/pricing' },
-      { name: 'Compare', href: '/compare' },
-      { name: 'Reviews', href: '/reviews' },
+      { name: 'AI Tools', href: '/tools' },
+      { name: 'Live example', href: '/preview' },
       { name: 'Help & onboarding', href: '/help' },
       { name: 'Deploy guide', href: '/deploy' },
-      { name: 'Activate license', href: '/unlock' },
     ],
   },
   {
     title: 'AI Tools',
     links: [
+      { name: 'Recruiter View', href: '/tools/recruiter-view' },
       { name: 'Roast Resume', href: '/tools/roast' },
       { name: 'JD Matcher', href: '/tools/match' },
-      { name: 'Application Pack', href: '/tools/apply' },
       { name: 'Mock Interview', href: '/tools/interview' },
-      { name: 'Salary Negotiator', href: '/tools/salary' },
       { name: 'All tools →', href: '/tools' },
     ],
   },
   {
-    title: 'Builder',
+    title: 'Open source',
     links: [
-      { name: 'My Admin', href: '/admin' },
-      { name: 'Resume page', href: '/resume' },
-      { name: 'Projects', href: '/projects' },
-      { name: 'About', href: '/about' },
-      { name: 'Contact', href: '/contact' },
+      { name: 'GitHub repo', href: 'https://github.com/Ritika8081/Hyred' },
+      { name: 'Discussions', href: 'https://github.com/Ritika8081/Hyred/discussions' },
+      { name: 'Report a bug', href: 'https://github.com/Ritika8081/Hyred/issues' },
+      { name: 'Contribute', href: 'https://github.com/Ritika8081/Hyred/blob/main/CONTRIBUTING.md' },
     ],
   },
 ];
@@ -54,9 +50,18 @@ export default function Footer() {
           <div className="col-span-2">
             <Logo size={28} variant="white" className="mb-4" />
             <p className="text-sm leading-relaxed max-w-sm mb-5 text-gray-400">
-              AI-powered resume + portfolio builder for students and early-career engineers. Free forever. Built with love in 🌍.
+              Open-source AI career toolkit. Build a portfolio + resume + ten job-hunt copilots — in your browser, on your terms.
             </p>
             <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/Ritika8081/Hyred"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
+                aria-label="GitHub"
+              >
+                <Github size={14} />
+              </a>
               <a
                 href="https://twitter.com/hyred"
                 target="_blank"
@@ -65,15 +70,6 @@ export default function Footer() {
                 aria-label="Twitter"
               >
                 <Twitter size={14} />
-              </a>
-              <a
-                href="https://github.com/hyred"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
-                aria-label="GitHub"
-              >
-                <Github size={14} />
               </a>
               <a
                 href="https://linkedin.com/company/hyred"
@@ -85,7 +81,7 @@ export default function Footer() {
                 <Linkedin size={14} />
               </a>
               <a
-                href={`mailto:${MONETIZATION.supportEmail}`}
+                href={`mailto:${SITE.supportEmail}`}
                 className="p-2 rounded-lg bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white transition"
                 aria-label="Email"
               >
@@ -106,6 +102,7 @@ export default function Footer() {
                     <Link
                       href={l.href}
                       className="text-sm text-gray-400 hover:text-white transition"
+                      {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     >
                       {l.name}
                     </Link>
@@ -123,18 +120,18 @@ export default function Footer() {
             <span>Your data stays in your browser. Always.</span>
           </div>
           <div className="flex items-center gap-2 md:justify-center">
-            <Sparkles size={14} className="text-brand-400" />
-            <span>{MONETIZATION.moneyBackDays}-day refund · No subscriptions ever</span>
+            <GitBranch size={14} className="text-brand-400" />
+            <span>MIT-licensed · Forever free · No accounts</span>
           </div>
           <div className="flex items-center gap-2 md:justify-end">
             <Globe size={14} className="text-blue-400" />
-            <span>Built for students worldwide</span>
+            <span>Built for job seekers worldwide</span>
           </div>
         </div>
 
         {/* Bottom row */}
         <div className="mt-8 pt-6 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-          <p>© {year} Hyred. All rights reserved.</p>
+          <p>© {year} Hyred. MIT-licensed open source.</p>
           <p className="inline-flex items-center gap-1">
             Made with <Heart size={11} className="text-red-400 fill-red-400" /> for job seekers
           </p>

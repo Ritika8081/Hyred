@@ -15,7 +15,8 @@ import {
   Linkedin as LinkedinIcon,
   Eye,
   Check,
-  Shield,
+  GitBranch,
+  Star as StarIcon,
 } from "lucide-react";
 import MarketingHero from "@/components/marketing-hero";
 import TrustBand from "@/components/trust-band";
@@ -24,7 +25,6 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/animated-section";
-import { MONETIZATION, openCheckout } from "@/lib/monetization";
 
 const STEPS = [
   {
@@ -146,10 +146,12 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link
-              href="/compare"
+              href="https://github.com/Ritika8081/Hyred"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-white inline-flex items-center gap-1.5 group"
             >
-              Full comparison vs. Rezi, Enhancv, Resume.io
+              Read the full pitch on GitHub
               <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
@@ -213,88 +215,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing teaser — minimal three-up, single signature highlight */}
+      {/* Open source — replaces the old pricing teaser */}
       <section className="py-24 md:py-32 bg-gray-50/70 dark:bg-gray-900/40 border-y border-gray-200/70 dark:border-gray-800/70">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
             <p className="text-[11px] uppercase tracking-[0.3em] font-semibold text-gray-400 dark:text-gray-500 mb-4">
-              Pricing
+              Open source
             </p>
             <h2 className="font-display text-[32px] sm:text-4xl md:text-6xl font-medium text-gray-900 dark:text-white tracking-tighter leading-[1.06] md:leading-[1.05] break-words mb-4">
               Free forever.
               <br />
-              <span className="italic font-normal text-gray-400 dark:text-gray-500">Pay if you love it.</span>
+              <span className="italic font-normal text-gray-400 dark:text-gray-500">MIT-licensed.</span>
             </h2>
-            <p className="text-[15px] text-gray-500 dark:text-gray-400 max-w-lg mx-auto mb-14">
-              Every feature works on Free with your own AI key. Pro is one-time {MONETIZATION.proPriceUSD} for hosted AI + extras. No subscriptions.
+            <p className="text-[15px] text-gray-500 dark:text-gray-400 max-w-lg mx-auto mb-12">
+              Every feature works for everyone. Bring your own AI key (free tiers on Groq and OpenRouter), or fork the repo and self-host the whole thing in 60 seconds.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto mb-10">
-              {[
-                { name: "Free", price: "$0", note: "forever" },
-                { name: "Pro", price: MONETIZATION.proPriceUSD, note: "one-time", highlight: true },
-                { name: "Lifetime", price: MONETIZATION.lifetimePriceUSD, note: "one-time" },
-              ].map(t =>
-                t.highlight ? (
-                  <div
-                    key={t.name}
-                    className="relative p-6 rounded-2xl text-center"
-                    style={{
-                      background:
-                        "linear-gradient(#ffffff,#ffffff) padding-box, linear-gradient(135deg, #0d9488 0%, #84cc16 100%) border-box",
-                      border: "1.5px solid transparent",
-                      boxShadow:
-                        "0 1px 2px rgba(13,148,136,0.06), 0 12px 28px -12px rgba(13,148,136,0.18)",
-                    }}
-                  >
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-brand-600 to-lime-500 shadow-sm">
-                      Most popular
-                    </span>
-                    <p className="text-[11px] uppercase tracking-widest font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                      {t.name}
-                    </p>
-                    <div className="font-display text-3xl md:text-4xl font-medium text-gray-900 dark:text-white">
-                      {t.price}
-                    </div>
-                    <div className="text-[12px] text-gray-500 dark:text-gray-400 mt-1">{t.note}</div>
-                  </div>
-                ) : (
-                  <div
-                    key={t.name}
-                    className="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70 text-center"
-                  >
-                    <p className="text-[11px] uppercase tracking-widest font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                      {t.name}
-                    </p>
-                    <div className="font-display text-3xl md:text-4xl font-medium text-gray-900 dark:text-white">
-                      {t.price}
-                    </div>
-                    <div className="text-[12px] text-gray-500 dark:text-gray-400 mt-1">{t.note}</div>
-                  </div>
-                )
-              )}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto mb-12">
+              <div className="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70 text-left">
+                <GitBranch size={18} className="text-brand-600 mb-3" />
+                <p className="font-display text-base font-semibold text-gray-900 dark:text-white mb-1">
+                  Open source
+                </p>
+                <p className="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                  MIT-licensed. Fork it, ship it, sell what you build on top of it.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white dark:bg-gray-950 border border-gray-200/70 dark:border-gray-800/70 text-left">
+                <Sparkles size={18} className="text-brand-600 mb-3" />
+                <p className="font-display text-base font-semibold text-gray-900 dark:text-white mb-1">
+                  BYO AI key
+                </p>
+                <p className="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                  Free tiers on Groq + OpenRouter cover most usage. Key stays in your browser.
+                </p>
+              </div>
+              <div
+                className="p-6 rounded-2xl text-left relative"
+                style={{
+                  background:
+                    "linear-gradient(#ffffff,#ffffff) padding-box, linear-gradient(135deg, #0d9488 0%, #84cc16 100%) border-box",
+                  border: "1.5px solid transparent",
+                  boxShadow: "0 1px 2px rgba(13,148,136,0.06), 0 12px 28px -12px rgba(13,148,136,0.18)",
+                }}
+              >
+                <StarIcon size={18} className="text-brand-600 mb-3" />
+                <p className="font-display text-base font-semibold text-gray-900 mb-1">
+                  No accounts, no tracking
+                </p>
+                <p className="text-[13px] text-gray-500 leading-relaxed">
+                  Everything runs in your browser. Your data lives in `localStorage` and is never uploaded.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/pricing"
+                href="/admin"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[14px] font-semibold text-white bg-gray-900 hover:bg-black hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)]"
               >
-                See full pricing
+                Start building free
                 <ArrowRight size={14} />
               </Link>
-              <Link
-                href="/admin"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[14px] font-medium text-gray-700 hover:text-gray-900 border border-gray-200 bg-white dark:bg-gray-950 hover:border-gray-300 dark:hover:border-gray-700 transition"
+              <a
+                href="https://github.com/Ritika8081/Hyred"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[14px] font-medium text-gray-700 hover:text-gray-900 border border-gray-200 bg-white dark:bg-gray-950 dark:text-gray-300 dark:hover:text-white dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition"
               >
-                Start free
-              </Link>
+                <Github size={14} />
+                Star on GitHub
+              </a>
             </div>
-
-            <p className="text-[12px] text-gray-400 dark:text-gray-500 mt-6 inline-flex items-center gap-1.5">
-              <Shield size={11} />
-              {MONETIZATION.moneyBackDays}-day refund · {MONETIZATION.studentPriceUSD} for students with .edu
-            </p>
           </AnimatedSection>
         </div>
       </section>
@@ -371,12 +363,15 @@ export default function Home() {
                 Build mine free
                 <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
-              <button
-                onClick={() => openCheckout("pro")}
+              <a
+                href="https://github.com/Ritika8081/Hyred"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-[15px] font-medium text-white bg-white/[0.06] border border-white/15 hover:bg-white/10 hover:border-white/25 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur"
               >
-                Unlock Pro · {MONETIZATION.proPriceUSD}
-              </button>
+                <Github size={15} />
+                Star on GitHub
+              </a>
             </div>
           </AnimatedSection>
         </div>

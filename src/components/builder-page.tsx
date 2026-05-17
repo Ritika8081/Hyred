@@ -19,7 +19,6 @@ import SmartFill from '@/components/smart-fill';
 import Confetti from '@/components/ui/confetti';
 import WelcomeModal, { makeEmptyPortfolio } from '@/components/welcome-modal';
 import SharePortfolio from '@/components/share-portfolio';
-import ReferralCard from '@/components/referral-card';
 import LivePreview from '@/components/live-preview';
 import { Portfolio } from '@/types/portfolio';
 import { useToast } from '@/components/ui/toast';
@@ -429,7 +428,6 @@ export default function BuilderPage() {
                 <ATSScore portfolio={previewPortfolio} />
                 <SmartFill portfolio={previewPortfolio} onChange={applyParsedPortfolio} />
                 <SharePortfolio portfolio={previewPortfolio} />
-                <ReferralCard />
                 {/* Re-show resume import as a smaller utility once user has data */}
                 <ResumeImporter current={previewPortfolio} onParsed={applyParsedPortfolio} />
               </div>

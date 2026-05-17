@@ -1,0 +1,71 @@
+name: ✨ Feature request
+description: Suggest an idea or improvement for Hyred
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. The more specific you can be about the *problem*, the better the eventual solution.
+
+        For bigger ideas, consider opening a [Discussion](https://github.com/Ritika8081/Hyred/discussions) first so we can scope it together.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the situation you're in and what's painful about it. Skip the solution for now.
+      placeholder: When I…, I have to…, which means…
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would the ideal experience look like?
+      description: Describe the feature. Be concrete — fields, buttons, UX flow.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: What workarounds have you tried? Why aren't they good enough?
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: What part of Hyred does this touch?
+      multiple: true
+      options:
+        - Builder / Admin
+        - One of the AI tools
+        - Help / onboarding
+        - Public portfolio (about / projects / resume / contact)
+        - Marketing / landing
+        - Theme / design system
+        - Deployment / build
+        - Other (mention in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Would you be open to contributing a PR?
+      options:
+        - Yes, I'd like to work on this
+        - Maybe — with some pointers
+        - No, just sharing the idea
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues / discussions and didn't find a duplicate
+          required: true
+        - label: I read the [Code of Conduct](https://github.com/Ritika8081/Hyred/blob/main/CODE_OF_CONDUCT.md)
+          required: true

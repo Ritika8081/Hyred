@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { MessageCircle, X, Send, Star } from "lucide-react";
 import { useToast } from "@/components/ui/toast";
-import { MONETIZATION } from "@/lib/monetization";
+import { SITE } from "@/lib/site-config";
 import { isPortfolioRoute } from "@/lib/zone";
 import { STORAGE_KEYS, migrateLegacyKeys } from "@/lib/storage-keys";
 
@@ -44,7 +44,7 @@ export default function FeedbackWidget() {
     const body = encodeURIComponent(
       `Rating: ${rating}/5\nPage: ${pathname}\nFrom: ${name || "(anonymous)"}\n\n${message}\n\n--\nSent from Hyred feedback widget`
     );
-    window.location.href = `mailto:${MONETIZATION.feedbackEmail}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${SITE.feedbackEmail}?subject=${subject}&body=${body}`;
 
     setTimeout(() => {
       setSending(false);

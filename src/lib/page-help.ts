@@ -165,23 +165,6 @@ const MAP: Array<[string, PageHelp]> = [
     ],
     cta: { label: "Setup help", href: "/help" },
   }],
-  ["/pricing", {
-    title: "Pricing — simple, fair, one-time",
-    intro: "Free forever with your own AI key. Pro and Lifetime unlock hosted AI and premium templates.",
-    tips: [
-      { title: "Start free", body: "Every tool works on Free. Pay only if you love it." },
-      { title: "Student pricing", body: "Use a .edu email for the permanent student discount." },
-    ],
-    cta: { label: "Compare plans", href: "/compare" },
-  }],
-  ["/compare", {
-    title: "Hyred vs. the rest",
-    intro: "Honest comparison vs. Rezi, Enhancv, Resume.io, Notion.",
-    tips: [
-      { title: "Swipe to compare", body: "On mobile, the table scrolls horizontally so all competitors fit." },
-    ],
-    cta: { label: "See pricing", href: "/pricing" },
-  }],
   ["/preview", {
     title: "Live example portfolio",
     intro: "A real portfolio rendered from Hyred data so you can see the output before building yours.",

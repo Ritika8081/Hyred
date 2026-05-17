@@ -5,7 +5,6 @@ import { Send, Loader2, AlertCircle, Trash2, Bot, User } from "lucide-react";
 import ToolShell from "@/components/tool-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ProGate from "@/components/pro-gate";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import { aiCareerCoachReply, AIMessage, buildResumeText, loadAIConfig } from "@/lib/ai";
 
@@ -27,9 +26,7 @@ export default function CoachPage() {
       title="AI Career Coach"
       tagline="A senior tech mentor who's read your resume. Ask anything. Real advice, not generic AI."
     >
-      <ProGate feature="Unlock AI Career Coach" variant="block">
-        <CoachChat />
-      </ProGate>
+      <CoachChat />
     </ToolShell>
   );
 }

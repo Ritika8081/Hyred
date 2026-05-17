@@ -5,7 +5,6 @@ import { Plus, Trash2, Calendar, Building2, Link as LinkIcon, X } from "lucide-r
 import ToolShell from "@/components/tool-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ProGate from "@/components/pro-gate";
 import { useToast } from "@/components/ui/toast";
 
 type Status = "saved" | "applied" | "interview" | "offer" | "rejected";
@@ -38,9 +37,7 @@ export default function TrackerPage() {
       title="Application Tracker"
       tagline="Every job in one board. Track Applied → Interview → Offer. Never lose context again."
     >
-      <ProGate feature="Unlock Application Tracker" variant="block">
-        <TrackerInner />
-      </ProGate>
+      <TrackerInner />
     </ToolShell>
   );
 }

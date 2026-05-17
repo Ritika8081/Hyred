@@ -7,7 +7,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import CopyButton from "@/components/ui/copy-button";
-import ProGate from "@/components/pro-gate";
 
 const VERCEL_DEPLOY = "https://vercel.com/new/clone?repository-url=https://github.com/Ritika8081/Hyred&project-name=my-portfolio";
 const NETLIFY_DEPLOY = "https://app.netlify.com/start/deploy?repository=https://github.com/Ritika8081/Hyred";
@@ -30,7 +29,7 @@ export default function DeployPage() {
               </p>
             </div>
 
-            <ProGate feature="Unlock 1-click deploy guide" variant="block">
+            <div>
               <div className="space-y-4">
                 {/* Step 1: Export data */}
                 <DeployStep
@@ -176,11 +175,11 @@ export const portfolioData: Portfolio = {
                 <CardContent className="p-4 flex items-start gap-2 text-sm text-blue-900">
                   <AlertCircle size={14} className="flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Stuck?</strong> Email <a href="mailto:support@hyred.io" className="underline font-semibold">support@hyred.io</a> with a screenshot — Pro users get a reply within 24h.
+                    <strong>Stuck?</strong> Open a <a href="https://github.com/Ritika8081/Hyred/discussions" target="_blank" rel="noopener noreferrer" className="underline font-semibold">GitHub Discussion</a> with a screenshot — usually answered within a day.
                   </span>
                 </CardContent>
               </Card>
-            </ProGate>
+            </div>
           </AnimatedSection>
         </div>
       </section>

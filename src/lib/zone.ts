@@ -1,7 +1,7 @@
 // Determines which "zone" of the app the current path belongs to.
 //
-// Zone 1 — Hyred SaaS (marketing + product):  /, /tools, /pricing, /compare, /reviews, /build, /admin, /unlock, /deploy
-// Zone 2 — User's portfolio (rendered output): /preview, /about, /projects, /resume, /contact
+// Zone 1 — Hyred app (marketing + builder + tools):  /, /tools, /help, /build, /admin, /deploy
+// Zone 2 — User's portfolio (rendered output):        /preview, /about, /projects, /resume, /contact
 
 export type Zone = "hyred" | "portfolio";
 

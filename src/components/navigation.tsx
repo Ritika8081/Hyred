@@ -11,11 +11,10 @@ import Logo from '@/components/ui/logo';
 import { usePortfolioData } from '@/hooks/usePortfolioData';
 import ThemeToggle from '@/components/theme-toggle';
 
-// Hyred SaaS navigation (marketing / product)
+// Hyred open-source navigation (marketing / product)
 const HYRED_NAV = [
   { name: 'AI Tools', href: '/tools' },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'Compare', href: '/compare' },
+  { name: 'Live example', href: '/preview' },
   { name: 'Help', href: '/help' },
 ];
 
@@ -236,10 +235,10 @@ function BuilderTopBar() {
             AI Tools
           </Link>
           <Link
-            href="/pricing"
+            href="/help"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition"
           >
-            Pricing
+            Help
           </Link>
         </div>
       </div>

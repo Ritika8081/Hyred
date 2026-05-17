@@ -10,9 +10,7 @@ import ScrollProgress from "@/components/scroll-progress";
 import StickyHireMe from "@/components/sticky-hire-me";
 import JsonLd from "@/components/json-ld";
 import { ToastProvider } from "@/components/ui/toast";
-import { UpgradeProvider } from "@/components/upgrade-modal";
 import FeedbackWidget from "@/components/feedback-widget";
-import ReferralCapture from "@/components/referral-capture";
 import CommandPalette from "@/components/command-palette";
 import HelpFab from "@/components/help-fab";
 import HelpHotkey from "@/components/help-hotkey";
@@ -32,9 +30,9 @@ const fraunces = Fraunces({
   axes: ["SOFT", "WONK", "opsz"],
 });
 
-const SITE_URL = "https://hyred.io";
-const SITE_TITLE = "Hyred — AI resume + portfolio builder for students";
-const SITE_DESC = "Get Hyred in 7 minutes flat. Paste your resume, get a live portfolio site, ATS-optimized PDF, AI cover letters, mock interviews, and a job tracker. Free forever with your own AI key. Pro $9 once — no subscriptions.";
+const SITE_URL = "https://hyred.app";
+const SITE_TITLE = "Hyred — Open-source AI resume + portfolio builder";
+const SITE_DESC = "Get Hyred in 7 minutes flat. Paste your resume — get a live portfolio site, ATS-optimized PDF, AI cover letters, mock interviews, recruiter view simulator, and more. Free forever, open source, your data stays in your browser.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -106,24 +104,21 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <ToastProvider>
-            <UpgradeProvider>
-              <ReferralCapture />
-              <DynamicHead />
-              <ScrollProgress />
-              <Navigation />
-              <main className="pt-16 min-h-screen">
-                {children}
-              </main>
-              <Footer />
-              <FeedbackWidget />
-              <StickyHireMe />
-              <CommandPalette />
-              <HelpFab />
-              <HelpHotkey />
-              <HelpDrawer />
-              <AdminAccess />
-              <FirstTimeSetup />
-            </UpgradeProvider>
+            <DynamicHead />
+            <ScrollProgress />
+            <Navigation />
+            <main className="pt-16 min-h-screen">
+              {children}
+            </main>
+            <Footer />
+            <FeedbackWidget />
+            <StickyHireMe />
+            <CommandPalette />
+            <HelpFab />
+            <HelpHotkey />
+            <HelpDrawer />
+            <AdminAccess />
+            <FirstTimeSetup />
           </ToastProvider>
         </ThemeProvider>
       </body>

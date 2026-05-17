@@ -55,12 +55,12 @@ const FAQS = [
   {
     q: "How does the AI work? Do I need an API key?",
     a:
-      "You bring your own AI key (free tier on Groq and OpenRouter is plenty for most users), or unlock Pro for hosted AI with no setup. Open Settings in the Builder to paste your key. It's saved only to your browser's localStorage — we never see it.",
+      "Yes. Bring your own AI key — the free tiers on Groq and OpenRouter cover most usage. Open AI Settings in the Builder to paste your key. It lives in your browser's localStorage and is sent directly to the provider you chose — no Hyred server in the middle.",
   },
   {
-    q: "What's the difference between Free, Pro, and Lifetime?",
+    q: "Is Hyred free? What's the catch?",
     a:
-      "Free gives you every feature when you bring your own AI key. Pro ($9 one-time) includes hosted AI credits, custom domain deploy, and extra templates. Lifetime locks in everything forever, including future tools. No subscriptions.",
+      "100% free, MIT-licensed, open source. The only cost is the AI key you bring (free tiers cover ~99% of users). There's no Pro tier, no paywall, no account required. You can fork the repo and self-host the whole thing in 60 seconds.",
   },
   {
     q: "Is the PDF download really ATS-friendly?",
@@ -78,9 +78,9 @@ const FAQS = [
       "On the Builder page, drag a PDF into the import zone or click 'Import resume'. The parser uses pdf.js and AI extraction together — it handles the vast majority of resume layouts.",
   },
   {
-    q: "I'm a student — is there a discount?",
+    q: "Can I contribute or fork the project?",
     a:
-      "Yes — there's a permanent student price for anyone with a .edu email. See the Pricing page.",
+      "Please do — Hyred is MIT-licensed and lives on GitHub at github.com/Ritika8081/Hyred. Open an issue, send a PR, or fork it for your own thing. See CONTRIBUTING.md for the recipe to add a new AI tool in 5 steps.",
   },
   {
     q: "What if I lose my data?",

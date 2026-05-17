@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/Ritika8081/Hyred/discussions
+    about: Questions, ideas, show-and-tell — anything that isn't a concrete bug or feature
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/Ritika8081/Hyred/security/advisories/new
+    about: Private disclosure — please do NOT file a public issue for security bugs
