@@ -8,6 +8,13 @@ import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 const TOOLS = [
   {
+    href: "/tools/recruiter-view",
+    emoji: "👀",
+    title: "Recruiter View Simulator",
+    tagline: "Paste a JD. AI plays a senior recruiter — gives you the snap verdict and what would flip a pass to an interview.",
+    badge: "New",
+  },
+  {
     href: "/tools/roast",
     emoji: "🔥",
     title: "Roast My Resume",

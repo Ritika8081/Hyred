@@ -5,6 +5,7 @@ import { Mic, Loader2, AlertCircle, Sparkles, ChevronRight, RotateCw } from "luc
 import ToolShell from "@/components/tool-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import VoiceInput from "@/components/voice-input";
 import { usePortfolioData } from "@/hooks/usePortfolioData";
 import {
   aiCritiqueAnswer,
@@ -212,9 +213,16 @@ export default function InterviewPage() {
 
                 <Card hover={false}>
                   <CardContent className="p-6">
-                    <label className="block text-sm font-semibold text-gray-900 mb-2">
-                      Your answer
-                    </label>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="block text-sm font-semibold text-gray-900">
+                        Your answer
+                      </label>
+                      <VoiceInput
+                        onTranscript={text =>
+                          setAnswers(prev => ({ ...prev, [activeIdx]: text }))
+                        }
+                      />
+                    </div>
                     <textarea
                       value={answers[activeIdx] || ""}
                       onChange={e =>
@@ -222,7 +230,7 @@ export default function InterviewPage() {
                       }
                       rows={6}
                       className="w-full p-3 border border-gray-300 rounded-lg"
-                      placeholder="Type your answer. Aim for STAR: Situation, Task, Action, Result."
+                      placeholder="Type or speak your answer. Aim for STAR: Situation, Task, Action, Result."
                     />
                     <div className="flex items-center justify-between mt-3">
                       <span className="text-xs text-gray-500">

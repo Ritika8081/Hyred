@@ -239,6 +239,67 @@ export interface JDMatchResult {
   suggestions: string[]; // 3-5 concrete actions
 }
 
+// ----- Recruiter View Simulator -----------------------------------------
+// Roleplays a recruiter scanning a portfolio: a 30-second snap reaction
+// (skim) and a 2-minute deeper read. Returns interview-decision signals.
+
+export interface RecruiterViewResult {
+  snapVerdict: "interview" | "maybe" | "pass";
+  callbackOdds: number;            // 0-100
+  thirtySecondImpression: string;  // 2-3 sentence first read
+  twoMinuteImpression: string;     // longer reflection
+  hooks: string[];                 // what made them dig deeper
+  redFlags: string[];              // what made them hesitate
+  fixesThatWouldFlip: string[];    // concrete changes to flip a pass -> interview
+}
+
+export async function aiRecruiterView(
+  resumeText: string,
+  jd: string,
+  config: AIConfig
+): Promise<RecruiterViewResult> {
+  const prompt = `You are a senior in-house tech recruiter at a top company. You receive 200 candidates a week and have ~30 seconds per resume on the first pass. You are pragmatic, busy, and unsentimental.
+
+For this candidate and role, simulate your decision-making honestly. Output JSON only.
+
+Resume / portfolio:
+${resumeText}
+
+Job description:
+${jd}
+
+Output JSON with this exact shape:
+{
+  "snapVerdict": "interview" | "maybe" | "pass",
+  "callbackOdds": <0-100 integer estimate of getting a phone screen>,
+  "thirtySecondImpression": "<2-3 sentences in first-person recruiter voice describing your skim reaction>",
+  "twoMinuteImpression": "<3-5 sentences in first-person describing what you found on a deeper read>",
+  "hooks": ["<up to 4 specific things that made you want to talk to this person, each <= 16 words>"],
+  "redFlags": ["<up to 4 specific concerns that made you hesitate, each <= 16 words>"],
+  "fixesThatWouldFlip": ["<up to 4 concrete edits (not generic advice) that would change pass to interview, each <= 16 words>"]
+}`;
+  const raw = await chat(
+    [
+      { role: "system", content: "You are a brutally honest senior tech recruiter. Reply with valid JSON only — no markdown, no preamble." },
+      { role: "user", content: prompt },
+    ],
+    config
+  );
+  const match = raw.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("AI did not return valid JSON. Try again or switch models.");
+  const p = JSON.parse(match[0]);
+  const verdict = ["interview", "maybe", "pass"].includes(p.snapVerdict) ? p.snapVerdict : "maybe";
+  return {
+    snapVerdict: verdict,
+    callbackOdds: Math.max(0, Math.min(100, Number(p.callbackOdds) || 0)),
+    thirtySecondImpression: String(p.thirtySecondImpression || ""),
+    twoMinuteImpression: String(p.twoMinuteImpression || ""),
+    hooks: Array.isArray(p.hooks) ? p.hooks.map(String).slice(0, 4) : [],
+    redFlags: Array.isArray(p.redFlags) ? p.redFlags.map(String).slice(0, 4) : [],
+    fixesThatWouldFlip: Array.isArray(p.fixesThatWouldFlip) ? p.fixesThatWouldFlip.map(String).slice(0, 4) : [],
+  };
+}
+
 export async function aiMatchJD(resumeText: string, jd: string, config: AIConfig): Promise<JDMatchResult> {
   const prompt = `Analyze how well this candidate fits this job description.
 

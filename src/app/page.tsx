@@ -13,6 +13,7 @@ import {
   DollarSign,
   Lightbulb,
   Linkedin as LinkedinIcon,
+  Eye,
   Check,
   Shield,
 } from "lucide-react";
@@ -43,17 +44,17 @@ const STEPS = [
   },
 ];
 
-// 9 tools — 3x3 clean grid on md+, 2-col on sm, 1-col on phones
+// Featured tools — 3-col grid on md+, 2-col on sm, 1-col on phones
 const TOOLS = [
+  { icon: Eye,         title: "Recruiter View",      body: "AI plays a senior recruiter. See your snap verdict + callback odds.", href: "/tools/recruiter-view" },
   { icon: Flame,       title: "Roast My Resume",     body: "Brutal AI critique on a shareable card.",                        href: "/tools/roast" },
   { icon: Target,      title: "JD Matcher",          body: "Paste any job description. See match %. AI tailors your bio.",    href: "/tools/match" },
   { icon: Briefcase,   title: "Application Pack",    body: "Cover letter + cold email + LinkedIn DM + thank-you. One click.", href: "/tools/apply" },
-  { icon: Mic,         title: "Mock Interview",      body: "Real questions from YOUR resume. AI grades your answers.",         href: "/tools/interview" },
+  { icon: Mic,         title: "Voice Mock Interview",body: "Speak your answers. AI grades content, structure, and pacing.",  href: "/tools/interview" },
   { icon: LinkedinIcon,title: "LinkedIn Optimizer",  body: "Recruiter-magnet headline + About + bullets.",                    href: "/tools/linkedin" },
   { icon: Github,      title: "GitHub README",       body: "Beautiful profile README from your portfolio.",                    href: "/tools/readme" },
   { icon: TrendingUp,  title: "Skill Gap Analyzer",  body: "Target a role. AI shows what to learn + build.",                  href: "/tools/skills" },
   { icon: DollarSign,  title: "Salary Negotiator",   body: "Paste your offer. Get a script + market data.",                   href: "/tools/salary" },
-  { icon: Lightbulb,   title: "Project Ideas",       body: "Stop building TODO apps. Ideas matched to your gaps.",            href: "/tools/projects" },
 ];
 
 const COMPARE = [

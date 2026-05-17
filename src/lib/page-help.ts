@@ -71,13 +71,24 @@ const MAP: Array<[string, PageHelp]> = [
     cta: { label: "Mock Interview", href: "/tools/interview" },
   }],
   ["/tools/interview", {
-    title: "Mock Interview",
-    intro: "Get real questions based on YOUR resume — AI grades each answer.",
+    title: "Voice Mock Interview",
+    intro: "Get real questions based on YOUR resume — type or speak your answers, AI grades each one.",
     tips: [
-      { title: "Pick a question type", body: "Behavioral, technical, or system design — set the mode before starting." },
+      { title: "Speak instead of type", body: "Hit the Voice button next to your answer to dictate. AI scores content + pacing." },
       { title: "Answer in your own words", body: "AI scores clarity, specificity, and structure (STAR method)." },
+      { title: "Iterate", body: "Read the model answer, rewrite, re-grade. Three rounds usually gets you to an 8+." },
     ],
-    cta: { label: "Coach (chat)", href: "/tools/coach" },
+    cta: { label: "Recruiter View Simulator", href: "/tools/recruiter-view" },
+  }],
+  ["/tools/recruiter-view", {
+    title: "Recruiter View Simulator",
+    intro: "AI plays the role of a senior in-house recruiter. Get the 30-second snap reaction, the 2-minute deep read, and the fixes that would flip a pass to an interview.",
+    tips: [
+      { title: "Paste the full JD", body: "More JD detail = sharper simulation. Include responsibilities AND nice-to-haves." },
+      { title: "Read the red flags first", body: "What hesitated the recruiter is usually one or two fixable things in your portfolio." },
+      { title: "Apply the fixes, then re-run", body: "Edit in Admin, re-simulate, watch your callback odds climb." },
+    ],
+    cta: { label: "Open the Builder", href: "/admin" },
   }],
   ["/tools/linkedin", {
     title: "LinkedIn Optimizer",

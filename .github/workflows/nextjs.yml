@@ -76,6 +76,11 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
+        env:
+          # GitHub Pages serves the site at /Hyred/. next.config.ts reads
+          # BASE_PATH so this only applies on Pages — Vercel/Netlify deploy
+          # to the root and leave it unset.
+          BASE_PATH: /Hyred
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

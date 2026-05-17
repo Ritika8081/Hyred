@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === 'production';
-// GitHub Pages basePath. Must match your repo name exactly.
-// After renaming the GitHub repo from "Foliaro" to "Hyred", this stays correct.
-const basePath = isProd ? '/Hyred' : '';
+// basePath is only needed when deploying to GitHub Pages (or another host
+// that serves the site from a sub-path). Vercel / Netlify / Cloudflare Pages
+// serve from the root and must NOT use a basePath — otherwise every
+// `/_next/*` asset 404s and the page renders unstyled.
+//
+// Set BASE_PATH=/Hyred in the GitHub Actions workflow (already wired below).
+// Leave BASE_PATH unset everywhere else.
+const basePath = process.env.BASE_PATH || '';
 
 const nextConfig: NextConfig = {
   output: 'export',
