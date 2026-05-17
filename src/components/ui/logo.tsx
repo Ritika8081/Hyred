@@ -16,7 +16,8 @@ export default function Logo({
   const gradId = `logo-grad-${variant}`;
   const fillStart = variant === "white" ? "#ffffff" : variant === "mono" ? "#0f172a" : "#0d9488";
   const fillEnd = variant === "white" ? "#ffffff" : variant === "mono" ? "#0f172a" : "#84cc16";
-  const textColor = variant === "white" ? "text-white" : "text-gray-900";
+  const textColor =
+    variant === "white" ? "text-white" : "text-gray-900 dark:text-white";
 
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
