@@ -26,9 +26,25 @@ export function slugify(text: string): string {
     .replace(/ +/g, '-');
 }
 
+/** Build-time base path (GitHub Pages: `/Hyred`). Empty on Vercel/localhost root deploys. */
+export function getBasePath(): string {
+  const fromEnv = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/$/, "");
+  if (fromEnv) return fromEnv;
+
+  // Fallback: infer from Next.js script URLs when env was not baked in at build time.
+  if (typeof document === "undefined") return "";
+  for (const el of document.querySelectorAll<HTMLScriptElement>("script[src]")) {
+    const src = el.getAttribute("src");
+    if (!src?.includes("/_next/")) continue;
+    const match = src.match(/^(.*)\/_next\//);
+    if (match) return match[1] ?? "";
+  }
+  return "";
+}
+
 // Ensure local asset paths include Next.js basePath for GitHub Pages
 export function withBasePath(path: string): string {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const base = getBasePath();
   if (!path) return path;
   // Skip remote/data URLs
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
