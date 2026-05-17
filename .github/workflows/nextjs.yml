@@ -56,10 +56,12 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
+          # Auto-create the Pages site on first run instead of failing with
+          # `Get Pages site failed`. Requires the workflow to have `pages: write`
+          # (already set above).
+          enablement: true
           # Automatically inject basePath in your Next.js configuration file and disable
           # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          #
-          # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
       - name: Restore cache
         uses: actions/cache@v4
