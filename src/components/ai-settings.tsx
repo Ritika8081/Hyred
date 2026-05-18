@@ -10,6 +10,7 @@ import {
   PROVIDER_DEFAULTS,
   clearAIConfig,
   loadAIConfig,
+  normalizeAIConfig,
   saveAIConfig,
 } from "@/lib/ai";
 
@@ -29,12 +30,15 @@ export default function AISettings() {
   }, []);
 
   const handleProviderChange = (provider: AIProvider) => {
-    setConfig({
-      ...config,
-      provider,
-      model: PROVIDER_DEFAULTS[provider].defaultModel,
-      baseUrl: provider === "custom" ? config.baseUrl : "",
-    });
+    const defaults = PROVIDER_DEFAULTS[provider];
+    setConfig(
+      normalizeAIConfig({
+        ...config,
+        provider,
+        model: defaults.defaultModel,
+        baseUrl: provider === "custom" ? config.baseUrl || "" : undefined,
+      })
+    );
   };
 
   const handleSave = () => {
@@ -54,7 +58,7 @@ export default function AISettings() {
     });
   };
 
-  const providerInfo = PROVIDER_DEFAULTS[config.provider];
+  const providerInfo = PROVIDER_DEFAULTS[config.provider] ?? PROVIDER_DEFAULTS.groq;
 
   return (
     <Card className="mb-8" hover={false}>
@@ -136,7 +140,7 @@ export default function AISettings() {
               value={config.apiKey}
               onChange={e => setConfig({ ...config, apiKey: e.target.value })}
               className="flex-1 p-3 border border-gray-300 rounded-lg font-mono text-sm"
-              placeholder="sk-... / gsk_... / sk-or-..."
+              placeholder="sk-... / gsk_... / AIza... / sk-or-..."
               autoComplete="off"
             />
             <button

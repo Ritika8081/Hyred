@@ -360,16 +360,14 @@ export default function BuilderPage() {
             onKeepDemo={() => {}}
           />
 
-          {/* Resume Importer — only show prominently when portfolio is mostly empty (high-impact CTA) */}
-          {(() => {
-            const isMostlyEmpty =
-              !localPersonalInfo.name?.trim() &&
-              localExperience.length === 0 &&
-              localProjects.length === 0;
-            return isMostlyEmpty ? (
-              <ResumeImporter current={previewPortfolio} onParsed={applyParsedPortfolio} />
-            ) : null;
-          })()}
+          {/* Resume Importer — full-width on Profile; sidebar copy on other tabs */}
+          {activeTab === 'profile' && (
+            <ResumeImporter
+              current={previewPortfolio}
+              onParsed={applyParsedPortfolio}
+              defaultOpen
+            />
+          )}
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
@@ -428,8 +426,9 @@ export default function BuilderPage() {
                 <ATSScore portfolio={previewPortfolio} />
                 <SmartFill portfolio={previewPortfolio} onChange={applyParsedPortfolio} />
                 <SharePortfolio portfolio={previewPortfolio} />
-                {/* Re-show resume import as a smaller utility once user has data */}
-                <ResumeImporter current={previewPortfolio} onParsed={applyParsedPortfolio} />
+                {activeTab !== "profile" && (
+                  <ResumeImporter current={previewPortfolio} onParsed={applyParsedPortfolio} />
+                )}
               </div>
             </aside>
           </div>

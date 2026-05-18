@@ -12,10 +12,12 @@ import { useToast } from "@/components/ui/toast";
 interface ResumeImporterProps {
   onParsed: (next: Portfolio) => void;
   current: Portfolio;
+  /** When true, upload/paste area is visible immediately (Profile tab). */
+  defaultOpen?: boolean;
 }
 
-export default function ResumeImporter({ onParsed, current }: ResumeImporterProps) {
-  const [open, setOpen] = useState(false);
+export default function ResumeImporter({ onParsed, current, defaultOpen = false }: ResumeImporterProps) {
+  const [open, setOpen] = useState(defaultOpen);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

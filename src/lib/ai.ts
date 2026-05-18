@@ -1,7 +1,14 @@
 // Lightweight AI client. BYO key — works with OpenAI, Groq, OpenRouter,
 // Anthropic, and any OpenAI-compatible endpoint.
 
-export type AIProvider = "openai" | "groq" | "openrouter" | "anthropic" | "custom";
+export type AIProvider = "openai" | "groq" | "openrouter" | "anthropic" | "gemini" | "custom";
+
+const VALID_PROVIDERS: AIProvider[] = ["openai", "groq", "openrouter", "anthropic", "gemini", "custom"];
+
+/** Maps legacy / manual provider strings saved in localStorage. */
+const PROVIDER_ALIASES: Record<string, AIProvider> = {
+  google: "gemini",
+};
 
 export interface AIConfig {
   provider: AIProvider;
@@ -35,6 +42,12 @@ export const PROVIDER_DEFAULTS: Record<AIProvider, { baseUrl: string; defaultMod
     label: "Anthropic Claude",
     signupUrl: "https://console.anthropic.com/settings/keys",
   },
+  gemini: {
+    baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai",
+    defaultModel: "gemini-2.0-flash",
+    label: "Google Gemini",
+    signupUrl: "https://aistudio.google.com/apikey",
+  },
   custom: {
     baseUrl: "",
     defaultModel: "",
@@ -45,13 +58,35 @@ export const PROVIDER_DEFAULTS: Record<AIProvider, { baseUrl: string; defaultMod
 
 import { STORAGE_KEYS, migrateLegacyKeys } from "@/lib/storage-keys";
 
+export function normalizeAIConfig(raw: Partial<AIConfig> | null | undefined): AIConfig {
+  const alias = typeof raw?.provider === "string" ? PROVIDER_ALIASES[raw.provider] : undefined;
+  const provider: AIProvider =
+    alias ??
+    (VALID_PROVIDERS.includes(raw?.provider as AIProvider) ? (raw!.provider as AIProvider) : "groq");
+  const defaults = PROVIDER_DEFAULTS[provider];
+  return {
+    provider,
+    apiKey: typeof raw?.apiKey === "string" ? raw.apiKey : "",
+    model:
+      typeof raw?.model === "string" && raw.model.trim()
+        ? raw.model.trim()
+        : defaults.defaultModel,
+    baseUrl:
+      provider === "custom"
+        ? typeof raw?.baseUrl === "string"
+          ? raw.baseUrl
+          : ""
+        : undefined,
+  };
+}
+
 export function loadAIConfig(): AIConfig | null {
   if (typeof window === "undefined") return null;
   migrateLegacyKeys();
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.aiConfig);
     if (!raw) return null;
-    return JSON.parse(raw);
+    return normalizeAIConfig(JSON.parse(raw));
   } catch {
     return null;
   }
@@ -59,7 +94,7 @@ export function loadAIConfig(): AIConfig | null {
 
 export function saveAIConfig(config: AIConfig) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(STORAGE_KEYS.aiConfig, JSON.stringify(config));
+  localStorage.setItem(STORAGE_KEYS.aiConfig, JSON.stringify(normalizeAIConfig(config)));
 }
 
 export function clearAIConfig() {
@@ -72,7 +107,82 @@ export interface AIMessage {
   content: string;
 }
 
-export async function chat(messages: AIMessage[], config: AIConfig, signal?: AbortSignal): Promise<string> {
+export interface ChatOptions {
+  maxTokens?: number;
+  temperature?: number;
+  /** OpenAI-compatible JSON mode — skipped for Anthropic. */
+  jsonMode?: boolean;
+}
+
+/** Strip fences, extract balanced JSON, fix trailing commas, then parse. */
+export function parseAIJson<T>(raw: string, kind: "object" | "array" = "object"): T {
+  let text = raw.trim();
+  const fenced = text.match(/^```(?:json)?\s*([\s\S]*?)```$/i);
+  if (fenced) text = fenced[1].trim();
+
+  const open = kind === "array" ? "[" : "{";
+  const close = kind === "array" ? "]" : "}";
+
+  const extractBalanced = (source: string): string | null => {
+    const start = source.indexOf(open);
+    if (start === -1) return null;
+    let depth = 0;
+    let inString = false;
+    let escape = false;
+    for (let i = start; i < source.length; i++) {
+      const c = source[i];
+      if (inString) {
+        if (escape) escape = false;
+        else if (c === "\\") escape = true;
+        else if (c === '"') inString = false;
+        continue;
+      }
+      if (c === '"') {
+        inString = true;
+        continue;
+      }
+      if (c === open) depth++;
+      else if (c === close) {
+        depth--;
+        if (depth === 0) return source.slice(start, i + 1);
+      }
+    }
+    return null;
+  };
+
+  let candidate = extractBalanced(text);
+  if (!candidate) {
+    const greedy = kind === "array" ? text.match(/\[[\s\S]*\]/) : text.match(/\{[\s\S]*\}/);
+    candidate = greedy?.[0] ?? null;
+  }
+  if (!candidate) {
+    throw new Error("AI did not return valid JSON. Try again or switch models.");
+  }
+
+  const repaired = candidate
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/,\s*([\]}])/g, "$1");
+
+  try {
+    return JSON.parse(repaired) as T;
+  } catch (e) {
+    const detail = e instanceof Error ? e.message : "parse error";
+    throw new Error(
+      `AI returned malformed JSON (${detail}). Try Groq, shorten the resume, or run import again.`
+    );
+  }
+}
+
+export async function chat(
+  messages: AIMessage[],
+  config: AIConfig,
+  signal?: AbortSignal,
+  options?: ChatOptions
+): Promise<string> {
+  const maxTokens = options?.maxTokens ?? 1024;
+  const temperature = options?.temperature ?? 0.7;
+  const jsonMode = options?.jsonMode ?? false;
   if (!config.apiKey) throw new Error("No API key configured. Open AI Settings to add one.");
 
   const provider = config.provider;
@@ -93,7 +203,7 @@ export async function chat(messages: AIMessage[], config: AIConfig, signal?: Abo
       },
       body: JSON.stringify({
         model: config.model,
-        max_tokens: 1024,
+        max_tokens: maxTokens,
         system,
         messages: userMessages.map(m => ({ role: m.role, content: m.content })),
       }),
@@ -117,8 +227,9 @@ export async function chat(messages: AIMessage[], config: AIConfig, signal?: Abo
     body: JSON.stringify({
       model: config.model,
       messages,
-      temperature: 0.7,
-      max_tokens: 1024,
+      temperature,
+      max_tokens: maxTokens,
+      ...(jsonMode ? { response_format: { type: "json_object" } } : {}),
     }),
     signal,
   });
@@ -219,9 +330,7 @@ ${resumeText}`;
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON. Try again or switch models.");
-  const parsed = JSON.parse(match[0]);
+  const parsed = parseAIJson<Record<string, unknown>>(raw);
   return {
     score: Number(parsed.score) || 0,
     vibe: String(parsed.vibe || ""),
@@ -285,10 +394,10 @@ Output JSON with this exact shape:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON. Try again or switch models.");
-  const p = JSON.parse(match[0]);
-  const verdict = ["interview", "maybe", "pass"].includes(p.snapVerdict) ? p.snapVerdict : "maybe";
+  const p = parseAIJson<Record<string, unknown>>(raw);
+  const verdict = ["interview", "maybe", "pass"].includes(String(p.snapVerdict))
+    ? (p.snapVerdict as RecruiterViewResult["snapVerdict"])
+    : "maybe";
   return {
     snapVerdict: verdict,
     callbackOdds: Math.max(0, Math.min(100, Number(p.callbackOdds) || 0)),
@@ -324,9 +433,7 @@ Output JSON only:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<Record<string, unknown>>(raw);
   return {
     matchScore: Number(p.matchScore) || 0,
     matchedKeywords: Array.isArray(p.matchedKeywords) ? p.matchedKeywords.map(String) : [],
@@ -410,9 +517,7 @@ ${resumeText}`;
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const parsed = JSON.parse(match[0]);
+  const parsed = parseAIJson<{ questions?: InterviewQuestion[] }>(raw);
   return Array.isArray(parsed.questions) ? parsed.questions.slice(0, 10) : [];
 }
 
@@ -451,9 +556,7 @@ Output JSON only:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<Record<string, unknown>>(raw);
   return {
     score: Number(p.score) || 0,
     strengths: Array.isArray(p.strengths) ? p.strengths.map(String) : [],
@@ -512,9 +615,7 @@ ${resumeText}`;
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  return JSON.parse(match[0]) as SkillGapReport;
+  return parseAIJson<SkillGapReport>(raw);
 }
 
 export interface SalaryAdvice {
@@ -573,9 +674,7 @@ Important:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  return JSON.parse(match[0]) as SalaryAdvice;
+  return parseAIJson<SalaryAdvice>(raw);
 }
 
 export interface ProjectSuggestion {
@@ -631,9 +730,7 @@ ${resumeText}`;
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const parsed = JSON.parse(match[0]);
+  const parsed = parseAIJson<{ projects?: ProjectSuggestion[] }>(raw);
   return Array.isArray(parsed.projects) ? parsed.projects : [];
 }
 
@@ -720,9 +817,7 @@ ${resumeText}`;
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<Record<string, unknown>>(raw);
   return {
     headline: String(p.headline || ""),
     about: String(p.about || ""),
@@ -774,9 +869,12 @@ ${jd}`;
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<{
+    coverLetter?: string;
+    recruiterEmail?: { subject?: string; body?: string };
+    linkedinDM?: string;
+    thankYouNote?: string;
+  }>(raw);
   return {
     coverLetter: String(p.coverLetter || ""),
     recruiterEmail: {
@@ -903,14 +1001,45 @@ ${resumeText}`;
 
   const raw = await chat(
     [
-      { role: "system", content: "You parse resumes into structured JSON. Output valid JSON only, nothing else." },
+      {
+        role: "system",
+        content:
+          "You parse resumes into structured JSON. Output one valid JSON object only — no markdown fences, no comments, no trailing commas.",
+      },
       { role: "user", content: prompt },
     ],
-    config
+    config,
+    undefined,
+    {
+      maxTokens: 8192,
+      temperature: 0.2,
+      jsonMode: config.provider === "openai" || config.provider === "gemini",
+    }
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON. Try a different model.");
-  return JSON.parse(match[0]) as ParsedResume;
+  const parsed = parseAIJson<ParsedResume>(raw);
+  return {
+    personalInfo: {
+      name: String(parsed.personalInfo?.name ?? ""),
+      title: String(parsed.personalInfo?.title ?? ""),
+      bio: String(parsed.personalInfo?.bio ?? ""),
+      tagline: String(parsed.personalInfo?.tagline ?? ""),
+      yearsOfExperience: Number(parsed.personalInfo?.yearsOfExperience) || 0,
+      highlights: Array.isArray(parsed.personalInfo?.highlights)
+        ? parsed.personalInfo!.highlights.map(String).slice(0, 3)
+        : [],
+    },
+    contact: {
+      email: String(parsed.contact?.email ?? ""),
+      location: String(parsed.contact?.location ?? ""),
+      linkedin: String(parsed.contact?.linkedin ?? ""),
+      github: String(parsed.contact?.github ?? ""),
+      website: String(parsed.contact?.website ?? ""),
+    },
+    experience: Array.isArray(parsed.experience) ? parsed.experience : [],
+    education: Array.isArray(parsed.education) ? parsed.education : [],
+    skills: Array.isArray(parsed.skills) ? parsed.skills : [],
+    projects: Array.isArray(parsed.projects) ? parsed.projects : [],
+  };
 }
 
 // Build a plain-text "resume" string for passing to AI prompts
@@ -982,9 +1111,7 @@ ${context}`;
     config
   );
   try {
-    // Extract JSON array even if model wrapped in text
-    const match = raw.match(/\[[\s\S]*\]/);
-    const parsed = JSON.parse(match ? match[0] : raw);
+    const parsed = parseAIJson<string[]>(raw, "array");
     if (Array.isArray(parsed)) return parsed.slice(0, 3).map(String);
   } catch {
     // fallback: split on newlines
@@ -1052,9 +1179,7 @@ Output JSON only:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<{ variants?: unknown[]; metricsToGather?: unknown[] }>(raw);
   const variants: QuantifiedBullet[] = Array.isArray(p.variants)
     ? p.variants.slice(0, 3).map((v: any) => ({
         style: ["conservative", "bold", "data-heavy"].includes(v.style) ? v.style : "conservative",
@@ -1125,9 +1250,7 @@ Output JSON only:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<{ drafts?: unknown[] }>(raw);
   return Array.isArray(p.drafts)
     ? p.drafts.slice(0, 3).map((d: any) => ({
         tone: ["warm", "professional", "brief"].includes(d.tone) ? d.tone : "professional",
@@ -1187,9 +1310,7 @@ Output JSON only:
     ],
     config
   );
-  const match = raw.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("AI did not return valid JSON.");
-  const p = JSON.parse(match[0]);
+  const p = parseAIJson<Record<string, unknown>>(raw);
   return {
     snapshot: String(p.snapshot || ""),
     interviewStyle: String(p.interviewStyle || ""),
